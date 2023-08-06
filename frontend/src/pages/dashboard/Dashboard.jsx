@@ -1,4 +1,5 @@
 import "./Dashboard.css";
+import image_7 from "..\\src\\assets\\images\\image 7.png";
 
 export default function Dashboard(){
 
@@ -17,7 +18,7 @@ export default function Dashboard(){
                         <span className="text-wrapper">Programming Platform</span>
                         <span className="span"> for Kids</span>
                     </div>
-                    <img className="image" alt="Image" src="image 7.png" />
+                    <img className="image" alt="Image" src={image_7} />
                     <div className="rectangle-3" />
                     <p className="courses-codegame">
                         <span className="text-wrapper-2">Courses</span>
