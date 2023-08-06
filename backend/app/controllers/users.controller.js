@@ -9,3 +9,39 @@ exports.getAllUsers = async (req, res) => {
         res.status(500).json(error)
     }
 }
+
+exports.getUserById = async (req, res) => {
+    try {
+        const user = await user_services.getUserById(req.params.id)
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+exports.createUser = async (req, res) => {
+    try {
+        const user = await user_services.createUser(req.body)
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+exports.updateUser = async (req, res) => {
+    try {
+        const user = await user_services.updateUser(req.params.id, req.body)
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+exports.getRegisteredContests = async (req, res) => {
+    try {
+        const contest = await user_services.getRegisteredContests(req.params.id)
+        res.status(200).json(contest)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
