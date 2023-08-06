@@ -114,7 +114,7 @@ exports.getContestStanding = async (id) => {
     try {
         const standing = await contest.getContestStanding(id);
         const submission_list = standing.standings;
-        //TODO: create standings
+        //TODO: #2 create standings
         return standing;
     } catch (error) {
         throw error;
