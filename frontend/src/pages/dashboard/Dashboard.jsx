@@ -1,5 +1,5 @@
 import "./Dashboard.css";
-import image_7 from "C:\\Users\\ASUS\\Desktop\\Programming-For-Kids\\frontend\\src\\assets\\images\\image 7.png";
+import image_7 from "..\\src\\assets\\images\\image 7.png";
 
 export default function Dashboard(){
 
