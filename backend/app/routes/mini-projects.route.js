@@ -10,8 +10,6 @@ const controller = require('../controllers/mini-projects.controller');
  *   schemas:
  *     Mini-Project:
  *       type: object
- *       required:
- *         -projectid
  *       properties:
  *         projectid:
  *           type: integer
@@ -101,16 +99,16 @@ router.post('/', controller.createMiniProject);
  *   [Mini-Projects]
  *   
  * /api/mini-projects/{id}:
- *   parameters:
- *     - in: path
- *       name: id
- *       schema:
- *         type: integer
- *         required: true
- *       description: The mini project id
  *   get:
  *     summary: Returns the mini project with the given id
  *     tags: [Mini-Projects]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *     description: The mini project id
  *     responses:
  *       200:
  *         description: The mini project with the given id
@@ -121,6 +119,13 @@ router.post('/', controller.createMiniProject);
  *   put:
  *     summary: Update the mini project with the given id
  *     tags: [Mini-Projects]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *     description: The mini project id
  *     requestBody:
  *       required: false
  *       content:
