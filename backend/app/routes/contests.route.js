@@ -79,7 +79,7 @@ router.get('/:id/submissions/:userid/', controller.getContestSubmissionByUserId)
 router.post('/:id/submissions/:problemid/:userid', controller.addContestProblemSubmission)
 
 
-router.get('/:id/standing', controller.getContestStanding)
+router.get('/:id/standings', controller.getContestStanding)
 
 
 module.exports = router
