@@ -208,6 +208,7 @@ router.put('/:id', controller.updateUser)
  */
 router.get('/:id/registered-contests',controller.getRegisteredContests)
 
-//TODO #1:router.get('/:id/recommended-contests',controller.getRecommendedContests)
+//TODO #1: add contest recommendation feature
+//router.get('/:id/recommended-contests',controller.getRecommendedContests)
 
 module.exports = router

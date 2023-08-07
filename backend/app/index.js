@@ -9,7 +9,7 @@ const swaggerUi = require("swagger-ui-express")
 const users_route = require('./routes/users.route')
 const contests_route = require('./routes/contests.route')
 const mini_projects_route = require('./routes/mini-projects.route')
-
+const problems_route = require('./routes/problems.route')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use('/api/users', users_route)
 app.use('/api/contests', contests_route)
 app.use('/api/mini-projects', mini_projects_route)
+app.use('/api/problems', problems_route)
 
 app.get('/',(req,res)=>{
     res.send("Welcome")
