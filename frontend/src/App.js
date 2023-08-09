@@ -3,8 +3,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import Home from "./Home/home";
-import Dashboard from "./DashBoard/Dashboard";
+import Home from "./pages/Home/Home";
+import Dashboard from "./pages/DashBoard/Dashboard";
 
 const router = createBrowserRouter([
   {

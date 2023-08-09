@@ -1,5 +1,5 @@
 import React from 'react';
-import profile_pic from '..//assets//blank_image.webp'
+import profile_pic from '..//..//assets//images//blank_image.webp'
 
 function UserDetails(){
     const user = {

@@ -1,24 +1,34 @@
 import React from 'react';
-import profile_pic from '..//assets//blank_image.webp'
-
 function Navbar(){
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">Programming For Kids</div>
-      <div className="navbar-links">
-        <button>DashBoard</button>
-        <button>Practice</button>
-        <button>Contests</button>
-        <button>MiniProject</button>
-        <button>CodeGame</button>
-      </div>
-      <div className="navbar-profile">
-        <img src={profile_pic} alt="Profile" />
-        <div className="profile-options">
-          <button>Profile</button>
-          <button>Logout</button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Programming For Kids</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/home">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/contest">Contest</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/input">Practice</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/puzzle">Daily-Puzzle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/game">Code-Game</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
     </nav>
   );
 };
