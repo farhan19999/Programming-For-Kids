@@ -116,9 +116,9 @@ router.get('/', controller.getAllUsers)
  *       200:
  *         description: The user was successfully created
  *         content:
- *          application/json:
- *           schema:
- *             $ref: '#/components/schemas/User'
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  *       500:
  *         description: Some server error  
  */
