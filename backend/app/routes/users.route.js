@@ -72,7 +72,7 @@ const router = require('express').Router()
  * @swagger
  * tags:
  *   name: Users
- *   description: The books managing API
+ *   description: The User managing API
  * /api/users:
  *   get:
  *     summary: Returns the list of all the users
@@ -210,5 +210,9 @@ router.get('/:id/registered-contests',controller.getRegisteredContests)
 
 //TODO #1: add contest recommendation feature
 //router.get('/:id/recommended-contests',controller.getRecommendedContests)
+
+
+router.get('/:id/practice-submissions', controller.getAllPracticeSubmissionByUserId)
+
 
 module.exports = router

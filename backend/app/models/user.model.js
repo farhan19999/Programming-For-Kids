@@ -54,7 +54,7 @@ const updateUser = async (id, user) => {
     }
 }
 
- const getRegisteredContests = async (id) => {
+const getRegisteredContests = async (id) => {
     try {
         const client = await pool.connect()
         const result = await client.query('SELECT c.* from pfk.contest_participation_history as cph inner join pfk.contest as c on cph.contestid = c.contestid where cph.standing=0 and cph.userid=$1; ', [id])
@@ -63,5 +63,19 @@ const updateUser = async (id, user) => {
     } catch (error) {
         console.log(error)
     }
- }
-module.exports = {getAllUsers, getUserById, createUser, updateUser, getRegisteredContests}
+}
+
+const getAllPracticeSubmissionByUserId = async (id) => {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('SELECT * FROM pfk.practice_problem_submission_history WHERE userid = $1', [id])
+        client.release()
+        return {'submissions':result.rows}
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+
+module.exports = {getAllUsers, getUserById, createUser, updateUser, getRegisteredContests, getAllPracticeSubmissionByUserId}

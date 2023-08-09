@@ -45,3 +45,13 @@ exports.getRegisteredContests = async (req, res) => {
         res.status(500).json(error)
     }
 }
+
+exports.getAllPracticeSubmissionByUserId = async (req, res) =>{
+    try{
+        const submissions = await user_services.getAllPracticeSubmissionByUserId(req.params.id)
+        res.status(200).json(submissions)
+    } catch (error){
+        res.status(500).json(error)
+    }
+
+}

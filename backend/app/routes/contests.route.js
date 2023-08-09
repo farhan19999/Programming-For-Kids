@@ -33,6 +33,8 @@ const controller = require('../controllers/contests.controller')
 
 /** 
  * @swagger
+ * tags:
+ *   [Contests]
  * /api/contests:
  *   get:
  *     summary: Returns the list of all the contests
@@ -45,12 +47,10 @@ const controller = require('../controllers/contests.controller')
  *             schema:
  *               type: object
  *               properties:
- *                 users:
+ *                 contests:
  *                   type: array
  *                   items:
  *                     $ref: '#/components/schemas/Contest'
- *               example:
- *                 - contests: [ {contestid: 1, title: Contest 1, div: 1, start_time: 2021-04-01 00:00:00, duration: 2 } ]
  *       500:
  *          description: Some server error
  * 

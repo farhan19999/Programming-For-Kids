@@ -44,3 +44,12 @@ exports.getRegisteredContests = async (id)=>{
         console.log(error)
     }
 }
+
+exports.getAllPracticeSubmissionByUserId = async (id)=>{
+    try {
+        const submissions = await userModel.getAllPracticeSubmissionByUserId(id)
+        return submissions
+    } catch (error) {
+        console.log(error)
+    }
+}
