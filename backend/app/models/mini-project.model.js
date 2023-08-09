@@ -13,7 +13,7 @@ const getAllMiniProjects = async () => {
         const client = await pool.connect();
         const mini_projects = await pool.query('SELECT * FROM pfk.mini_project');
         client.release();
-        console.log(mini_projects.rows);
+        
         return {'mini_projects':mini_projects.rows};
     } catch (error) {
         throw new Error(error);
@@ -23,9 +23,10 @@ const getAllMiniProjects = async () => {
 const createMiniProject = async (mini_project) => {
     try {
         const client = await pool.connect();
-        const maxid = await pool.query('SELECT MAX(id) FROM pfk.mini_project');
-        const new_mini_project = await pool.query('INSERT INTO pfk.mini_project (projectid, title, project_details, starting_code, staring_time) VALUES ($1, $2, $3, $4, $5) RETURNING *', [maxid.rows[0].max+1, mini_project.title, mini_project.project_details, mini_project.starting_code, mini_project.starting_time]);
+        const maxid = await pool.query('SELECT MAX(projectid) FROM pfk.mini_project');
+        const new_mini_project = await pool.query('INSERT INTO pfk.mini_project (projectid, title, project_details, starting_code, starting_time) VALUES ($1, $2, $3, $4, $5) RETURNING *', [maxid.rows[0].max+1, mini_project.title, mini_project.project_details, mini_project.starting_code, mini_project.starting_time]);
         client.release();
+        return new_mini_project.rows[0];
     }catch (error) {
         throw new Error(error);
     }
