@@ -1,240 +1,89 @@
-.dashboard {
-    background-color: #192222;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.dashboard .div {
-    background-color: #192222;
-    border: 1px none;
-    height: 1024px;
-    overflow: hidden;
-    position: relative;
-    width: 1440px;
+/* Basic styling */
+.app {
+  font-family: Arial, sans-serif;
 }
 
-.dashboard .overlap-group {
-    height: 95px;
-    left: -13px;
-    position: absolute;
-    top: 0;
-    width: 1453px;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #020202;
+  color: white;
+  padding: 15px 25px;
 }
 
-.dashboard .rectangle {
-    background-color: #bbb3b3;
-    height: 95px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 1440px;
+.navbar-logo {
+  font-size: 34px;
 }
 
-.dashboard .programming-platform {
-    color: #1c0909;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 36px;
-    font-weight: 400;
-    left: 53px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 20px;
-    width: 657px;
+.navbar-links button {
+  background: none;
+  border: none;
+  margin: 0 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
 }
 
-.dashboard .text-wrapper {
-    color: #1c0909;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 36px;
-    font-weight: 400;
-    letter-spacing: 0;
+.navbar-profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-.dashboard .span {
-    font-size: 24px;
+.profile-options {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  right: 0;
+  top: 50px;
 }
 
-.dashboard .bell-fill {
-    height: 80px !important;
-    left: 1142px !important;
-    position: absolute !important;
-    top: 7px !important;
-    width: 80px !important;
+.navbar-profile:hover .profile-options {
+  display: block;
 }
 
-.dashboard .setting-fill-instance {
-    left: 1266px !important;
-    position: absolute !important;
-    top: 7px !important;
+.user-profile {
+  text-align: left;
+  margin: 25px;
+  position: relative;
+  top: 50px;
+  right: 0px;
+  margin: 10 10px;
+  font-size: 20px;
+
 }
 
-.dashboard .rectangle-2 {
-    background-color: #bbb3b3;
-    height: 95px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 1453px;
+.user-profile img {
+  width: 150px;
+  height: 150px;
+  border-radius: 0%;
+  position: relative;
+  top: -100px;
+  right: -400px;
 }
 
-.dashboard .image {
-    height: 16px;
-    left: 1351px;
-    object-fit: cover;
-    position: absolute;
-    top: 40px;
-    width: 16px;
+.upcoming-events {
+  margin: 20px;
+  top: -300px;
+  right: -800px;
+  font-size: 24px;
+  position: relative;
 }
 
-.dashboard .rectangle-3 {
-    background-color: #e8e3e3;
-    border-radius: 90px;
-    height: 55px;
-    left: 1289px;
-    position: absolute;
-    top: 19px;
-    width: 55px;
-}
-
-.dashboard .bell-fill-instance {
-    height: 65px !important;
-    left: 1212px !important;
-    position: absolute !important;
-    top: 14px !important;
-    width: 65px !important;
-}
-
-.dashboard .courses-codegame {
-    color: transparent;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 28px;
-    font-weight: 400;
-    left: 561px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 29px;
-}
-
-.dashboard .text-wrapper-2 {
-    color: #5c5c5c;
-}
-
-.dashboard .text-wrapper-3 {
-    color: #000000;
-}
-
-.dashboard .img {
-    height: 40px;
-    left: 1297px;
-    object-fit: cover;
-    position: absolute;
-    top: 27px;
-    width: 40px;
-}
-
-.dashboard .overlap {
-    height: 330px;
-    left: 77px;
-    position: absolute;
-    top: 158px;
-    width: 695px;
-}
-
-.dashboard .overlap-2 {
-    height: 312px;
-    left: 0;
-    position: absolute;
-    top: 18px;
-    width: 695px;
-}
-
-.dashboard .h-1 {
-    color: #ffffff;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 46px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 82px;
-    width: 414px;
-}
-
-.dashboard .image-2 {
-    height: 312px;
-    left: 387px;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    width: 308px;
-}
-
-.dashboard .text-wrapper-4 {
-    color: #ffffff;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 28px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 195px;
-    width: 351px;
-}
-
-.dashboard .text-wrapper-5 {
-    color: #ffffff;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 28px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 257px;
-    width: 246px;
-}
-
-.dashboard .image-3 {
-    height: 98px;
-    left: 0;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    width: 73px;
-}
-
-.dashboard .capture {
-    height: 242px;
-    left: 77px;
-    object-fit: cover;
-    position: absolute;
-    top: 577px;
-    width: 695px;
-}
-
-.dashboard .image-4 {
-    height: 348px;
-    left: 834px;
-    object-fit: cover;
-    position: absolute;
-    top: 207px;
-    width: 450px;
-}
-
-.dashboard .text-wrapper-6 {
-    color: #ffffff;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 24px;
-    font-weight: 400;
-    left: 834px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 175px;
+.performance-graph {
+  margin: 20px;
+  top: 0px;
+  right: 0px;
+  font-size: 24px;
+  position: relative;
 }

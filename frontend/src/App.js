@@ -3,8 +3,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import Home from "./pages/public-home/PublicHome";
-import Dashboard from "./pages/dashboard/Dashboard";
+import Home from "./Home/home";
+import Dashboard from "./DashBoard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -12,16 +12,15 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/user/:id",
+    path: "/Dashboard",
     element: <Dashboard />,
   },
-
 ]);
 
 function App() {
   return (
     <RouterProvider router={router} />
-  );
+    );
 }
 
 export default App;
