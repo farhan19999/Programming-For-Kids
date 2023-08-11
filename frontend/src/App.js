@@ -10,7 +10,7 @@ import Contest_Registration from "./pages/Contest_Registration/Contest_Registrat
 import SignUp from "./pages/SignUp/SignUp";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 import My_Submissions from "./pages/my_submissions/My_Submissions";
-
+import Standings from "./pages/standings/Standings";
 
 
 const router = createBrowserRouter([
@@ -41,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/my-submissions",
     element: <My_Submissions />,
+  },
+  {
+    path: "/standings",
+    element: <Standings />,
   },
 ]);
 

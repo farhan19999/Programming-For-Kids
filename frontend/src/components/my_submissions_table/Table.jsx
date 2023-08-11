@@ -15,42 +15,42 @@ export default function Table() {
         </thead>
         <tbody>
           <tr>
-            <th scope="row">3</th>
+            <th scope="row">C</th>
             <td>2:15 pm</td>
             <td>Tracking Segment</td>
             <td>C++</td>
             <td>Accepted</td>
           </tr>
           <tr>
-            <th scope="row">2</th>
+            <th scope="row">B</th>
             <td>3:15 pm</td>
             <td>OMSK Metro</td>
             <td>C++</td>
             <td>Wrong Answer</td>
           </tr>
           <tr>
-            <th scope="row">6</th>
+            <th scope="row">F</th>
             <td>4:15 pm</td>
             <td>Big Bang</td>
             <td>C++</td>
             <td>Compilation Error</td>
           </tr>
           <tr>
-            <th scope="row">1</th>
+            <th scope="row">A</th>
             <td>5:15 pm</td>
             <td>Shopping</td>
             <td>C++</td>
             <td>Accepted</td>
           </tr>
           <tr>
-            <th scope="row">4</th>
+            <th scope="row">D</th>
             <td>6:15 pm</td>
             <td>Sum Array</td>
             <td>C++</td>
             <td>Accepted</td>
           </tr>
           <tr>
-            <th scope="row">5</th>
+            <th scope="row">E</th>
             <td>7:15 pm</td>
             <td>Apple Tree</td>
             <td>C++</td>
