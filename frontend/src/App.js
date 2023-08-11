@@ -9,6 +9,11 @@ import Profile from "./pages/studentprofile/StudentProfile";
 import Contest_Registration from "./pages/contest_Registration/Contest_Registration";
 import Contest from "./pages/contestshow/ContestShow";
 import SignUp from "./pages/signup/SignUp";
+import MiniProject from "./pages/mini_project_contest/MiniProject"
+import Standings from "./pages/standings/Standings";
+import My_Submissions from "./pages/my_submissions/My_Submissions";
+import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
+
 
 const router = createBrowserRouter([
   {
