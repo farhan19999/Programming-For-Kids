@@ -3,11 +3,12 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import Home from "./pages/Home/Home";
-import Dashboard from "./pages/DashBoard/Dashboard";
-import Profile from "./pages/StudentProfile/StudentProfile";
-import Contest_Registration from "./pages/Contest_Registration/Contest_Registration";
-import SignUp from "./pages/SignUp/SignUp";
+import Home from "./pages/home/Home";
+import Dashboard from "./pages/dashBoard/Dashboard";
+import Profile from "./pages/studentprofile/StudentProfile";
+import Contest_Registration from "./pages/contest_Registration/Contest_Registration";
+import Contest from "./pages/contestshow/ContestShow";
+import SignUp from "./pages/signup/SignUp";
 
 
 
@@ -25,8 +26,12 @@ const router = createBrowserRouter([
     element: <Profile />,
   },
   {
-    path: "/Contest",
+    path: "/ContestRegistration",
     element: <Contest_Registration />,
+  },
+  {
+    path: "/Contest",
+    element: <Contest />,
   },
   {
     path: "/signup",
