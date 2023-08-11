@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
-import UserProfile from '../../components/UpdateProfile/profile'
+import UserProfile from '../../components/updateProfile/profile'
+//Author: MAHBUB
 
 function ShowStudentProfile() {
   return (

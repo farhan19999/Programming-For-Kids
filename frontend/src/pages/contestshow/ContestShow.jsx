@@ -1,17 +1,23 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import ContestTitle from '../../components/contesttitle/ContestTitle';
-import TermsOfAgreements from '../../components/termsofagreement/termsofagreement';
 //Author: MAHBUB
 
-function ShowContestRegistration() {
+function ShowContest() {
   return (
     <div>
       <Navbar/>
+      <h2>Registered Contests:</h2>
       <ContestTitle/>
-      <TermsOfAgreements/>
+      <ContestTitle/>
+      <ContestTitle/>
+
+      <h2>Registered Contests:</h2>
+      <ContestTitle/>
+      <ContestTitle/>
+      <ContestTitle/>
     </div>
   );
 }
 
-export default ShowContestRegistration;
+export default ShowContest;

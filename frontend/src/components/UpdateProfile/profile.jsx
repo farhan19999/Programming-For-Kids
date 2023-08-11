@@ -1,5 +1,7 @@
 import React from 'react';
 import "./profile.css"
+//Author: MAHBUB
+
 function Footer() {
     return (
         <div class="container">
