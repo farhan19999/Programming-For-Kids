@@ -29,6 +29,10 @@ function Navbar(){
                     <li class="nav-item">
                         <a class="nav-link " href="/StudentProfile">Student-Profile</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="/signup">Sign-Up</a>
+                    </li>
                 </ul>
             </div>
         </div>
