@@ -26,6 +26,9 @@ function Navbar(){
                     <li class="nav-item">
                         <a class="nav-link " href="/game">Code-Game</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/StudentProfile">Student-Profile</a>
+                    </li>
                 </ul>
             </div>
         </div>

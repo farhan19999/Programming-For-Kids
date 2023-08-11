@@ -1,12 +1,14 @@
 import React from 'react';
-
 function PerformanceGraph(){
   return (
-    <div className="performance-graph">
-      <h3>Performance Graph</h3>
-      {/* Add your performance graph here */}
+  <div>
+    <h3 class="text-primary text-center">Performance Graph</h3>
+    <div class="col-sm-6 text-center">
+       <label class="label label-success">Line Chart</label>
+      <div id="line-chart"></div>
     </div>
+  </div>
   );
 };
 
-export default PerformanceGraph;
+export default function PerformanceGraph();

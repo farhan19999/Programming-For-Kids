@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
-import UserDetails from '../../components/userdetails/UserDetails';
+import UserDetails from '../../components/userdetails_dashboard/UserDetails';
 
 function ShowDashboard() {
   return (
