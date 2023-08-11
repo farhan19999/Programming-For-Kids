@@ -10,8 +10,6 @@ import Contest_Registration from "./pages/contest_Registration/Contest_Registrat
 import Contest from "./pages/contestshow/ContestShow";
 import SignUp from "./pages/signup/SignUp";
 
-
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +34,22 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path: "/contest-problem-details",
+    element: <Contest_Problem_Details />,
+  },
+  {
+    path: "/my-submissions",
+    element: <My_Submissions />,
+  },
+  {
+    path: "/standings",
+    element: <Standings />,
+  },
+  {
+    path: "/miniproject",
+    element: <MiniProject />,
   },
 ]);
 

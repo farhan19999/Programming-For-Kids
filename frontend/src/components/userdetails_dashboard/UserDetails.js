@@ -4,7 +4,7 @@ import profile_pic from '..//..//assets//images//blank_image.webp'
 
 function UserDetails(){
     const user = {
-        name: 'ARIF FAISAL',
+        name: 'Mahbubul Faisal',
         rank: 1,
         rating:1500,
       };

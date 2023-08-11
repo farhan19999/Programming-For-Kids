@@ -7,7 +7,7 @@
 Clone the repo.
 
 ```bash
-https://github.com/farhan19999/Programming-For-Kids.git
+git clone https://github.com/farhan19999/Programming-For-Kids.git
 cd Programming-For-Kids
 cd frontend
 ```
