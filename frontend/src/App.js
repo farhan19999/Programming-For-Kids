@@ -3,8 +3,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import Home from "./pages/Home/Home";
-import Dashboard from "./pages/DashBoard/Dashboard";
+import Home from "./pages/Home/home";
+import Dashboard from "./pages/dashboard/Dashboard";
 import Profile from "./pages/StudentProfile/StudentProfile";
 import Contest_Registration from "./pages/Contest_Registration/Contest_Registration";
 import SignUp from "./pages/SignUp/SignUp";
