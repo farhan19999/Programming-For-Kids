@@ -8,6 +8,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Profile from "./pages/StudentProfile/StudentProfile";
 import Contest_Registration from "./pages/Contest_Registration/Contest_Registration";
 import SignUp from "./pages/SignUp/SignUp";
+import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 
 
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path: "/contest-problem-details",
+    element: <Contest_Problem_Details />,
   },
 ]);
 
