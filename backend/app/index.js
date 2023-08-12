@@ -10,6 +10,7 @@ const users_route = require('./routes/users.route')
 const contests_route = require('./routes/contests.route')
 const mini_projects_route = require('./routes/mini-projects.route')
 const problems_route = require('./routes/problems.route')
+const puzzles_route = require('./routes/puzzles.route')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
