@@ -11,7 +11,8 @@ import Contest from "./pages/contestshow/ContestShow";
 import SignUp from "./pages/signup/SignUp";
 import Standings from "./pages/standings/Standings";
 import MiniProject from "./pages/mini_project_contest/MiniProject";
-import AdminMPindex from "./pages/admin_miniproject_index/AdminMPindex";
+import AdminMPindex from "./pages/admin/admin_miniproject_index/AdminMPindex";
+import AdminMPdetails from "./pages/admin/admin_miniproject_details/AdminMPdetails";
 import My_Submissions from "./pages/my_submissions/My_Submissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
   {
     path: "/admin-miniproject-index",
     element: <AdminMPindex />,
+  },
+  {
+    path: "/admin-miniproject-details",
+    element: <AdminMPdetails />,
   },
 ]);
 
