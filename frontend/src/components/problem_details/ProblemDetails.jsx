@@ -8,12 +8,16 @@ import axios from 'axios';
 
 const ProblemDetails = () => {
   // let [problem, setProblem] = useState(null);
+  const [count, setCount] = useState(0);
 
-  // useEffect(() => {
-  //   axios.get('http://localhost:8000/api/problems/1').then((response) => {
-  //     setProblem(response.data);
-  // });
-  // }, []);
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/contests').then((response) => {
+      // setProblem(response.data);
+      console.log(response.data);
+  });
+  }, []);
+
+
   return (
     <div style={problemDetailsContainerStyle}>
       <div style={titleStyle}>
