@@ -3,7 +3,7 @@ import React from 'react';
 
 function Navbar() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" >
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">Programming For Kids</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
