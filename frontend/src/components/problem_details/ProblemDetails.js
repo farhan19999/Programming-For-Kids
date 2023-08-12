@@ -1,15 +1,25 @@
 // Arif
 
-import React from 'react';
+
 import CodeEditor from '../code_editor/CodeEditor';
+import { useState, useEffect } from 'react';
+
 
 const ProblemDetails = () => {
+  let [problem, setProblem] = useState(null);
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/problems/1').then((response) => {
+      setProblem(response.data);
+  });
+  }, []);
   return (
     <div style={problemDetailsContainerStyle}>
       <div style={titleStyle}>
         <h5 style={{ textAlign: "center", textDecoration: "underline" }}>A. Shopping</h5>
       </div>
       <p>
+        {problem.problem_description}
         If the price of a toy is X and you paid taka Y to the shopkeeper, calculate how much money you will get back if you buy three of them.
         <br />The first line of input is X and the second line is Y.
         Print the output.
