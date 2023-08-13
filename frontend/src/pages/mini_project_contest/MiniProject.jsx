@@ -1,29 +1,66 @@
 // Arif
 
+import {useState,useEffect} from 'react';
+import axios from 'axios';
 import React from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Timer from "../../components/time_remaining/Timer";
 
 export default function MiniProject() {
+
+  const defaultState = {
+    "projectid": 1,
+    "title": "To-Do List Application",
+    "project_details": "Create a simple to-do list application that allows users to add, edit, and delete tasks.",
+    "starting_code": `
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <math.h>
+    #include <string.h>
+    #include <ctype.h>
+    using namespace std; 
+    int main() 
+    {
+        int a, b; 
+        cin >> a >> b; 
+        cout << a + b << endl; 
+        cin >> a >> b; 
+        cout << a + b << endl;
+        // ... rest of the code ...
+        return 0; 
+    }`,
+    "starting_time": "2023-08-05T10:00:00.000Z"
+  }
+
+
+  const [problem, setProblem] = useState(defaultState);
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/mini-projects/1').then((response) => {
+      setProblem(response.data);
+      console.log(response.data);
+  });
+  }, []);
+
+
+
   return (
     <div style={containerStyle}>
       <Navbar />
       <h4 style={{ textAlign: "center", marginTop: "35px" }}>
-        Mini Project Contest Title: Make A Calculator
+        Mini Project Contest Title: {problem.title}
       </h4>
       <Timer />
 
       <div style={projectDetailsStyle}>
         <b style={{ fontSize: "20px" }}>Project Details:</b> <br />
         <p style={{ marginTop: "25px" }}>
-          1. You are given a skeleton code. Modify this code to make a
-          calculator. <br />
-          2. Make sure that the button colors must be blue. <br />
-          <br />
+          {problem.project_details}
+          <br /> <br />
           <b style={{ fontSize: "20px" }}>Code:</b> <br />
           <br />
-          <samp style={codeBoxStyle}>
-            #include &lt;stdio.h&gt; <br />
+          <samp style={codeBoxStyle}>  
+            {problem.starting_code}
+            {/* #include &lt;stdio.h&gt; <br />
             #include &lt;stdlib.h&gt; <br />
             #include &lt;math.h&gt; <br />
             #include &lt;string.h&gt; <br />
@@ -44,7 +81,7 @@ export default function MiniProject() {
             &nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; a &gt;&gt; b; <br />
             &nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; a + b &lt;&lt; endl; <br />
             &nbsp;&nbsp;&nbsp;&nbsp;return 0; <br />
-            &#125; <br />
+            &#125; <br /> */}
           </samp>
         </p>
       </div>
