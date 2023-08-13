@@ -54,7 +54,7 @@ export default function MiniProject() {
   return (
     <div style={containerStyle}>
       <Navbar />
-      <SubNavbar />
+      
       <h4 style={{ textAlign: "center", marginTop: "35px" }}>
         Mini Project Contest Title: {problem.title}
       </h4>
