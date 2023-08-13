@@ -9,6 +9,7 @@ import Profile from "./pages/studentprofile/StudentProfile";
 import Contest_Registration from "./pages/contest_registration/Contest_Registration";
 import Contest from "./pages/contestshow/ContestShow";
 import SignUp from "./pages/signup/SignUp";
+import Signin from "./pages/signin/Signin";
 import Standings from "./pages/standings/Standings";
 import MiniProject from "./pages/mini_project_contest/MiniProject";
 import AdminMPindex from "./pages/admin/admin_miniproject_index/AdminMPindex";
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path: "/signin",
+    element: <Signin />,
   },
   {
     path: "/contest-problem-details",
