@@ -1,5 +1,4 @@
 import {useState,useEffect} from 'react';
-import profile_pic from '..//..//assets//images//blank_image.webp'
 //Author: MAHBUB
 import axios from 'axios';
 
@@ -24,7 +23,7 @@ function UserDetails() {
       <div id="profile_card" className="card-body p-4">
         <div className="d-flex text-black">
           <div className="flex-shrink-0">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+            <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
               alt="Generic placeholder image" className="img-fluid"
               style={{ width: "180px", borderradius: "10px" }} />
           </div>

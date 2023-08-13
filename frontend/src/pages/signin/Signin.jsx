@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
+import Footer from '../../components/footer/Footer';
 //Author: MAHBUB
 
 function ShowSignUpPage() {
@@ -58,6 +59,8 @@ function ShowSignUpPage() {
                     </div>
                 </section>
             </div>
+            
+            <Footer />
         </div>
 
 

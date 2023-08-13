@@ -4,6 +4,7 @@ import React from "react";
 import Navbar from "../../components/navbar/Navbar";
 import SubNavbar from "../../components/sub_navbar/SubNavbar";
 import Table from "../../components/standings_table/Table";
+import Footer from "../../components/footer/Footer";
 
 
 export default function IndividualProblem() {
@@ -18,6 +19,8 @@ export default function IndividualProblem() {
 
       
       <Table />
+      
+      <Footer />
 
 
     </div>

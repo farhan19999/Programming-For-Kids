@@ -37,11 +37,13 @@ function Navbar() {
                             <a className="nav-link active" href="/profile">Student-Profile</a>
                         </li>
 
-                        <div style={{ marginLeft: "520px" }}>
+                            <li className="nav-item">
+                                <a className="nav-link active" href="/signin">Sign-In</a>
+                            </li>
+
                             <li className="nav-item">
                                 <a className="nav-link active" href="/signup">Sign-Up</a>
                             </li>
-                        </div>
                     </ul>
                 </div>
             </div>
