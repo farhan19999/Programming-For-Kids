@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../../../components/navbar/Navbar';
+import Navbar from '../../components/navbar/Navbar';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-export default function AdminMPindex() {
+export default function MiniProjectList() {
   const [project, setProject] = useState([]);
 
   useEffect(() => {
@@ -19,19 +19,20 @@ export default function AdminMPindex() {
 
   const handleModifyClick = (projectid) => {
     // Navigate to the specific project details page
-    navigate(`/admin-miniproject-details/${projectid}`);
+    navigate(`/miniproject/${projectid}`);
   };
 
   return (
     <div>
       <Navbar />
-      <h2 style={{ margin: '25px', fontWeight: 'bold' }}>Admin</h2>
+      <h3 style={{ margin: '25px', fontWeight: 'bold', padding:'25px' }}>Mini Project Contest</h3>
+
       <table className="table table-hover" style={{ margin: '25px', fontSize: '18px' }}>
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col"> </th>
             <th scope="col">Title</th>
-            <th scope="col">Actions</th>
+            <th scope="col"> </th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +42,7 @@ export default function AdminMPindex() {
               <td>{item.title}</td>
               <td>
                 <button type="button" className="btn btn-dark" onClick={() => handleModifyClick(item.projectid)}>
-                  + Modify
+                  Enter 
                 </button>
               </td>
             </tr>
