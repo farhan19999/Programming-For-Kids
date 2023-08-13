@@ -3,6 +3,8 @@
 import CodeEditor from "../code_editor/CodeEditor";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
+
 
 const ProblemDetails = () => {
   const defaultState = {
@@ -22,14 +24,16 @@ The first line of input is X and the second line is Y. Print the output.`,
     sample_output: "5",
     time_limit: "45",
   };
+
+  const { problemid } = useParams();
   const [problem, setProblem] = useState(defaultState);
   useEffect(() => {
-    axios.get("http://localhost:3000/api/problems/2").then((response) => {
+    axios.get(`http://localhost:3000/api/problems/${problemid}`).then((response) => {
       // setProblem(defaultState);
       setProblem(response.data);
       console.log(response.data);
     });
-  }, []);
+  }, [problemid]);
 
   return (
     <div style={problemDetailsContainerStyle}>
@@ -40,10 +44,7 @@ The first line of input is X and the second line is Y. Print the output.`,
       </div>
       <p>
         {problem.problem_statement}
-        {/* If the price of a toy is X and you paid taka Y to the shopkeeper,
-        calculate how much money you will get back if you buy three of them.
-        <br />
-        The first line of input is X and the second line is Y. Print the output. */}
+        
       </p>
 
       <div style={sampleContainerStyle}>
