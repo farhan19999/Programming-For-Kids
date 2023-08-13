@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/home/Home";
-import Dashboard from "./pages/dashboard/Dashboard"; 
+import Dashboard from "./pages/dashboard/Dashboard";
 import Profile from "./pages/studentprofile/StudentProfile";
 import Contest_Registration from "./pages/contest_registration/Contest_Registration";
 import Contest from "./pages/contestshow/ContestShow";
@@ -23,19 +23,19 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/Dashboard",
+    path: "/dashboard",
     element: <Dashboard />,
   },
   {
-    path: "/Profile",
+    path: "/profile",
     element: <Profile />,
   },
   {
-    path: "/ContestRegistration",
+    path: "/contestRegistration",
     element: <Contest_Registration />,
   },
   {
-    path: "/Contest",
+    path: "/contest",
     element: <Contest />,
   },
   {
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <RouterProvider router={router} />
-    );
+  );
 }
 
 export default App;

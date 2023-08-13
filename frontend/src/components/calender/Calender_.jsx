@@ -26,7 +26,7 @@ const events = [
 function MyCalendar() {
   return (
     <div className="container mt-5">
-      <h2 className="mb-4">My Calendar</h2>
+      <h4 className="mb-4">Upcoming Events</h4>
       <Calendar
         localizer={localizer}
         events={events}

@@ -14,11 +14,11 @@ function ShowDashboard() {
   return (
     <div>
       <Navbar />
-      <div className='row'>
-        <div className='col'>
+      <div className='row' >
+        <div className='col' style={{marginTop:"25px"}}>
           <UserDetails />
         </div>
-        <div className='col'>
+        <div className='col' style={{marginTop:"-20px",marginBottom:"20px"}}>
 
           <Calendar />
         </div>
