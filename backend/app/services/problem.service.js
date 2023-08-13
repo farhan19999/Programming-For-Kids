@@ -81,9 +81,9 @@ exports.getProblemSolution = async (id) => {
     }
 }
 
-exports.createProblemSolution = async (problem) => {
+exports.createProblemSolution = async (id, solution) => {
     try {
-        const result = await problemModel.createProblemSolution(problem);
+        const result = await problemModel.createProblemSolution(id, solution);
         return result;
     } catch (error) {
         throw error;
