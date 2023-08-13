@@ -46,7 +46,7 @@ const getMiniProjectById = async (id) => {
 const updateMiniProject = async (id, mini_project) => {
     try {
         const client = await pool.connect();
-        const updated_mini_project = await pool.query('UPDATE pfk.mini_project SET title = $1, project_details = $2, starting_code = $3, starting_time = $4 WHERE id = $5 RETURNING *', [mini_project.title, mini_project.project_details, mini_project.starting_code, mini_project.starting_time, id]);
+        const updated_mini_project = await pool.query('UPDATE pfk.mini_project SET title = $1, project_details = $2, starting_code = $3, starting_time = $4 WHERE projectid = $5 RETURNING *', [mini_project.title, mini_project.project_details, mini_project.starting_code, mini_project.starting_time, id]);
         client.release();
         return updated_mini_project.rows[0];
     } catch (error) {
