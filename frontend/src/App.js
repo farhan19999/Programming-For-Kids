@@ -17,6 +17,7 @@ import AdminMPdetails from "./pages/admin/admin_miniproject_details/AdminMPdetai
 import My_Submissions from "./pages/my_submissions/My_Submissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
+import ContestProblems from "./pages/contest_problems/ContestProblems";
 
 
 const router = createBrowserRouter([
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
     element: <Signin />,
   },
   {
-    path: "/contest-problem-details",
+    path: "/contest-problem-details/:problemid", // Route for detailed page with problemid
     element: <Contest_Problem_Details />,
   },
   {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
   {
     path: "/miniproject",
     element: <MiniProjectList />,
+  },
+  {
+    path: "/contest/:contestid", // Route for detailed page with contestid
+    element: <ContestProblems />,
   },
 ]);
 

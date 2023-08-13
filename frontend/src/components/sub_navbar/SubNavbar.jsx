@@ -14,8 +14,8 @@ function SubNavbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto d-flex gap-5">
-            <li className={`nav-item ${location.pathname === '/problems' ? 'active' : ''}`}>
-              <NavLink className="nav-link" to="/problems">Problems</NavLink>
+            <li className={`nav-item ${location.pathname === '/contest/1' ? 'active' : ''}`}>
+              <NavLink className="nav-link" to="/contest/1">Problems</NavLink>
             </li>
             <li className={`nav-item ${location.pathname === '/my-submissions' ? 'active' : ''}`}>
               <NavLink className="nav-link" to="/my-submissions">My Submissions</NavLink>
