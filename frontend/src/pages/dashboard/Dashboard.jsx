@@ -4,13 +4,8 @@ import Footer from '../../components/footer/Footer';
 import UserDetails from '../../components/userdetails_dashboard/UserDetails';
 import Calendar from '../../components/calender/Calender_';
 //Author: MAHBUB
-import axios from 'axios';
 
 function ShowDashboard() {
-
-
-
-
   return (
     <div>
       <Navbar />
