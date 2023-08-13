@@ -3,7 +3,7 @@ import React from 'react';
 
 function Navbar() {
     return (
-        <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" >
+        <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
                 <a className="navbar-brand" href="/">Programming For Kids</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -20,22 +20,27 @@ function Navbar() {
                             <a className="nav-link active" href="/contest">Contest</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="/practice">Practice</a>
+                            <a className="nav-link active" href="/#">Practice</a>
+                        </li>
+
+                        <li className="nav-item">
+                            <a className="nav-link active" href="/miniproject">Mini-Project</a>
+                        </li>
+
+                        <li className="nav-item">
+                            <a className="nav-link active" href="/#">Daily-Puzzle</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="/puzzle">Daily-Puzzle</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link active" href="/game">Code-Game</a>
+                            <a className="nav-link active" href="/#">Code-Game</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link active" href="/profile">Student-Profile</a>
                         </li>
 
-                        <div style={{marginLeft:"620px"}}>
-                        <li className="nav-item">
-                            <a className="nav-link active" href="/signup">Sign-Up</a>
-                        </li>
+                        <div style={{ marginLeft: "520px" }}>
+                            <li className="nav-item">
+                                <a className="nav-link active" href="/signup">Sign-Up</a>
+                            </li>
                         </div>
                     </ul>
                 </div>
