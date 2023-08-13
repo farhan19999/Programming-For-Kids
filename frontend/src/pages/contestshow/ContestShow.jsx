@@ -7,14 +7,7 @@ function ShowContest() {
   return (
     <div style={{marginTop:"25px"}}>
       <Navbar/>
-      <h2>Registered Contests:</h2>
-      <ContestTitle/>
-      <ContestTitle/>
-      <ContestTitle/>
-
-      <h2>Registered Contests:</h2>
-      <ContestTitle/>
-      <ContestTitle/>
+      <div style={{fontSize:'24px',fontWeight: 'bold'}}>Registered Contests:</div>
       <ContestTitle/>
     </div>
   );
