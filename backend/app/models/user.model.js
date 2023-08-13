@@ -6,7 +6,7 @@ const pool = new pg.Pool({
     password : 'vky4cxJVqdHCnWnjKv0u_E05xvIo7UXG',
     max: 10,
     idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
+    connectionTimeoutMillis: 60000,
 })
 
 const getAllUsers = async () => {

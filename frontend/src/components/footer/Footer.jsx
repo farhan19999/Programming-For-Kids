@@ -1,4 +1,6 @@
 import React from 'react';
+//Author: MAHBUB
+
 function Footer() {
     return (
         <footer class="bg-dark text-center text-lg-start">

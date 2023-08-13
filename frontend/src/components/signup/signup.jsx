@@ -1,4 +1,6 @@
 import React from 'react';
+//Author: MAHBUB
+
 function SignUp() {
     return (
         <div>
