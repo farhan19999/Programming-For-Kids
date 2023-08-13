@@ -1,46 +1,53 @@
 // Arif
 
-import {useState,useEffect} from 'react';
-import axios from 'axios';
-import React from "react";
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-c_cpp";
+import "ace-builds/src-noconflict/theme-monokai";
 import Navbar from "../../components/navbar/Navbar";
 import Timer from "../../components/time_remaining/Timer";
 import SubNavbar from '../../components/sub_navbar/SubNavbar';
+import axios from 'axios';
 
 export default function MiniProject() {
 
-  const defaultState = {
-    "projectid": 1,
-    "title": "To-Do List Application",
-    "project_details": "Create a simple to-do list application that allows users to add, edit, and delete tasks.",
-    "starting_code": `
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <math.h>
-    #include <string.h>
-    #include <ctype.h>
-    using namespace std; 
-    int main() 
-    {
-        int a, b; 
-        cin >> a >> b; 
-        cout << a + b << endl; 
-        cin >> a >> b; 
-        cout << a + b << endl;
-        // ... rest of the code ...
-        return 0; 
-    }`,
-    "starting_time": "2023-08-05T10:00:00.000Z"
-  }
+  // const defaultState = {
+  //   "projectid": 1,
+  //   "title": "To-Do List Application",
+  //   "project_details": "Create a simple to-do list application that allows users to add, edit, and delete tasks.",
+  //   "starting_code": `
+  //   #include <stdio.h>
+  //   #include <stdlib.h>
+  //   #include <math.h>
+  //   #include <string.h>
+  //   #include <ctype.h>
+  //   using namespace std; 
+  //   int main() 
+  //   {
+  //       int a, b; 
+  //       cin >> a >> b; 
+  //       cout << a + b << endl; 
+  //       cin >> a >> b; 
+  //       cout << a + b << endl;
+  //       // ... rest of the code ...
+  //       return 0; 
+  //   }`,
+  //   "starting_time": "2023-08-05T10:00:00.000Z"
+  // }
 
 
-  const [problem, setProblem] = useState(defaultState);
+  const [code, setCode] = useState('');
+  const { projectid } = useParams();
+
+  const [problem, setProblem] = useState({});
   useEffect(() => {
-    axios.get('http://localhost:3000/api/mini-projects/2').then((response) => {
+    axios.get(`http://localhost:3000/api/mini-projects/${projectid}`).then((response) => {
       setProblem(response.data);
+      setCode(response.data.starting_code);
       console.log(response.data);
-  });
-  }, []);
+    });
+  }, [projectid]);
 
 
 
@@ -62,28 +69,6 @@ export default function MiniProject() {
           <br />
           <samp style={codeBoxStyle}>  
             {problem.starting_code}
-            {/* #include &lt;stdio.h&gt; <br />
-            #include &lt;stdlib.h&gt; <br />
-            #include &lt;math.h&gt; <br />
-            #include &lt;string.h&gt; <br />
-            #include &lt;ctype.h&gt; <br />
-            using namespace std; <br />
-            int main() <br />
-            &#123; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;int a, b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; a &gt;&gt; b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; a + b &lt;&lt; endl; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;int a, b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; a &gt;&gt; b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; a + b &lt;&lt; endl; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;int a, b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; a &gt;&gt; b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; a + b &lt;&lt; endl; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;int a, b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; a &gt;&gt; b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; a + b &lt;&lt; endl; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;return 0; <br />
-            &#125; <br /> */}
           </samp>
         </p>
       </div>

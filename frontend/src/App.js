@@ -60,7 +60,7 @@ const router = createBrowserRouter([
     element: <Standings />,
   },
   {
-    path: "/miniproject",
+    path: "/miniproject/:projectid", // Route for detailed page with projectid
     element: <MiniProject />,
   },
   {
