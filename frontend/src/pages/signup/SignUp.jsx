@@ -1,9 +1,39 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
+import axios from 'axios';
 //Author: MAHBUB
 
-function ShowSignUpPage() {
+function SignUpPage() {
+
+  // const [userData, setUserData] = useState({
+  //   username: '',
+  //   password: '',
+  //   rating:'',
+  //   ranking:'',
+  //   phone_no: '',
+  //   email_address:''
+  // });
+
+  // const handleFormSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post('http://localhost:3000/api/users', userData);
+  //     console.log('User created:', response.data);
+  //     // Reset the form after successful submission
+  //     setUserData({
+  //       name: '',
+  //       email: '',
+  //       phone: '',
+  //       password: '',
+  //       confirmPassword: ''
+  //     });
+  //   } catch (error) {
+  //     console.error('Error creating user:', error);
+  //   }
+  // };
+
+
   return (
     <div>
       <Navbar />
@@ -86,10 +116,7 @@ function ShowSignUpPage() {
         
         <Footer />
       </div>
-
-
-
       );
 }
 
-      export default ShowSignUpPage;
+      export default SignUpPage;
