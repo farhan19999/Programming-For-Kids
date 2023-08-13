@@ -24,7 +24,7 @@ The first line of input is X and the second line is Y. Print the output.`,
   };
   const [problem, setProblem] = useState(defaultState);
   useEffect(() => {
-    axios.get("http://localhost:3000/api/problems/6").then((response) => {
+    axios.get("http://localhost:3000/api/problems/2").then((response) => {
       // setProblem(defaultState);
       setProblem(response.data);
       console.log(response.data);
