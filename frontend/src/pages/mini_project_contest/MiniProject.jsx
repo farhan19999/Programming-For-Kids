@@ -5,6 +5,7 @@ import axios from 'axios';
 import React from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Timer from "../../components/time_remaining/Timer";
+import SubNavbar from '../../components/sub_navbar/SubNavbar';
 
 export default function MiniProject() {
 
@@ -35,7 +36,7 @@ export default function MiniProject() {
 
   const [problem, setProblem] = useState(defaultState);
   useEffect(() => {
-    axios.get('http://localhost:3000/api/mini-projects/1').then((response) => {
+    axios.get('http://localhost:3000/api/mini-projects/2').then((response) => {
       setProblem(response.data);
       console.log(response.data);
   });
@@ -46,6 +47,7 @@ export default function MiniProject() {
   return (
     <div style={containerStyle}>
       <Navbar />
+      <SubNavbar />
       <h4 style={{ textAlign: "center", marginTop: "35px" }}>
         Mini Project Contest Title: {problem.title}
       </h4>
