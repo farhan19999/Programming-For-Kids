@@ -22,7 +22,7 @@ const getAllProblems = async () => {
 const getProblemById = async (id) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.problem WHERE id = $1', [id])
+        const result = await client.query('SELECT * FROM pfk.problem WHERE problemid = $1', [id])
         client.release()
         return result.rows[0]
     } catch (error) {
