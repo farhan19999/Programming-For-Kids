@@ -1,12 +1,6 @@
+const {pool_config} = require('../config/db.config')
 const pg = require('pg')
-const pool = new pg.Pool({
-    host: 'john.db.elephantsql.com',
-    user: 'tdkvooil',
-    password : 'vky4cxJVqdHCnWnjKv0u_E05xvIo7UXG',
-    max: 10,
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
-})
+const pool = new pg.Pool(pool_config)
 
 const getAllProblems = async () => {
     try {
@@ -22,7 +16,7 @@ const getAllProblems = async () => {
 const getProblemById = async (id) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.problem WHERE id = $1', [id])
+        const result = await client.query('SELECT * FROM pfk.problem WHERE problemid = $1', [id])
         client.release()
         return result.rows[0]
     } catch (error) {
