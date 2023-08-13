@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/home/Home";
-import Dashboard from "./pages/dashboard/Dashboard";
+import Dashboard from "./pages/dashboard/Dashboard"; 
 import Profile from "./pages/studentprofile/StudentProfile";
 import Contest_Registration from "./pages/contest_registration/Contest_Registration";
 import Contest from "./pages/contestshow/ContestShow";
