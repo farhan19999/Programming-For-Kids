@@ -15,8 +15,11 @@ Install the dependencies.
 
 ```bash
 npm install
+
+npm install react-ace
+
 ```
-To start the express server, run the following.
+To start the React server, run the following.
 
 ```bash
 npm run start

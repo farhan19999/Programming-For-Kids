@@ -9,7 +9,7 @@ import CodeEditor from '../../components/code_editor/CodeEditor';
 
 export default function IndividualProblem() {
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative"}}>
       <Navbar />
       <SubNavbar />
 

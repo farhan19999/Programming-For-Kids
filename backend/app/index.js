@@ -4,15 +4,17 @@ const bodyParser = require('body-parser')
 const swaggerjsdoc = require("swagger-jsdoc")
 const swaggerUi = require("swagger-ui-express")
 
-
+const cors = require('cors')
 //routes
 const users_route = require('./routes/users.route')
 const contests_route = require('./routes/contests.route')
 const mini_projects_route = require('./routes/mini-projects.route')
 const problems_route = require('./routes/problems.route')
+const puzzles_route = require('./routes/puzzles.route')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(cors())
 
 app.use('/api/users', users_route)
 app.use('/api/contests', contests_route)
