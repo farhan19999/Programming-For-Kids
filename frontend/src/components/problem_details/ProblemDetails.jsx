@@ -1,47 +1,65 @@
 // Arif
 
-
-import CodeEditor from '../code_editor/CodeEditor';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
+import CodeEditor from "../code_editor/CodeEditor";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const ProblemDetails = () => {
-  // let [problem, setProblem] = useState(null);
-  const [count, setCount] = useState(0);
+  const defaultState = {
+    problemid: 1,
+    contestid: 1,
+    title: "Shopping",
+    difficulty: "Easy",
+    problem_statement:
+`If the price of a toy is X and you paid taka Y to the shopkeeper,
+calculate how much money you will get back if you buy three of them.
 
+The first line of input is X and the second line is Y. Print the output.`,
+    topic: "Array",
+    sample_input: 
+`15
+50`,
+    sample_output: "5",
+    time_limit: "45",
+  };
+  const [problem, setProblem] = useState(defaultState);
   useEffect(() => {
-    axios.get('http://localhost:3000/api/contests').then((response) => {
-      // setProblem(response.data);
+    axios.get("http://localhost:3000/api/problems/6").then((response) => {
+      // setProblem(defaultState);
+      setProblem(response.data);
       console.log(response.data);
-  });
+    });
   }, []);
-
 
   return (
     <div style={problemDetailsContainerStyle}>
       <div style={titleStyle}>
-        <h5 style={{ textAlign: "center", textDecoration: "underline" }}>A. Shopping</h5>
+        <h5 style={{ textAlign: "center", textDecoration: "underline" }}>
+          {problem.title}
+        </h5>
       </div>
       <p>
-        {/* {problem.problem_description} */}
-        If the price of a toy is X and you paid taka Y to the shopkeeper, calculate how much money you will get back if you buy three of them.
-        <br />The first line of input is X and the second line is Y.
-        Print the output.
+        {problem.problem_statement}
+        {/* If the price of a toy is X and you paid taka Y to the shopkeeper,
+        calculate how much money you will get back if you buy three of them.
+        <br />
+        The first line of input is X and the second line is Y. Print the output. */}
       </p>
-      
+
       <div style={sampleContainerStyle}>
         <div style={sampleBoxStyle}>
           Sample Input:
-          <pre>15<br />
-            50</pre>
+          <pre>
+            {problem.sample_input}
+          </pre>
         </div>
         <div style={sampleBoxStyle}>
           Sample Output:
-          <pre>5</pre>
+          <pre>
+            {problem.sample_output}
+          </pre>
         </div>
       </div>
-
     </div>
   );
 };
@@ -49,7 +67,7 @@ const ProblemDetails = () => {
 const problemDetailsContainerStyle = {
   marginTop: "25px", // Adjust as needed for spacing
   marginLeft: "50px", // Adjust as needed for spacing
-  maxWidth: "44%", // Limiting the width to prevent crossing the middle portion
+  width: "44%", // Limiting the width to prevent crossing the middle portion
   fontSize: "18px",
 };
 
@@ -59,6 +77,7 @@ const titleStyle = {
 
 const sampleContainerStyle = {
   display: "flex",
+  fontSize: "17px",
   justifyContent: "space-between",
   marginTop: "10px", // Add spacing between problem description and sample boxes
 };
