@@ -19,6 +19,8 @@ app.use('/api/users', users_route)
 app.use('/api/contests', contests_route)
 app.use('/api/mini-projects', mini_projects_route)
 app.use('/api/problems', problems_route)
+app.use('/api/puzzles', puzzles_route)
+
 
 app.get('/',(req,res)=>{
     res.send("Welcome")
