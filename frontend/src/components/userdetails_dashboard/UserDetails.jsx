@@ -4,12 +4,13 @@ import profile_pic from '..//..//assets//images//blank_image.webp'
 import axios from 'axios';
 
 function UserDetails() {
+  
   const default_user = {
-    name: 'Mahbubul Faisal',
+    name: 'Arif Faisal',
     rank: 1,
     rating: 1500,
   };
-  const [user,setUser]=useState(null);
+  const [user,setUser]=useState(default_user);
   useEffect(()=>{
     axios.get("http://localhost:3000/api/users").then((response)=>{
       setUser(response.data)
@@ -28,21 +29,17 @@ function UserDetails() {
               style={{ width: "180px", borderradius: "10px" }} />
           </div>
           <div className="flex-grow-1 ms-3">
-            <h5 className="mb-1">{}</h5>
-            <p className="mb-2 pb-1" style={{ color: "#2b2a2a" }}>{}</p>
+            <h5 className="mb-1">{user.username}</h5>
+            <p className="mb-2 pb-1" style={{ color: "#2b2a2a" }}>Grand Master</p>
             <div className="d-flex justify-content-start rounded-3 p-2 mb-2"
               style={{ backgroundcolor: "#efefef" }}>
-              <div>
-                <p className="small text-muted mb-1">Articles</p>
-                <p className="mb-0">41</p>
-              </div>
               <div className="px-3">
-                <p className="small text-muted mb-1">Rank</p>
-                <p className="mb-0">{}</p>
+                <p className="medium text-muted mb-1 ">Rank</p>
+                <p className="mb-0">{user.ranking}</p>
               </div>
               <div>
-                <p className="small text-muted mb-1">Rating</p>
-                <p className="mb-0">{}</p>
+                <p className="medium text-muted mb-1">Rating</p>
+                <p className="mb-0">{user.rating}</p>
               </div>
             </div>
           </div>

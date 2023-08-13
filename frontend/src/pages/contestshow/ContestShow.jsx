@@ -5,7 +5,7 @@ import ContestTitle from '../../components/contesttitle/ContestTitle';
 
 function ShowContest() {
   return (
-    <div>
+    <div style={{marginTop:"25px"}}>
       <Navbar/>
       <h2>Registered Contests:</h2>
       <ContestTitle/>
