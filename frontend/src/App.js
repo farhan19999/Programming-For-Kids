@@ -68,9 +68,13 @@ const router = createBrowserRouter([
     element: <AdminMPindex />,
   },
   {
-    path: "/admin-miniproject-details",
+    path: "/admin-miniproject-details", // Route for general details page
     element: <AdminMPdetails />,
   },
+  // {
+  //   path: "/admin-miniproject-details/:projectid", // Route for detailed page with projectid
+  //   element: <AdminMPdetails />,
+  // },
 ]);
 
 function App() {
