@@ -17,9 +17,9 @@ export default function AdminMPindex() {
 
   const navigate = useNavigate(); // Initialize useNavigate
 
-  const handleModifyClick = () => {
-    // Navigate to the general details page
-    navigate('/admin-miniproject-details');
+  const handleModifyClick = (projectid) => {
+    // Navigate to the specific project details page
+    navigate(`/admin-miniproject-details/${projectid}`);
   };
 
   return (
@@ -40,7 +40,7 @@ export default function AdminMPindex() {
               <th scope="row">{index + 1}</th>
               <td>{item.title}</td>
               <td>
-                <button type="button" className="btn btn-dark" onClick={handleModifyClick}>
+                <button type="button" className="btn btn-dark" onClick={() => handleModifyClick(item.projectid)}>
                   + Modify
                 </button>
               </td>
