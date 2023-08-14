@@ -4,6 +4,7 @@ import "./profile.css"
 import axios from 'axios';
 
 //Author: MAHBUB
+//TODO #7: Hide Old password 
 
 function Profile() {
 
@@ -39,7 +40,7 @@ function Profile() {
 		try {
 		  // Handle validations
 		  axios
-			.put("http://localhost:3000/api/users/"+user.userid, { username,password,phone_no,email_address, rating, ranking })
+			.put("http://localhost:3000/api/users/"+user.userid, { password,phone_no,email_address})
 			.then(response => {
 			  console.log(response);
 			  window.location.href = "/";
@@ -77,19 +78,19 @@ function Profile() {
 								<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 									<div className="form-group">
 										<label for="userName">UserName</label>
-										<input type="text" className="form-control" id="userName" placeholder={user.username} readOnly={true} />
+										<input type="text" className="form-control" id="userName" value={user.username} readOnly={true} />
 									</div>
 								</div>
 								<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 									<div className="form-group">
-										<label for="eMail">Email</label>
-										<input type="email" className="form-control" id="eMail" placeholder={user.email_address} />
+										<label for="email">Email</label>
+										<input type="email" className="form-control" id="email" value={user.email_address} />
 									</div>
 								</div>
 								<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 									<div className="form-group">
 										<label for="phone">Phone</label>
-										<input type="text" className="form-control" id="phone" placeholder={user.phone_no} />
+										<input type="text" className="form-control" id="phone" value={user.phone_no} />
 									</div>
 								</div>
 							</div>
@@ -109,12 +110,6 @@ function Profile() {
 									<div className="form-group">
 										<label for="eMail">New Password</label>
 										<input type="email" className="form-control" id="password" placeholder="Enter New Password" />
-									</div>
-								</div>
-								<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-									<div className="form-group">
-										<label for="phone">Confirm New Password</label>
-										<input type="text" className="form-control" id="password" placeholder="Confirm New Password" />
 									</div>
 								</div>
 							</div>
