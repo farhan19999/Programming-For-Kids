@@ -1,13 +1,7 @@
-//const pool = require('../config/db.config')
+const {pool_config} = require('../config/db.config')
+
 const pg = require('pg')
-const pool = new pg.Pool({
-    host: 'john.db.elephantsql.com',
-    user: 'tdkvooil',
-    password : 'vky4cxJVqdHCnWnjKv0u_E05xvIo7UXG',
-    max: 10,
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
-})
+const pool = new pg.Pool(pool_config)
 
 const getAllUsers = async () => {
     try {

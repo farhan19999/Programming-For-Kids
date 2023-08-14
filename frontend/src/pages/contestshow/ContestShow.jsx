@@ -1,21 +1,17 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import ContestTitle from '../../components/contesttitle/ContestTitle';
+import Footer from '../../components/footer/Footer';
 //Author: MAHBUB
 
 function ShowContest() {
   return (
-    <div>
+    <div style={{marginTop:"25px"}}>
       <Navbar/>
-      <h2>Registered Contests:</h2>
+      <div style={{fontSize:'24px',fontWeight: 'bold'}}>Registered Contests:</div>
       <ContestTitle/>
-      <ContestTitle/>
-      <ContestTitle/>
-
-      <h2>Registered Contests:</h2>
-      <ContestTitle/>
-      <ContestTitle/>
-      <ContestTitle/>
+      
+      <Footer />
     </div>
   );
 }

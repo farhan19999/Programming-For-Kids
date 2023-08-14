@@ -6,10 +6,11 @@ import SubNavbar from '../../components/sub_navbar/SubNavbar';
 import TimeRemaining from '../../components/time_remaining/Timer';
 import ProblemDetails from '../../components/problem_details/ProblemDetails';
 import CodeEditor from '../../components/code_editor/CodeEditor';
+import Footer from '../../components/footer/Footer';
 
 export default function IndividualProblem() {
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative"}}>
       <Navbar />
       <SubNavbar />
 
@@ -29,6 +30,8 @@ export default function IndividualProblem() {
       <div style={nextButtonContainerStyle} class="d-flex ">
         <button onClick={moveToNextProblem} type="button" class="btn btn-dark btn-me">Next</button>
       </div>
+      
+      <Footer />
       
     </div>
   );

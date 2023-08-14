@@ -5,7 +5,7 @@ function SubNavbar() {
   const location = useLocation(); // Get the current location
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#e3f2fd" }}>
+    <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#e3f2fd", marginTop:"18px" }}>
       <div className="container-fluid">
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -14,8 +14,8 @@ function SubNavbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto d-flex gap-5">
-            <li className={`nav-item ${location.pathname === '/problems' ? 'active' : ''}`}>
-              <NavLink className="nav-link" to="/problems">Problems</NavLink>
+            <li className={`nav-item ${location.pathname === '/contest/1' ? 'active' : ''}`}>
+              <NavLink className="nav-link" to="/contest/1">Problems</NavLink>
             </li>
             <li className={`nav-item ${location.pathname === '/my-submissions' ? 'active' : ''}`}>
               <NavLink className="nav-link" to="/my-submissions">My Submissions</NavLink>

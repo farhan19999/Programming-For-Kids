@@ -66,3 +66,4 @@ const sampleBoxStyle = {
 };
 
 export default ProblemDetails;
+

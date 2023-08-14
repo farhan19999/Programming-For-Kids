@@ -35,7 +35,7 @@ const Timer = () => {
 
 const timerContainerStyle = {
   position: "absolute",
-  top: "calc(107px + 1.1em)", // Adjust as needed to position below the heading
+  top: "calc(80px )", // Adjust as needed to position below the heading
   right: "20px",
   padding: "6px",
   border: "1px solid #ccc",
