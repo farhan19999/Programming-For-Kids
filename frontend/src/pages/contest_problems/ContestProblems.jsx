@@ -12,19 +12,27 @@ import SubNavbar from '../../components/sub_navbar/SubNavbar';
 const ContestProblems = () => {
   const { contestid } = useParams();
   const [problems, setProblems] = useState([]);
-  const [contestTitle, setContestTitle] = useState('');
+  const [contest, setContest] = useState('');
+  useEffect(() => {
+    axios.get(`http://localhost:3000/api/contests/${contestid}`)
+      .then(response => {
+        const contest = response.data;
+        setContest(contest);
+
+      })
+      .catch(error => {
+        console.error('Error fetching contest :', error);
+      });
+  }, [contestid]);
+
+
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/problems`)
+    axios.get(`http://localhost:3000/api/contests/${contestid}/problems`)
       .then(response => {
         const contestProblems = response.data.filter(problem => problem.contestid === parseInt(contestid));
         setProblems(contestProblems);
 
-        // Assuming the contest title is available in the first problem's title
-        if (contestProblems.length > 0) {
-        //   setContestTitle(contestProblems[0].title);
-            setContestTitle(`Contest Title: Array Round 1 (Rated for Div. 3)`);
-        }
       })
       .catch(error => {
         console.error('Error fetching contest problems:', error);
@@ -43,7 +51,7 @@ const ContestProblems = () => {
     <div>
       <Navbar />
       <SubNavbar />
-      <h3 style={{ margin: '25px', padding:'25px' }}>{contestTitle}</h3>
+      <h3 style={{ margin: '25px', padding:'2px' }}>Contest Title: {contest.title} (Rated for Div.{contest.div})</h3>
       <table className="table table-hover" style={{ margin: '25px', fontSize: '18px' }}>
         <thead>
           <tr>
