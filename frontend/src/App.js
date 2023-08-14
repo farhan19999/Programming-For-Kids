@@ -16,6 +16,7 @@ import Standings from "./pages/standings/Standings";
 import MiniProject from "./pages/mini_project_contest/MiniProject";
 import AdminMPindex from "./pages/admin/admin_miniproject_index/AdminMPindex";
 import AdminMPdetails from "./pages/admin/admin_miniproject_details/AdminMPdetails";
+import AdminMPadd from "./pages/admin/admin_miniproject_add/AdminMPadd";
 import My_Submissions from "./pages/my_submissions/My_Submissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
   {
     path: "/contest/:contestid", // Route for detailed page with contestid
     element: <ContestProblems />,
+  },
+  {
+    path: "/admin-miniproject-add", // Route for detailed page with contestid
+    element: <AdminMPadd />,
   },
 ]);
 
