@@ -25,6 +25,19 @@ const AdminMPDetails = () => {
 
   const handleSaveButtonClick = () => {
     // Implement your save logic here
+    axios.put(`http://localhost:3000/api/mini-projects/${projectid}`, {
+    starting_code: code, // Pass the updated code to the backend
+    title: problem.title,
+    project_details: problem.project_details,
+    starting_time: problem.starting_time,
+    
+  }).then((response) => {
+    console.log("Code saved:", response.data);
+    setIsEditing(false);
+  }).catch((error) => {
+    console.error("Error saving code:", error);
+  });
+
     console.log("Saving code:", code);
     setIsEditing(false);
   };
