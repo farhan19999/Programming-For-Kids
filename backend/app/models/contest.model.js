@@ -11,18 +11,20 @@ const getAllContests = async () => {
     } catch (error) {
         console.log(error)
     }
-}
+};
 
-const getContestById = async (id) => {
+const getContestById = async (id) =>{
     try {
         const client = await pool.connect()
         const result = await client.query('SELECT * FROM pfk.contest WHERE contestid = $1', [id])
-        client.release()
-        return result.rows[0]
+        client.release();
+        return result.rows[0];
     } catch (error) {
         console.log(error)
     }
-}
+};
+
+
 
 
 const createContest = async (contest) => {
@@ -159,4 +161,4 @@ const getContestStanding = async (id) => {
 }
 
 
-module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestStanding}
+module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestStanding};
