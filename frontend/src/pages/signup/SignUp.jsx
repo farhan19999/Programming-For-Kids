@@ -3,6 +3,7 @@ import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
 import axios from 'axios';
 //Author: MAHBUB
+//TODO #5 : after successfull signup redirect to dashboard
 
 function SignUpPage() {
 
@@ -10,7 +11,7 @@ function SignUpPage() {
     username: '',
     password: '',
     rating: 0,
-    ranking: 1000,
+    ranking: '',
     phone_no: '',
     email_address: ''
   });
@@ -19,16 +20,19 @@ function SignUpPage() {
     e.preventDefault();
     const username=document.getElementById("name").value;
     const password=document.getElementById("password").value;
+    const phone_no=document.getElementById("phone").value;
     const email_address=document.getElementById("email").value;
-
-
+    const rating =0;
+    const ranking=null;
+    console.log(email_address);
     try {
       // Handle validations
       axios
-        .post("https://localhost:3000/api/users", { username,password,email_address })
+        .post("http://localhost:3000/api/users", { username,password,phone_no,email_address, rating, ranking })
         .then(response => {
-          console.log(response)
-        })
+          console.log(response);
+          window.location.href = "/";
+        });
     } catch (error) {
       console.error('Error creating user:', error);
     }
