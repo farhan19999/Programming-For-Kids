@@ -9,7 +9,7 @@ function ContestTitle() {
   const [rc, setRc] = useState(default_rc);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/users/5/registered-contests").then((response) => {
+    axios.get("http://localhost:3000/api/users/6/registered-contests").then((response) => {
       setRc(response.data);
       console.log(response.data);
     })

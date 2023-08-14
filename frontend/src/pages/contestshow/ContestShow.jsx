@@ -6,9 +6,11 @@ import Footer from '../../components/footer/Footer';
 
 function ShowContest() {
   return (
-    <div style={{marginTop:"25px"}}>
-      <Navbar/>
-      <div style={{fontSize:'24px',fontWeight: 'bold'}}>Registered Contests:</div>
+    <div style={{ height: '100vh',marginTop:"25px"}}>
+    <Navbar/>
+      <div style={{ fontSize: '24px', fontWeight: 'bold', padding: '20px' }}>
+        Registered Contests:
+        </div>
       <ContestTitle/>
       
       <Footer />
