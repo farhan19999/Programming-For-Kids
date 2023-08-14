@@ -1,17 +1,17 @@
 // Arif
 
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/theme-monokai";
 import Navbar from "../../../components/navbar/Navbar";
 import Timer from "../../../components/time_remaining/Timer";
-import axios from 'axios';
+import axios from "axios";
 
 const AdminMPDetails = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
 
   const { projectid } = useParams();
 
@@ -24,24 +24,50 @@ const AdminMPDetails = () => {
   };
 
   const handleSaveButtonClick = () => {
-    // Implement your save logic here
+    // Implement save logic here
+    axios
+      .put(`http://localhost:3000/api/mini-projects/${projectid}`, {
+        starting_code: code, // Pass the updated code to the backend
+        title: problem.title,
+        project_details: problem.project_details,
+        starting_time: problem.starting_time,
+      })
+      .then((response) => {
+        console.log("Code saved:", response.data);
+        setIsEditing(false);
+      })
+      .catch((error) => {
+        console.error("Error saving code:", error);
+      });
+
     console.log("Saving code:", code);
     setIsEditing(false);
   };
 
   const [problem, setProblem] = useState({});
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/mini-projects/${projectid}`).then((response) => {
-      setProblem(response.data);
-      setCode(response.data.starting_code);
-      console.log(response.data);
-    });
+    axios
+      .get(`http://localhost:3000/api/mini-projects/${projectid}`)
+      .then((response) => {
+        setProblem(response.data);
+        setCode(response.data.starting_code);
+        console.log(response.data);
+      });
   }, [projectid]);
 
   return (
     <div style={containerStyle}>
       <Navbar />
-      <h2 style={{ marginTop: "35px", position: "relative", marginLeft: "45px", marginTop: "40px" }}>Admin</h2>
+      <h2
+        style={{
+          marginTop: "35px",
+          position: "relative",
+          marginLeft: "45px",
+          marginTop: "40px",
+        }}
+      >
+        Admin
+      </h2>
       <h3 style={{ textAlign: "center" }}>Mini Project: {problem.title}</h3>
       <Timer />
 
@@ -49,7 +75,7 @@ const AdminMPDetails = () => {
         {problem.project_details}
         <br /> <br />
       </div>
-      <p style={{marginLeft:"50px", fontWeight:"bold"}}>Code:</p>
+      <p style={{ marginLeft: "50px", fontWeight: "bold" }}>Code:</p>
       {isEditing ? (
         <AceEditor
           mode="c_cpp"
@@ -88,7 +114,7 @@ const AdminMPDetails = () => {
       )}
     </div>
   );
-}
+};
 
 const containerStyle = {
   marginBottom: "60px",

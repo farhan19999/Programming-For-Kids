@@ -20,7 +20,7 @@ function ContestTitle() {
         {rc['registered-contests'].length > 0 ? (
           rc['registered-contests'].map((item) => (
             <div className='d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded' style={{width:'51%'}}  key={item.id}>
-              <a href='#'style={{fontSize:'20px',width:'80%',color: 'black'}}>Contest Title: {item.title} div-{item.div} </a>
+              <a href='/contest/1'style={{fontSize:'20px',width:'80%',color: 'black'}}>Contest Title: {item.title} div-{item.div} </a>
             </div>
           ))
         ) : (
