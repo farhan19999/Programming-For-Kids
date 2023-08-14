@@ -13,7 +13,7 @@ function ShowContest() {
         </div>
       <ContestTitle/>
       
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
