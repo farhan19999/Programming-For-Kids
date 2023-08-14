@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
 import UserDetails from '../../components/userdetails_dashboard/UserDetails';
+import ShowPerformanceGraph from '../../../../frontend/src/components/performancegraph/Performancegraph';
 //Author: MAHBUB
 
 function ShowDashboard() {
@@ -9,7 +10,7 @@ function ShowDashboard() {
     <div>
       <Navbar/>
       <UserDetails/>
-      
+      <ShowPerformanceGraph/>
       <Footer/>
     </div>
   );

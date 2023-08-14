@@ -5,15 +5,15 @@ import {
 
 import Home from "./pages/home/Home";
 import Dashboard from "./pages/dashboard/Dashboard";
-import Profile from "./pages/studentprofile/StudentProfile";
-import Contest_Registration from "./pages/contest_Registration/Contest_Registration";
+import Profile from "./pages/StudentProfile/StudentProfile";
+import Contest_Registration from "./pages/Contest_Registration/Contest_Registration";
 import Contest from "./pages/contestshow/ContestShow";
-import SignUp from "./pages/signup/SignUp";
+import SignUp from "./pages/SignUp/SignUp";
 import Standings from "./pages/standings/Standings";
 import MiniProject from "./pages/mini_project_contest/MiniProject";
 import AdminMPindex from "./pages/admin_miniproject_index/AdminMPindex";
 import My_Submissions from "./pages/my_submissions/My_Submissions";
-import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
+import IndividualProblem from "./pages/contest_individual_problem_details/IndividualProblem";
 
 
 const router = createBrowserRouter([
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/contest-problem-details",
-    element: <Contest_Problem_Details />,
+    element: <IndividualProblem />,
   },
   {
     path: "/my-submissions",

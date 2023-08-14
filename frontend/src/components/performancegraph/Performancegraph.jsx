@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import Chart from '../../../node_modules/chart.js';
+import Chart from 'chart.js/auto';
 //Author: MAHBUB
 
 
 function ShowPerformanceGraph() {
   useEffect(() => {
-    const ctx = document.getElementById('performanceChart').getContext('2d');
-    new Chart(ctx, {
+    const ctx = "performanceChart";
+    var performanceChart =  new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -32,6 +32,9 @@ function ShowPerformanceGraph() {
         }
       }
     });
+    return () => {
+      performanceChart.destroy();
+    };
   }, []);
 
   return (
