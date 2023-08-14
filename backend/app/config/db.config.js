@@ -7,7 +7,7 @@ const pool_config = {
     user: 'tdkvooil',
     password : 'vky4cxJVqdHCnWnjKv0u_E05xvIo7UXG',
     max: 10,
-    idleTimeoutMillis: 30000,
+    idleTimeoutMillis: 10000,
     connectionTimeoutMillis: 2000,
     maxwaitingclients: 10,
 }

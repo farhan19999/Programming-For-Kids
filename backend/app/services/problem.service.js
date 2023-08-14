@@ -98,3 +98,5 @@ exports.updateProblemSolution = async (id, solutionid, solution) => {
         throw error;
     }
 }
+
+//TODO: add submission checking and status update

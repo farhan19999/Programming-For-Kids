@@ -12,7 +12,7 @@ function ShowContestRegistration() {
       <ContestTitle/>
       <TermsOfAgreements/>
       
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
