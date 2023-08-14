@@ -7,6 +7,8 @@ import listPlugin from '@fullcalendar/list';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
+//TODO: Need to add events in the calandar
+
 
 const localizer = momentLocalizer(moment);
 
@@ -32,7 +34,7 @@ function MyCalendar() {
         events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 400, width: 400 }}
+        style={{ height: 450, width: 650 }}
       />
     </div>
   );

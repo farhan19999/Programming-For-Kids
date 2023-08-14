@@ -3,9 +3,6 @@ import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
 import UserDetails from '../../components/userdetails_dashboard/UserDetails';
 import Calendar from '../../components/calender/Calender_';
-// import * as mdb from 'mdb-ui-kit'; // lib
-// import { Input } from 'mdb-ui-kit'; // module
-// import '~mdb-ui-kit/css/mdb.min.css';
 //Author: MAHBUB
 
 function ShowDashboard() {
