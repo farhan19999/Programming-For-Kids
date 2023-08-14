@@ -29,7 +29,7 @@ const createUser = async (user) => {
     try {
         const client = await pool.connect()
         const maxid = await client.query('SELECT MAX(userid) FROM pfk.users')
-        const result = await client.query('INSERT INTO pfk.users (userid, username, email_address, password, phone_no) VALUES ($1, $2, $3, $4, $5) RETURNING *', [maxid.rows[0].max + 1, user.username, user.email, user.password, user.phone_no])
+        const result = await client.query('INSERT INTO pfk.users (userid, username, email_address, password, phone_no) VALUES ($1, $2, $3, $4, $5) RETURNING *', [maxid.rows[0].max + 1, user.username, user.email_address, user.password, user.phone_no])
         client.release()
         return result.rows[0]
     } catch (error) {
