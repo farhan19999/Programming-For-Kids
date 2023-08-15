@@ -18,7 +18,7 @@ import AdminMPindex from "./pages/admin/admin_miniproject_index/AdminMPindex";
 import AdminMPdetails from "./pages/admin/admin_miniproject_details/AdminMPdetails";
 import AdminMPadd from "./pages/admin/admin_miniproject_add/AdminMPadd";
 import AdminContestAdd from "./pages/admin/admin_contest_add/AdminContestAdd";
-import AdminContestIndex from "./pages/admin/admin_contest_index/AdminContestIndex";
+import AdminContestProblemIndex from "./pages/admin/admin_contest_problems_index/AdminContestProblemsIndex";
 import My_Submissions from "./pages/my_submissions/My_Submissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
@@ -79,8 +79,8 @@ const router = createBrowserRouter([
     element: <AdminContestAdd />,
   },
   {
-    path: "/admin-contest-index",
-    element: <AdminContestIndex />,
+    path: "/admin-contest-problems-index",
+    element: <AdminContestProblemIndex />,
   },
   {
     path: "/miniproject/:projectid", // Route for detailed page with projectid
