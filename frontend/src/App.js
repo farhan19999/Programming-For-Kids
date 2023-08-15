@@ -75,6 +75,14 @@ const router = createBrowserRouter([
     element: <Standings />,
   },
   {
+    path: "/admin-contest-add",
+    element: <AdminContestAdd />,
+  },
+  {
+    path: "/admin-contest-index",
+    element: <AdminContestIndex />,
+  },
+  {
     path: "/miniproject/:projectid", // Route for detailed page with projectid
     element: <MiniProject />,
   },
@@ -82,10 +90,7 @@ const router = createBrowserRouter([
     path: "/admin-miniproject-index",
     element: <AdminMPindex />,
   },
-  {
-    path: "/admin-contest-index",
-    element: <AdminContestIndex />,
-  },
+
   {
     path: "/admin-miniproject-details/:projectid", // Route for detailed page with projectid
     element: <AdminMPdetails />,
@@ -102,10 +107,7 @@ const router = createBrowserRouter([
     path: "/admin-miniproject-add", // Route for detailed page with contestid
     element: <AdminMPadd />,
   },
-  {
-    path: "/admin-contest-add",
-    element: <AdminContestAdd />,
-  },
+
 ]);
 
 function App() {
