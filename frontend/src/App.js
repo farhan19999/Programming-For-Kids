@@ -23,6 +23,7 @@ import My_Submissions from "./pages/my_submissions/My_Submissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
 import ContestProblems from "./pages/contest_problems/ContestProblems";
+import Discussion from "./pages/discussion/Discussion";
 
 
 const router = createBrowserRouter([
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
   {
     path: "/admin-miniproject-add", // Route for detailed page with contestid
     element: <AdminMPadd />,
+  },
+  {
+    path: "/practice/:problemid", // Route for detailed page with contestid
+    element: <Discussion />,
   },
 
 ]);

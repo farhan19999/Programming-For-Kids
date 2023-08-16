@@ -30,7 +30,7 @@ const CodeEditor = () => {
     
 
     try {
-      const accessToken = "sl.BkMBX6FaxcXuZIt1oUu_wufKB635Ph8WRyWdT9c3i49Bzl42NDU0kxmu5zY4fg_3gdh7O8dP61JOXFiWz46ltGLer3ZW8R0LvvnPM5rSEf0GUUZAwFwpYNrzjfVlL2K2N7OqoHrguuzW"; // Replace with your Dropbox access token
+      const accessToken = "sl.BkFwy6RaOtMuyys3_0YBo9GqJwc5vfLdl1U3BOAdu5aLoAn6rc2V1vvd35G0E7lRr9dkO69nIdIH_2ILf5VowvFA5QdqIG6_Q95ea0pUSKvlAm2oHn3E9bYqF6agHCWRokCntPgYSY8NHzr6mX7AxiI"; 
       const content = new Blob([codeContent], { type: "text/plain" });
 
       // Upload the code content to Dropbox
@@ -42,7 +42,7 @@ const CodeEditor = () => {
             Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/octet-stream",
             "Dropbox-API-Arg": JSON.stringify({
-              path: "/a.cpp", // Specify the path and filename
+              path: "/a.cpp", // Specify the path and filename : /contest/contestid/userid/A_timestamp.cpp
               mode: "overwrite",
             }),
           },
