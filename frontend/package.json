@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "chart.js": "^4.3.3",
+    "dropbox": "^10.34.0",
     "fullcalendar": "^6.1.8",
     "mdb-ui-kit": "^6.4.1",
     "moment": "^2.29.4",
