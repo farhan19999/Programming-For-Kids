@@ -1,24 +1,24 @@
 var Dropbox = require('dropbox').Dropbox;
-fs = require('fs')
+fs = require('fs').promises;
 
-var dbx = new Dropbox({ accessToken: 'sl.BkFwy6RaOtMuyys3_0YBo9GqJwc5vfLdl1U3BOAdu5aLoAn6rc2V1vvd35G0E7lRr9dkO69nIdIH_2ILf5VowvFA5QdqIG6_Q95ea0pUSKvlAm2oHn3E9bYqF6agHCWRokCntPgYSY8NHzr6mX7AxiI' });
+var dbx = new Dropbox({ accessToken: 'sl.BkTZBy_-QaHRGIOsoehsb7jz9foV9w5oO7Y2tIwyeoWcDAO3MgKCGSFRDhFjoAMtqYjYEd45702cG-I8YmZCRtR9BDp31UeZSC8x6UAK0gYB1EBimQiEj_oNcVcMuafVqsigabofgMlJ5XNTQWKIO4A' });
 
 
-dbx.filesListFolder({path: ''})
-  .then(function(response) {
-    console.log(response.result.entries);
-  })
-  .catch(function(error) {
-    console.log(error.error);
-  });
+// dbx.filesListFolder({path: ''})
+//   .then(function(response) {
+//     console.log(response.result.entries);
+//   })
+//   .catch(function(error) {
+//     console.log(error.error);
+//   });
 
-  dbx.usersGetCurrentAccount()
-  .then(function(response) {
-    console.log(response.result);
-  })
-  .catch(function(error) {
-    console.error(error);
-  });
+//   dbx.usersGetCurrentAccount()
+//   .then(function(response) {
+//     console.log(response.result);
+//   })
+//   .catch(function(error) {
+//     console.error(error);
+//   });
 
 
 // fs.readFile('./backend/app/files/test.txt', (err, contents) => {
@@ -35,25 +35,48 @@ dbx.filesListFolder({path: ''})
 //       });
 //   });
 
-  dbx.filesDownload({ path: '/test.txt' })
-    .then((data) => {
-      fs.writeFile(data.result.name, data.result.fileBinary, 'binary', (err) => {
-        if (err) { throw err; }
-        console.log(`File: ${data.result.name} saved.`);
-      });
-        console.log(data.result);
-    })
-    .catch((err) => {
-        console.log(err.error.error);
-        throw err;
-    });
+// dbx.filesDownload({ path: '/submission' })
+//   .then((data) => {
+//     fs.writeFile(data.result.name, data.result.fileBinary, 'binary', (err) => {
+//       if (err) { throw err; }
+//       console.log(`File: ${data.result.name} saved.`);
+//     });
+//     console.log(data.result);
+//   })
+//   .catch((err) => {
+//     console.log(err.error.error);
+//     throw err;
+//   });
 
-exports.uploadFile = async (file) => {
-    try {
-        const file = await dbx.filesUpload({ path: '/submission/test.txt', contents })
-        return file;
-    } catch (error) {
-        throw Error(error)
+exports.uploadFile = async (local_file_path, remote_file_path) => {
+
+  await fs.readFile(local_file_path, (err, contents) => {
+    if (err) {
+      console.log('Error: ', err);
+      throw err;
     }
+    dbx.filesUpload({ path: remote_file_path, contents })
+      .then((response) => {
+        console.log(response.result);
+
+      })
+      .catch((uploadErr) => {
+        console.log(uploadErr.error);
+        throw uploadErr;
+      });
+  })
+  return 'success'
 }
+
+exports.downloadFile = async (remote_file_path, local_file_path) => {
+  try {
+    const data = await dbx.filesDownload({ path: remote_file_path });
+    await fs.writeFile(local_file_path, data.result.fileBinary, 'binary');
+    return 'success';
+  }catch(err){
+    console.log(err.error.error);
+    throw err;
+  }
+};
+
 
