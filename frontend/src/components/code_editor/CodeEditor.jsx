@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import AceEditor from "react-ace";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 // Import ace themes and modes here if needed
@@ -14,11 +15,11 @@ const CodeEditor = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java"); // Default language
   const [submissionStatus, setSubmissionStatus] = useState("Pending"); // Submission status
   const [codeContent, setCodeContent] = useState(""); // Store the code content
-
+  const { problemid } = useParams();
   const handleLanguageChange = (event) => {
     setSelectedLanguage(event.target.value);
   };
-    const handleCodeChange = (newCode) => {
+  const handleCodeChange = (newCode) => {
     setCodeContent(newCode);
   };
 
@@ -27,10 +28,37 @@ const CodeEditor = () => {
     const isCorrect = false;
     // Replace with actual submission logic
     setSubmissionStatus(isCorrect ? "Accepted" : "Wrong Answer");
-    
+    const contestid = 1;
+
+    const userid = 1;
+
+    // post on '`http://localhost:3000/api/contests/${contestid}/submissions/${problemid}/${userid}' when i press the submit button to post for submissionid, userid, problemid, contestid, submitted_time, language, status, submitted_code
+
+    axios
+      .post(
+        `http://localhost:3000/api/contests/${contestid}/submissions/${problemid}/${userid}`,
+        {
+          userid: userid,
+          problemid: problemid,
+          contestid: contestid,
+          submitted_code: null,
+          submitted_time: "2023-08-05 11:00:00+00", // new Date().toISOString().slice(0, 19).replace('T', ' ')
+          language: {selectedLanguage : "c_cpp" ? "C++" : selectedLanguage},
+          score: null,
+          status: submissionStatus,
+          submission_filename: "a.cpp",
+        }
+      )
+      .then((response) => {
+        console.log("Code submitted:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error submitting code:", error);
+      });
 
     try {
-      const accessToken = "sl.BkFwy6RaOtMuyys3_0YBo9GqJwc5vfLdl1U3BOAdu5aLoAn6rc2V1vvd35G0E7lRr9dkO69nIdIH_2ILf5VowvFA5QdqIG6_Q95ea0pUSKvlAm2oHn3E9bYqF6agHCWRokCntPgYSY8NHzr6mX7AxiI"; 
+      const accessToken =
+        "sl.BkW5zdaED8f20HjtPlIdfSrr68VBoWZAqSkWjZx71Z8LGTj3hFps30pLOe0WusVsbYAwBfMDv_bFFFT7Hz070Wt3MIxSUzZD2sQZJkP0sS5NXyS046Bnkvtyz1SZhT83DjMqIoYNAV4Cx5A1DJ508ZI";
       const content = new Blob([codeContent], { type: "text/plain" });
 
       // Upload the code content to Dropbox
@@ -53,7 +81,6 @@ const CodeEditor = () => {
       console.log("Code content:", codeContent);
     } catch (error) {
       console.error("Error uploading to Dropbox:", error);
-      
     }
   };
 
