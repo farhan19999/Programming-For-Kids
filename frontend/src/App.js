@@ -24,6 +24,7 @@ import Contest_Problem_Details from "./pages/contest_individual_problem_details/
 import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
 import ContestProblems from "./pages/contest_problems/ContestProblems";
 import Discussion from "./pages/discussion/Discussion";
+import AdminContestProblemDetails from "./pages/admin/admin_contest_problem_details/AdminContestProblemDetails";
 
 
 const router = createBrowserRouter([
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
   {
     path: "/practice/:problemid", // Route for detailed page with contestid
     element: <Discussion />,
+  },
+  {
+    path: "/admin-contest-problem-details/:problemid", // Route for detailed page with contestid
+    element: <AdminContestProblemDetails />,
   },
 
 ]);
