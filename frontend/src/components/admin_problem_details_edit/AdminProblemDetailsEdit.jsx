@@ -1,12 +1,10 @@
-// Arif
+// ARIF
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-
-const ProblemDetails = ({ problem }) => {
-
+const AdminProblemDetailsEdit = ({ problem, onEdit }) => {
   return (
     <div style={problemDetailsContainerStyle}>
       <div style={titleStyle}>
@@ -15,11 +13,8 @@ const ProblemDetails = ({ problem }) => {
         </h5>
       </div>
       <p>
-        <div style={sampleBoxStyle1}>
-          Problem Statement:
-          <pre>{problem.problem_statement}</pre>
-        </div>
-
+        {problem.problem_statement}
+        <button onClick={() => onEdit("problem_statement")}>Edit</button>
       </p>
 
       <div style={sampleContainerStyle}>
@@ -28,12 +23,14 @@ const ProblemDetails = ({ problem }) => {
           <pre>
             {problem.sample_input}
           </pre>
+          <button onClick={() => onEdit("sample_input")}>Edit</button>
         </div>
         <div style={sampleBoxStyle}>
           Sample Output:
           <pre>
             {problem.sample_output}
           </pre>
+          <button onClick={() => onEdit("sample_output")}>Edit</button>
         </div>
       </div>
     </div>
@@ -65,12 +62,5 @@ const sampleBoxStyle = {
   backgroundColor: "#f8f8f8",
   width: "48%", // Adjust as needed
 };
-const sampleBoxStyle1 = {
-  padding: "10px",
-  border: "1px solid #aaa",
-  borderRadius: "5px",
-  backgroundColor: "#f8f8f8",
-  width: "100%", // Adjust as needed
-};
 
-export default ProblemDetails;
+export default AdminProblemDetailsEdit;
