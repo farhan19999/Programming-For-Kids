@@ -29,8 +29,8 @@ function Home() {
 
                         <hr />
 
-                        <form className="px-4" action="">
-                            <p className="text-center"><strong>Your Answer:</strong></p>
+                        <form className="px-4" action="" style={{marginLeft:"50%"}}>
+                            <p className="text-box"><strong>Your Answer:</strong></p>
 
                             <div className="form-check mb-2">
                                 <input className="form-check-input" type="radio" name="exampleForm" id="radio2Example1" />
