@@ -53,6 +53,26 @@ const controller = require('../controllers/contests.controller')
  *                     $ref: '#/components/schemas/Contest'
  *       500:
  *          description: Some server error
+ *    
+ *   post:
+ *     summary: Create a new contest
+ *     tags: [Contests]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#components/schemas/Contest'
+ *     responses:
+ *       200:
+ *         description: The contest was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Contest'
+ *       500:
+ *         description: Some server error
+ * 
  * 
  * 
  * 
@@ -77,7 +97,6 @@ router.get('/:id/submissions/:userid/', controller.getContestSubmissionByUserId)
 
 
 router.post('/:id/submissions/:problemid/:userid', controller.addContestProblemSubmission)
-
 
 router.get('/:id/standings', controller.getContestStanding)
 

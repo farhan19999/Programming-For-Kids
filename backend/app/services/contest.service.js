@@ -6,7 +6,7 @@ exports.getContests = async () => {
         return contests;
     } catch (error) {
         throw error;
-    }    
+    }
 }
 
 exports.getContestById = async (id) => {
@@ -26,7 +26,7 @@ exports.createContest = async (contest) => {
         return result;
     } catch (error) {
         throw error;
-    }    
+    }
 }
 
 exports.updateContest = async (id, contest) => {
@@ -35,7 +35,7 @@ exports.updateContest = async (id, contest) => {
         return result;
     } catch (error) {
         throw error;
-    }    
+    }
 }
 
 exports.getContestProblems = async (id) => {
@@ -102,9 +102,9 @@ exports.getContestSubmissionByUserId = async (id, userid) => {
     }
 }
 
-exports.addContestProblemSubmission = async (id, problemid, submission) => {
+exports.addContestProblemSubmission = async (id, problemid, userid, submission) => {
     try {
-        const result = await contestModel.addContestProblemSubmission(id, problemid, submission);
+        const result = await contestModel.addContestProblemSubmission(id, problemid, userid, submission);
         return result;
     } catch (error) {
         throw error;
@@ -113,9 +113,42 @@ exports.addContestProblemSubmission = async (id, problemid, submission) => {
 
 exports.getContestStanding = async (id) => {
     try {
-        const standing = await contestModel.getContestStanding(id);
-        const submission_list = standing.standings;
+        const scores = await contestModel.getContestScores(id);
         //TODO: #2 create standings
+        const standing = []
+        const user_list = new Set();
+        scores.forEach(s => {
+            user_list.add(s.userid)
+        });
+
+        user_list.forEach(uid => {
+            const user_scores = scores.filter((s) => s.userid === uid)
+            const temp = { 'userid': uid }
+            user_scores.forEach(s => {
+                temp[s.category] = s.score
+            })
+            standing.push(temp)
+        })
+
+        standing.sort((a, b) => {
+            let a_score = 0;
+            for (const prop in a) {
+                if (prop !== 'userid') {
+                    a_score += a[prop]
+                }
+            }
+            let b_score = 0;
+            for (const prop in a) {
+                if (prop !== 'userid') {
+                    b_score += b[prop]
+                }
+            }
+
+            if (a_score === b_score) return 0
+            else if (a_score > b_score) return -1
+            else return 1
+        })
+
         return standing;
     } catch (error) {
         throw error;

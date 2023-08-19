@@ -133,12 +133,12 @@ const getContestSubmissionByUserId = async (id, userid) => {
     }
 }
 
-const addContestProblemSubmission = async (id, problemid, submission) => {
+const addContestProblemSubmission = async (id, problemid, userid, submission) => {
     try {
         const client = await pool.connect()
         const maxSubmissionId = await client.query('SELECT MAX(submissionid) FROM pfk.contest_submission')
-        const result = await client.query('INSERT INTO pfk.contest_submission (submissionid, contestid, problemid, userid, submitted_time, language, code)VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-                                    [maxSubmissionId.rows[0].max + 1, id, problemid, submission.userid, submission.submission_time, submission.language, submission.code])
+        const result = await client.query('INSERT INTO pfk.contest_submission (submissionid, contestid, problemid, userid, submitted_time, language, submitted_code, submission_filename )VALUES ( $1, $2, $3, $4, $5, $6, $7, $8) RETURNING *', 
+                                    [maxSubmissionId.rows[0].max + 1, id, problemid, userid, submission.submitted_time, submission.language, submission.submitted_code, submission.submission_filename])
         client.release()
         return result.rows[0]
     } catch (error) {
@@ -147,13 +147,16 @@ const addContestProblemSubmission = async (id, problemid, submission) => {
 }
 
 
-const getContestStanding = async (id) => {
+const getContestScores = async (id) => {
     try {
         const client = await pool.connect()
-        const result = await client.query("SELECT u.username, cs.problemid ,cs.score from pfk.users as u inner join pfk.contest_submission as cs on u.userid = cs.userid where cs.contestid = $1", [id])
+        const result = await client.query("select u.userid, u.username, prob.category ,max(cs.score) as score \
+                                           from pfk.users as u inner join pfk.contest_submission as cs on u.userid = cs.userid inner join pfk.problem as prob on cs.problemid = prob.problemid \
+                                           where cs.contestid = $1 \
+                                           Group by u.userid, u.username, prob.category", [id])
         client.release()
         console.log(result.rows)
-        return {'standings':result.rows}
+        return result.rows
     } catch (error) {
         console.log(error)
     }
@@ -161,4 +164,4 @@ const getContestStanding = async (id) => {
 }
 
 
-module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestStanding};
+module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores};

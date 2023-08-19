@@ -24,7 +24,13 @@ import My_Submissions from "./pages/my_submissions/My_Submissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
 import ContestProblems from "./pages/contest_problems/ContestProblems";
+<<<<<<< HEAD
 import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzzle";
+=======
+import Discussion from "./pages/discussion/Discussion";
+import AdminContestProblemDetails from "./pages/admin/admin_contest_problem_details/AdminContestProblemDetails";
+
+>>>>>>> 16a49a2ff23b0600c35dc92d40a0793e2324c616
 
 const router = createBrowserRouter([
   {
@@ -114,8 +120,12 @@ const router = createBrowserRouter([
     element: <AdminMPadd />,
   },
   {
-    path: "/daily-puzzle", 
-    element: <DailyPuzzle />,
+    path: "/practice/:problemid", // Route for detailed page with contestid
+    element: <Discussion />,
+  },
+  {
+    path: "/admin-contest-problem-details/:problemid", // Route for detailed page with contestid
+    element: <AdminContestProblemDetails />,
   },
 
 ]);

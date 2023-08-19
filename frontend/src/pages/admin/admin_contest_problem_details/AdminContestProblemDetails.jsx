@@ -102,4 +102,8 @@ export default function AdminContestProblemDetails() {
       <Footer />
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 16a49a2ff23b0600c35dc92d40a0793e2324c616
