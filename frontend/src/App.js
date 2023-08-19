@@ -24,7 +24,7 @@ import My_Submissions from "./pages/my_submissions/My_Submissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
 import ContestProblems from "./pages/contest_problems/ContestProblems";
-
+import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzzle";
 
 const router = createBrowserRouter([
   {
@@ -110,8 +110,12 @@ const router = createBrowserRouter([
     element: <ContestProblems />,
   },
   {
-    path: "/admin-miniproject-add", // Route for detailed page with contestid
+    path: "/admin-miniproject-add", 
     element: <AdminMPadd />,
+  },
+  {
+    path: "/daily-puzzle", 
+    element: <DailyPuzzle />,
   },
 
 ]);

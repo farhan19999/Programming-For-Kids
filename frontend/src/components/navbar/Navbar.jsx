@@ -28,7 +28,7 @@ function Navbar() {
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link active" href="/#">Daily-Puzzle</a>
+                            <a className="nav-link active" href="/daily-puzzle">Daily-Puzzle</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link active" href="/#">Code-Game</a>
