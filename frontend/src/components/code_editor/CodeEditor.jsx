@@ -32,20 +32,14 @@ const CodeEditor = () => {
 
     const userid = 1;
 
-    // post on '`http://localhost:3000/api/contests/${contestid}/submissions/${problemid}/${userid}' when i press the submit button to post for submissionid, userid, problemid, contestid, submitted_time, language, status, submitted_code
-
     axios
       .post(
         `http://localhost:3000/api/contests/${contestid}/submissions/${problemid}/${userid}`,
         {
-          userid: userid,
-          problemid: problemid,
-          contestid: contestid,
           submitted_code: null,
-          submitted_time: "2023-08-05 11:00:00+00", // new Date().toISOString().slice(0, 19).replace('T', ' ')
-          language: {selectedLanguage : "c_cpp" ? "C++" : selectedLanguage},
+          submitted_time:  new Date().toISOString().slice(0, 19).replace('T', ' '),
+          language: selectedLanguage, 
           score: null,
-          status: submissionStatus,
           submission_filename: "a.cpp",
         }
       )
@@ -95,9 +89,9 @@ const CodeEditor = () => {
             value={selectedLanguage}
             onChange={handleLanguageChange}
           >
-            <option value="c_cpp">C++</option> {/* Added C++ option */}
-            <option value="java">Java</option>
-            <option value="python">Python</option>
+            <option value={"C++"}>C++</option> {/* Added C++ option */}
+            <option value={"java"}>Java</option>
+            <option value={"python"}>Python</option>
             {/* Add more language options here */}
           </select>
         </div>
