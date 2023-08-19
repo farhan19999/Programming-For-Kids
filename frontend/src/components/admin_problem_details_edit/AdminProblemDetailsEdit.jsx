@@ -12,10 +12,13 @@ const AdminProblemDetailsEdit = ({ problem, onEdit }) => {
           {problem.title}
         </h5>
       </div>
+      <div style={sampleBoxStyle1}>
+        
       <p>
         {problem.problem_statement}
         <button onClick={() => onEdit("problem_statement")}>Edit</button>
       </p>
+      </div>
 
       <div style={sampleContainerStyle}>
         <div style={sampleBoxStyle}>
@@ -62,5 +65,12 @@ const sampleBoxStyle = {
   backgroundColor: "#f8f8f8",
   width: "48%", // Adjust as needed
 };
-
+const sampleBoxStyle1=
+{
+  padding: "10px",
+  border: "1px solid #aaa",
+  borderRadius: "5px",
+  backgroundColor: "#f8f8f8",
+  width: "100%", // Adjust as needed
+};
 export default AdminProblemDetailsEdit;
