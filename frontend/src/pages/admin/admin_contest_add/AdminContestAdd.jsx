@@ -44,6 +44,7 @@ function AdminContestAdd() {
                     </tr>
                     <tr>
 
+
                         <button type="button" className="btn btn-dark" style={{ position: "absolute", width: "190px", height: "42px", marginTop: "10px", marginLeft: "38%" }}>
                             Add New Contest
                         </button>

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'; import Navbar from '../../../compo
 import Footer from '../../../components/footer/Footer';
 import Timer from '../../../components/time_remaining/Timer';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import DateTimePicker from '../../../components/date_time_picker/DateTimerPicker';
 
 
 function AdminContestProblemsIndex() {
@@ -43,7 +44,7 @@ function AdminContestProblemsIndex() {
         navigate(`/admin-contest-problem-details/${problemid}`);
     };
     const handleAddProblemClick = () => {
-        
+
     }
     return (
         <div>
@@ -88,9 +89,22 @@ function AdminContestProblemsIndex() {
             </table>
 
 
-            <button type="button" className="btn btn-dark" onClick={() => handleAddProblemClick()} style={{ position: "absolute", width: "190px", height: "42px", marginTop: "10px", marginLeft: "45%" }}>
+            <button type="button" className="btn btn-dark" onClick={() => handleAddProblemClick()} style={{ position: "absolute", width: "190px", height: "42px", marginTop: "10px", marginLeft: "73%" }}>
                 Add New Problem
             </button>
+            <button type="button" className="btn btn-dark" onClick={() => handleAddProblemClick()} style={{ position: "absolute", width: "120px", height: "42px", marginTop: "10px", marginLeft: "88%" }}>
+                Save
+            </button>
+            <div>
+                <DateTimePicker />
+            </div>
+            {/* <div>
+                <input-duration id="bob"></input-duration><br />
+
+                <script type="module">
+                    import id from 'https://cdn.jsdelivr.net/npm/input-duration/+esm'
+                </script>
+            </div> */}
 
             <Footer />
         </div>
