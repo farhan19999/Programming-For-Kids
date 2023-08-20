@@ -426,4 +426,13 @@ router.post('/:id/solutions', problemsController.createproblemSolution)
 router.put('/:id/solutions/:solutionid', problemsController.updateproblemSolution)
 
 
+router.get('/:id/testcases', problemsController.getAllProblemTestCases);
+router.post('/:id/testcases', problemsController.addProblemTestCase);
+
+
+router.get('/:id/testcases/:testcaseid', problemsController.getProblemTestCaseById);
+router.put('/:id/testcases/:testcaseid', problemsController.updateProblemTestCase);
+
+
+
 module.exports = router;

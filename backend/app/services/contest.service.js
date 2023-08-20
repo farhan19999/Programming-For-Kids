@@ -1,4 +1,5 @@
 const contestModel = require('../models/contest.model');
+const testcaseModel = require('../models/testcase.model');
 
 exports.getContests = async () => {
     try {
@@ -56,6 +57,23 @@ exports.addContestProblem = async (id, problem) => {
     }
 }
 
+exports.getContestProblemById = async (id, problemid) => {
+    try{
+        const problem = await contestModel.getContestProblemById(id, problemid);
+        return problem;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.getContestProblemByCategory = async (id, category) => {
+    try {
+        const problem = await contestModel.getContestProblemByCategory(id, category);
+        return problem;
+    } catch (error) {
+        throw error;
+    }
+}
 
 exports.updateContestProblem = async (id, problemid, problem) => {
     try {
@@ -156,3 +174,47 @@ exports.getContestStanding = async (id) => {
 }
 
 
+exports.getContestProblemTestCases = async (problemid) => {
+    try {
+        const testcases = await testcaseModel.getAllProblemTestCases(problemid);
+        return testcases;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.addContestProblemTestCase = async (problemid, testcase) => {
+    try {
+        const result = await testcaseModel.addProblemTestCase(problemid, testcase);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.getContestProblemTestCaseById = async (testcaseid) => {
+    try {
+        const testcase = await testcaseModel.getProblemTestCaseById(testcaseid);
+        return testcase;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.updateContestProblemTestCase = async (testcaseid, testcase) => {
+    try {
+        const result = await testcaseModel.updateProblemTestCase(testcaseid, testcase);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.deleteContestProblemTestCase = async (testcaseid) => {
+    try {
+        const result = await testcaseModel.deleteProblemTestCase(testcaseid);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
