@@ -1,10 +1,37 @@
 //Author:Mahbub
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../../components/navbar/Navbar'
 import Footer from '../../../components/footer/Footer';
 import Timer from '../../../components/time_remaining/Timer';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+
+import axios from 'axios';
 
 function AdminContestAdd() {
+
+    const [contest, setContest] = useState([]);
+    useEffect(() => {
+        axios.get(`http://localhost:3000/api/contests/`)
+            .then(response => {
+                const contestData = response.data;
+                if (Array.isArray(contestData)) {
+                    setContest(contestData);
+                } else {
+                    console.error('API returned unexpected data format:', contestData);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching contests:', error);
+            });
+    }, []);
+
+    const navigate = useNavigate(); // Initialize useNavigate
+    // const { contestid } = useParams();
+
+    const handleModifyClick = (contestid) => {
+        navigate(`/admin-contest-problems-index/${contestid}`);
+    }
+
     return (
         <div>
             <Navbar />
@@ -21,7 +48,7 @@ function AdminContestAdd() {
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Title</th>
+                        <th scope="col">Contest Title</th>
                         <th scope='col'>Remaining Time</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -29,18 +56,16 @@ function AdminContestAdd() {
                 <tbody>
 
                     <tr >
-                        <th scope="row">1</th>
-                        <td>Array Round-1</td>
-                        <td>time</td>
-                        <td>
-                            <button
-                                type="button"
-                                className="btn btn-dark"
-                            // onClick={() => handleModifyClick(item.projectid)}
-                            >
-                                + Modify
-                            </button>
-                        </td>
+                        {contest.map(contest => (
+                            <tr key={contest.contestid}>
+                                <td>{contest.contestid}</td>
+                                <td>{contest.title}</td>
+                                <td></td>
+                                <td><button type="button" className="btn btn-dark" onClick={() => handleModifyClick(contest.contestid)}>
+                                    Modify
+                                </button></td>
+                            </tr>
+                        ))}
                     </tr>
                     <tr>
 
