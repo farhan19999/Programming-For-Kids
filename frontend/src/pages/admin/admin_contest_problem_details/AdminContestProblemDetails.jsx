@@ -102,7 +102,7 @@ export default function AdminContestProblemDetails() {
 
   const navigate = useNavigate();
   const handleCancel = () => {
-    navigate("/admin-contest-problems-index");
+    navigate(`/admin/contest/${contestid}`);
   };
 
   const handleSave = () => { 
