@@ -12,7 +12,6 @@ import TimeRemaining from "../../../components/time_remaining/Timer";
 import Footer from "../../../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
 
-
 export default function AdminContestProblemDetails() {
   const defaultState = {
     problemid: 1,
@@ -32,7 +31,9 @@ export default function AdminContestProblemDetails() {
 
   const [problem, setProblem] = useState(defaultState);
 
-  const [problemStatement, setProblemStatement] = useState(problem.problem_statement);
+  const [problemStatement, setProblemStatement] = useState(
+    problem.problem_statement
+  );
   const [sampleInput, setSampleInput] = useState(problem.sample_input);
   const [sampleOutput, setSampleOutput] = useState(problem.sample_output);
 
@@ -47,37 +48,35 @@ export default function AdminContestProblemDetails() {
     setSampleOutput(event.target.value);
   };
 
-  const { contestid, problemid } = useParams();
-  // const [contestid, setContestid] = useState(0);
+  const { contestid, problemid } = useParams(); // http://localhost:3001/admin/contest/1/problem/3
 
   useEffect(() => {
     axios
       .get(`http://localhost:3000/api/problems/${problemid}`)
       .then((response) => {
         setProblem(response.data);
-        // setContestid(response.data.contestid);
         setProblemStatement(response.data.problem_statement);
         setSampleInput(response.data.sample_input);
         setSampleOutput(response.data.sample_output);
       });
   }, [problemid]);
 
-  const [contest, setContest] = useState('');
+  const [contest, setContest] = useState("");
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/contests/${contestid}`)   // For getting contest title
-      .then(response => {
+    axios
+      .get(`http://localhost:3000/api/contests/${contestid}`) // For getting contest title
+      .then((response) => {
         const contest = response.data;
         setContest(contest);
-
       })
-      .catch(error => {
-        console.error('Error fetching contest :', error);
+      .catch((error) => {
+        console.error("Error fetching contest :", error);
       });
   }, [contestid]);
 
   const navigate = useNavigate();
   const handleCancel = () => {
-    navigate("/admin-contest-problems-index"); 
+    navigate("/admin-contest-problems-index");
   };
 
   const handleSave = () => {
@@ -102,8 +101,6 @@ export default function AdminContestProblemDetails() {
         console.error("Error updating problem:", error);
       });
   };
-
-  
 
   return (
     <div style={{ position: "relative" }}>
@@ -142,7 +139,7 @@ export default function AdminContestProblemDetails() {
             style={{ backgroundColor: "#ccc" }}
             className="form-control"
             id="problemStatement"
-            rows="3"
+            rows="6"
             value={problemStatement}
             onChange={handleProblemStatementChange}
           ></textarea>
@@ -186,23 +183,50 @@ export default function AdminContestProblemDetails() {
         </div>
       </div>
 
-      {/* <label for="formFileLg" class="form-label">
-        Test Cases (Input) File:{" "}
-      </label>
-      <input
-        className="form-control form-control-lg"
-        id="formFileLg"
-        type="file"
-      />
-
-      <label for="formFileLg" class="form-label">
-        Test Cases (Output) File:{" "}
-      </label>
-      <input
-        className="form-control form-control-lg"
-        id="formFileLg"
-        type="file"
-      /> */}
+      <div
+        style={{
+          display: "flex",
+          fontSize: "17px",
+          justifyContent: "space-between",
+          marginTop: "20px",
+        }}
+      >
+        <div
+          position="relative"
+          style={{
+            marginLeft: "50px",
+            marginRight: "50px",
+            marginTop: "20px",
+            width: "48%",
+          }}
+        >
+          <label for="formFileLg" class="form-label">
+            Test Cases (Input) File:{" "}
+          </label>
+          <input
+            className="form-control form-control-me"
+            id="formFileLg"
+            type="file"
+          />
+        </div>
+        <div
+          position="relative"
+          style={{
+            marginTop: "20px",
+            marginRight: "50px",
+            width: "48%",
+          }}
+        >
+          <label for="formFileLg" class="form-label">
+            Test Cases (Output) File:{" "}
+          </label>
+          <input
+            className="form-control form-control-me"
+            id="formFileLg"
+            type="file"
+          />
+        </div>
+      </div>
 
       <button
         type="button"
