@@ -126,6 +126,7 @@ export default function AdminContestProblemDetails() {
       .catch((error) => {
         console.error("Error updating problem:", error);
       });
+      navigate(`/admin/contest/${contestid}`);
   };
 
   return (
