@@ -26,7 +26,8 @@ function AdminContestAddNew() {
         console.error('Error adding contest:', error);
     });
     // after adding the contest, navigate to the contest problems adding page
-    navigate(`/admin-contest-problem-add/`);
+    navigate(`/admin-contest-add`); 
+    
   };
 
   return (
