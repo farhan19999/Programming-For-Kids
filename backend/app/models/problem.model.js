@@ -129,6 +129,28 @@ const updateProblemSolution = async (id, solutionid, solution) => {
 }
 
 
+const getTestCasesByProblemId = async (id) => {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('SELECT * FROM pfk.testcases WHERE problemid = $1', [id])
+        client.release()
+        return result.rows
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getTimeLimitByProblemId = async (id) => {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('SELECT time_limit FROM pfk.problem WHERE problemid = $1', [id])
+        client.release()
+        return result.rows[0].time_limit
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports = { getAllProblems, 
                    getProblemById,
                    createNewSubmission, 
@@ -139,5 +161,7 @@ module.exports = { getAllProblems,
                    deleteComment, 
                    getProblemSolution, 
                    createProblemSolution, 
-                   updateProblemSolution 
+                   updateProblemSolution,
+                   getTestCasesByProblemId,
+                   getTimeLimitByProblemId 
                 }

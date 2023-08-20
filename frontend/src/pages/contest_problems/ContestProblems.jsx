@@ -14,7 +14,7 @@ const ContestProblems = () => {
   const [problems, setProblems] = useState([]);
   const [contest, setContest] = useState('');
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/contests/${contestid}`)
+    axios.get(`http://localhost:3000/api/contests/${contestid}`)   // For getting contest title
       .then(response => {
         const contest = response.data;
         setContest(contest);

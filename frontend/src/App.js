@@ -87,17 +87,17 @@ const router = createBrowserRouter([
   },
   {
     
-    path: "/admin-contest-problem-add",
+    path: "/admin/contest/:contestid/problem-add",  //admin-contest-problem-add
     element: <AdminContestProblemAdd />,
     
   },
   {
-    path: "/admin-contest-problems-index",
+    path: "/admin/contest/:contestid",  // admin-contest-problems-index
     element: <AdminContestProblemIndex />,
   },
   
   {
-    path: "/admin-contest-problem-details/:problemid",
+    path: "/admin/contest/:contestid/problem/:problemid",
     element: <AdminContestProblemDetails />,
   },
   {

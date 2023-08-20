@@ -9,8 +9,8 @@ import DateTimePicker from '../../../components/date_time_picker/DateTimerPicker
 
 function AdminContestProblemsIndex() {
 
-    // const { contestid } = useParams();
-    const contestid = 1;
+    const { contestid } = useParams();
+
     const [problems, setProblems] = useState([]);
     const [contest, setContest] = useState('');
     useEffect(() => {
@@ -40,10 +40,10 @@ function AdminContestProblemsIndex() {
     const navigate = useNavigate(); // Initialize useNavigate
     const handleModifyClick = (problemid) => {
         // Navigate to the specific project details page
-        navigate(`/admin-contest-problem-details/${problemid}`);
+        navigate(`/admin/contest/${contestid}/problem/${problemid}`);
     };
     const handleAddProblemClick = () => {
-        navigate(`/admin-contest-problem-add`);
+        navigate(`/admin/contest/${contestid}/problem-add`); //navigate(`/admin-contest-problem-add`);
     }
 
     const handleSaveClick = () => {

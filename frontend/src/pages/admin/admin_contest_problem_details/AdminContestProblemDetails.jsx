@@ -1,12 +1,16 @@
+/*
+ *
+ *   Author: Arif
+ *
+ */
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
-import SubNavbar from "../../../components/sub_navbar/SubNavbar";
 import TimeRemaining from "../../../components/time_remaining/Timer";
-import CodeEditor from "../../../components/code_editor/CodeEditor";
 import Footer from "../../../components/footer/Footer";
-import AdminProblemDetailsEdit from "../../../components/admin_problem_details_edit/AdminProblemDetailsEdit";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminContestProblemDetails() {
   const defaultState = {
@@ -20,84 +24,270 @@ export default function AdminContestProblemDetails() {
     The first line of input is X and the second line is Y. Print the output.`,
     topic: "Array",
     sample_input: `15
-    50`,
+50`,
     sample_output: "5",
     time_limit: "45",
   };
 
   const [problem, setProblem] = useState(defaultState);
-  const [editingField, setEditingField] = useState(null);
-  const [editedValue, setEditedValue] = useState("");
 
-  const { problemid } = useParams();
-  const contestid = 1;
+  const [problemStatement, setProblemStatement] = useState(
+    problem.problem_statement
+  );
+  const [sampleInput, setSampleInput] = useState(problem.sample_input);
+  const [sampleOutput, setSampleOutput] = useState(problem.sample_output);
 
-  useEffect(() => {
-    axios.get(`http://localhost:3000/api/problems/${problemid}`).then((response) => {
-      setProblem(response.data);
-      console.log(response.data);
-    });
-  }, [problemid]);
-
-  const handleEdit = (field) => {
-    setEditingField(field);
-    setEditedValue(problem[field]);
+  const handleProblemStatementChange = (event) => {
+    setProblemStatement(event.target.value);
+  };
+  const handleSampleInputChange = (event) => {
+    setSampleInput(event.target.value);
   };
 
-  const handleSave = () => {
-    if (editingField && editedValue !== problem[editingField]) {
-      const updatedProblem = {
-        ...problem,
-        [editingField]: editedValue,
-      };
+  const handleSampleOutputChange = (event) => {
+    setSampleOutput(event.target.value);
+  };
 
-      axios
-        .put(
-          `http://localhost:3000/api/contests/${contestid}/problems/${problemid}`,
-          updatedProblem
-        )
-        .then((response) => {
-          setProblem(updatedProblem);
-          console.log("Problem updated:", response.data);
-          setEditingField(null);
-        })
-        .catch((error) => {
-          console.error("Error updating problem:", error);
-        });
+  const [sampleInputFile, setSampleInputFile] = useState(null);
+  const handleInputFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const inputContent = event.target.result;
+        setSampleInputFile(inputContent);
+      };
+      reader.readAsText(file);
     }
+  };
+
+  const [sampleOutputFile, setSampleOutputFile] = useState(null);
+  const handleOutputFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const outputContent = event.target.result;
+        setSampleOutputFile(outputContent);
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  const { contestid, problemid } = useParams(); // http://localhost:3001/admin/contest/1/problem/3
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/api/problems/${problemid}`)
+      .then((response) => {
+        setProblem(response.data);
+        setProblemStatement(response.data.problem_statement);
+        setSampleInput(response.data.sample_input);
+        setSampleOutput(response.data.sample_output);
+      });
+  }, [problemid]);
+
+  const [contest, setContest] = useState("");
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/api/contests/${contestid}`) // For getting contest title
+      .then((response) => {
+        const contest = response.data;
+        setContest(contest);
+      })
+      .catch((error) => {
+        console.error("Error fetching contest :", error);
+      });
+  }, [contestid]);
+
+  const navigate = useNavigate();
+  const handleCancel = () => {
+    navigate(`/admin/contest/${contestid}`);
+  };
+
+  const handleSave = () => { 
+    axios 
+      .put( 
+        `http://localhost:3000/api/contests/${contestid}/problems/${problemid}`,
+        {
+          title: problem.title,
+          difficulty_level: problem.difficulty_level,
+          problem_statement: problemStatement,
+          topic: problem.topic,
+          sample_input: sampleInputFile||sampleInput,
+          sample_output: sampleOutputFile||sampleOutput,
+          time_limit: problem.time_limit,
+          category: problem.category,
+        }
+      )
+      .then((response) => {
+        console.log("Problem updated:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating problem:", error);
+      });
+      navigate(`/admin/contest/${contestid}`);
   };
 
   return (
     <div style={{ position: "relative" }}>
       <Navbar />
-      <SubNavbar />
 
-      <h4 style={{ textAlign: "center", marginTop: "20px" }}>
-        Contest Title: Array Round 1 (Rated for Div. 3)
+      <h4 style={{ textAlign: "center", marginTop: "60px" }}>
+        Contest Title: {contest.title} (Rated for Div.{contest.div})
       </h4>
+
+      <div style={{ marginTop: "35px" }}>
+        <h4 style={{ textAlign: "center", textDecoration: "underline" }}>
+          {problem.title}
+        </h4>
+      </div>
 
       <TimeRemaining />
 
-      <div style={{ display: "flex", justifyContent: "left", width: "200%" }}>
-        <AdminProblemDetailsEdit
-          problem={problem}
-          editingField={editingField}
-          editedValue={editedValue}
-          onEdit={handleEdit}
-          onSave={handleSave}
-          onCancel={() => {
-            setEditingField(null);
-            setEditedValue("");
+      <div
+        style={{
+          marginLeft: "50px",
+          marginLeft: "50px",
+          marginRight: "50px",
+          marginTop: "20px",
+        }}
+      >
+        <div
+          className="form-group"
+          style={{
+            width: "100%",
           }}
-        />
+        >
+          <label for="problemStatement">
+            <p style={{ fontSize: "18px" }}>Problem Statement</p>
+          </label>
+          <textarea
+            style={{ backgroundColor: "#ccc" }}
+            className="form-control"
+            id="problemStatement"
+            rows="6"
+            value={problemStatement}
+            onChange={handleProblemStatementChange}
+          ></textarea>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            fontSize: "17px",
+            justifyContent: "space-between",
+            marginTop: "20px",
+          }}
+        >
+          <div className="form-group" style={{ width: "48%" }}>
+            <label for="sampleInput">
+              <p style={{ fontSize: "18px" }}>Sample Input:</p>
+            </label>
+            <textarea
+              style={{ backgroundColor: "#ccc" }}
+              className="form-control"
+              id="sampleInput"
+              rows="3"
+              value={sampleInput}
+              onChange={handleSampleInputChange}
+            ></textarea>
+          </div>
+
+          <div className="form-group" style={{ width: "48%" }}>
+            <label for="sampleOutput">
+              <p style={{ fontSize: "18px" }}>Sample Output:</p>
+            </label>
+            <textarea
+              style={{ backgroundColor: "#ccc" }}
+              className="form-control"
+              id="sampleOutput"
+              rows="3"
+              value={sampleOutput}
+              onChange={handleSampleOutputChange}
+            ></textarea>
+          </div>
+        </div>
       </div>
 
-      <label for="formFileLg" class="form-label">Test Cases (Input) File: </label>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+      <div
+        style={{
+          display: "flex",
+          fontSize: "17px",
+          justifyContent: "space-between",
+          marginTop: "20px",
+        }}
+      >
+        <div
+          position="relative"
+          style={{
+            marginLeft: "50px",
+            marginRight: "50px",
+            marginTop: "20px",
+            width: "48%",
+          }}
+        >
+          <label for="formFileLg" class="form-label">
+            Test Cases (Input) File:{" "}
+          </label>
+          <input
+            className="form-control form-control-me"
+            id="sampleInputFile"
+            type="file"
+            onChange={handleInputFileChange}
+          />
+        </div>
+        <div
+          position="relative"
+          style={{
+            marginTop: "20px",
+            marginRight: "50px",
+            width: "48%",
+          }}
+        >
+          <label for="formFileLg" class="form-label">
+            Test Cases (Output) File:{" "}
+          </label>
+          <input
+            className="form-control form-control-me"
+            id="sampleOutputFile"
+            type="file"
+            onChange={handleOutputFileChange}
+          />
+        </div>
+      </div>
 
-
-        <label for="formFileLg" class="form-label">Test Cases (Output) File: </label>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+      <button
+        type="button"
+        className="btn btn-dark"
+        style={{
+          position: "relative",
+          bottom: "0px",
+          right: "0",
+          width: "120px",
+          marginLeft: "80%",
+          marginTop: "50px",
+        }}
+        onClick={handleSave}
+      >
+        Save
+      </button>
+      <button
+        type="button"
+        className="btn btn-dark"
+        style={{
+          position: "relative",
+          bottom: "0px",
+          right: "0",
+          marginRight: "50px",
+          width: "120px",
+          marginLeft: "10px",
+          marginTop: "50px",
+        }}
+        onClick={handleCancel}
+      >
+        Cancel
+      </button>
 
       <Footer />
     </div>

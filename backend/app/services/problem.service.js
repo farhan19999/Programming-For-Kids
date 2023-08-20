@@ -99,4 +99,13 @@ exports.updateProblemSolution = async (id, solutionid, solution) => {
     }
 }
 
+exports.getTimeLimitByProblemId = async (id) => {
+    try {
+        const result = await problemModel.getTimeLimitByProblemId(id);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
 //TODO: add submission checking and status update
