@@ -18,6 +18,7 @@ import AdminMPindex from "./pages/admin/admin_miniproject_index/AdminMPindex";
 import AdminMPdetails from "./pages/admin/admin_miniproject_details/AdminMPdetails";
 import AdminMPadd from "./pages/admin/admin_miniproject_add/AdminMPadd";
 import AdminContestAdd from "./pages/admin/admin_contest_add/AdminContestAdd";
+import AdminContestAddNew from "./pages/admin/admin_contest_add_new/AdminContestAddNew";
 import AdminContestProblemAdd from "./pages/admin/admin_contest_problem_add/AdminContestProblemAdd";
 import AdminContestProblemIndex from "./pages/admin/admin_contest_problems_index/AdminContestProblemsIndex";
 import AdminContestProblemDetails from "./pages/admin/admin_contest_problem_details/AdminContestProblemDetails";
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
   {
     path: "/admin-contest-add",
     element: <AdminContestAdd />,
+  },
+  {
+    path: "/admin-contest-add-new",
+    element: <AdminContestAddNew />,
   },
   {
     

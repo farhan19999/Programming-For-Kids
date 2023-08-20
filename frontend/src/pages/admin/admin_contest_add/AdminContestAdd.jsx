@@ -5,6 +5,7 @@ import Footer from '../../../components/footer/Footer';
 import Timer from '../../../components/time_remaining/Timer';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
+
 import axios from 'axios';
 
 function AdminContestAdd() {
@@ -30,6 +31,10 @@ function AdminContestAdd() {
 
     const handleModifyClick = (contestid) => {
         navigate(`/admin-contest-problems-index/${contestid}`);
+    }
+
+    const handleAddNewContestClick = (contestid) => {
+        navigate(`/admin-contest-add-new`);
     }
 
     return (
@@ -70,7 +75,7 @@ function AdminContestAdd() {
                     <tr>
 
 
-                        <button type="button" className="btn btn-dark" style={{ position: "absolute", width: "190px", height: "42px", marginTop: "10px", marginLeft: "38%" }}>
+                        <button type="button" onClick={() => handleAddNewContestClick()} className="btn btn-dark" style={{ position: "absolute", width: "190px", height: "42px", marginTop: "10px", marginLeft: "38%" }}>
                             Add New Contest
                         </button>
                     </tr>
