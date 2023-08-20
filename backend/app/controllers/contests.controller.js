@@ -1,4 +1,7 @@
 const service = require('../services/contest.service');
+const codeCheckerService  = require('../services/code-checker.service');
+const problemService = require('../services/problem.service');
+
 
 exports.getContests = async (req, res) => {
     try {
@@ -63,6 +66,17 @@ exports.getContestProblemById = async (req, res) => {
     }
 }
 
+exports.getContestProblemByCategory = async (req, res) => {
+    try {
+        const problem = await service.getContestProblemByCategory(req.params.id, req.params.category);
+        res.status(200).json(problem);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+
+
 exports.updateContestProblem = async (req, res) => {
     try {
         const problem = await service.updateContestProblem(req.params.id, req.params.problemid, req.body);
@@ -110,7 +124,22 @@ exports.getContestSubmissionByUserId = async (req, res) => {
 
 exports.addContestProblemSubmission = async (req, res) => {
     try {
+        //first get the submission file path name from the request body
+        //then download the file from the path and save it to a temp folder
+        //then get all testcase files from the problem folder and save them to a temp folder
+        //then run the code against the testcases and get the result
+        //then delete the temp folder
         const submission = await service.addContestProblemSubmission(req.params.id, req.params.problemid, req.params.userid, req.body);
+        const filename = req.body.submission_filename;
+        const time_limit = await problemService.getTimeLimitByProblemId(req.params.problemid);
+        codeCheckerService.cCodeRunner(`/contests/${req.params.id}/submissions/${req.params.userid}`,filename, req.params.problemid, time_limit)
+        .then((verdict) => {
+            service.updateContestSubmission(req.params.id, req.params.problemid, req.params.userid, verdict);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+        //now have to store the verdict in the database
         res.status(200).json(submission);
     } catch (error) {
         res.status(500).json(error);
@@ -121,6 +150,52 @@ exports.getContestStanding = async (req, res) => {
     try {
         const standing = await service.getContestStanding(req.params.id);
         res.status(200).json(standing);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+
+exports.getContestProblemTestCases = async (req, res) => {
+    try {
+        const testcases = await service.getContestProblemTestCases(req.params.problemid);
+        res.status(200).json(testcases);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+exports.addContestProblemTestCase = async (req, res) => {
+    try {
+        const testcase = await service.addContestProblemTestCase(req.params.problemid, req.body);
+        res.status(200).json(testcase);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+exports.getContestProblemTestCaseById = async (req, res) => {
+    try {
+        const testcase = await service.getContestProblemTestCaseById(req.params.testcaseid);
+        res.status(200).json(testcase);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+exports.updateContestProblemTestCase = async (req, res) => {
+    try {
+        const testcase = await service.updateContestProblemTestCase(req.params.testcaseid, req.body);
+        res.status(200).json(testcase);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+exports.deleteContestProblemTestCase = async (req, res) => {
+    try {
+        const testcase = await service.deleteContestProblemTestCase(req.params.testcaseid);
+        res.status(200).json(testcase);
     } catch (error) {
         res.status(500).json(error);
     }

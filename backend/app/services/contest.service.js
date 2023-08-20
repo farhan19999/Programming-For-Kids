@@ -1,4 +1,5 @@
 const contestModel = require('../models/contest.model');
+const testcaseModel = require('../models/testcase.model');
 
 exports.getContests = async () => {
     try {
@@ -6,7 +7,7 @@ exports.getContests = async () => {
         return contests;
     } catch (error) {
         throw error;
-    }    
+    }
 }
 
 exports.getContestById = async (id) => {
@@ -26,7 +27,7 @@ exports.createContest = async (contest) => {
         return result;
     } catch (error) {
         throw error;
-    }    
+    }
 }
 
 exports.updateContest = async (id, contest) => {
@@ -35,7 +36,7 @@ exports.updateContest = async (id, contest) => {
         return result;
     } catch (error) {
         throw error;
-    }    
+    }
 }
 
 exports.getContestProblems = async (id) => {
@@ -56,6 +57,23 @@ exports.addContestProblem = async (id, problem) => {
     }
 }
 
+exports.getContestProblemById = async (id, problemid) => {
+    try{
+        const problem = await contestModel.getContestProblemById(id, problemid);
+        return problem;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.getContestProblemByCategory = async (id, category) => {
+    try {
+        const problem = await contestModel.getContestProblemByCategory(id, category);
+        return problem;
+    } catch (error) {
+        throw error;
+    }
+}
 
 exports.updateContestProblem = async (id, problemid, problem) => {
     try {
@@ -102,9 +120,9 @@ exports.getContestSubmissionByUserId = async (id, userid) => {
     }
 }
 
-exports.addContestProblemSubmission = async (id, problemid, submission) => {
+exports.addContestProblemSubmission = async (id, problemid, userid, submission) => {
     try {
-        const result = await contestModel.addContestProblemSubmission(id, problemid, submission);
+        const result = await contestModel.addContestProblemSubmission(id, problemid, userid, submission);
         return result;
     } catch (error) {
         throw error;
@@ -113,9 +131,42 @@ exports.addContestProblemSubmission = async (id, problemid, submission) => {
 
 exports.getContestStanding = async (id) => {
     try {
-        const standing = await contestModel.getContestStanding(id);
-        const submission_list = standing.standings;
+        const scores = await contestModel.getContestScores(id);
         //TODO: #2 create standings
+        const standing = []
+        const user_list = new Set();
+        scores.forEach(s => {
+            user_list.add(s.userid)
+        });
+
+        user_list.forEach(uid => {
+            const user_scores = scores.filter((s) => s.userid === uid)
+            const temp = { 'userid': uid }
+            user_scores.forEach(s => {
+                temp[s.category] = s.score
+            })
+            standing.push(temp)
+        })
+
+        standing.sort((a, b) => {
+            let a_score = 0;
+            for (const prop in a) {
+                if (prop !== 'userid') {
+                    a_score += a[prop]
+                }
+            }
+            let b_score = 0;
+            for (const prop in a) {
+                if (prop !== 'userid') {
+                    b_score += b[prop]
+                }
+            }
+
+            if (a_score === b_score) return 0
+            else if (a_score > b_score) return -1
+            else return 1
+        })
+
         return standing;
     } catch (error) {
         throw error;
@@ -123,3 +174,47 @@ exports.getContestStanding = async (id) => {
 }
 
 
+exports.getContestProblemTestCases = async (problemid) => {
+    try {
+        const testcases = await testcaseModel.getAllProblemTestCases(problemid);
+        return testcases;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.addContestProblemTestCase = async (problemid, testcase) => {
+    try {
+        const result = await testcaseModel.addProblemTestCase(problemid, testcase);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.getContestProblemTestCaseById = async (testcaseid) => {
+    try {
+        const testcase = await testcaseModel.getProblemTestCaseById(testcaseid);
+        return testcase;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.updateContestProblemTestCase = async (testcaseid, testcase) => {
+    try {
+        const result = await testcaseModel.updateProblemTestCase(testcaseid, testcase);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.deleteContestProblemTestCase = async (testcaseid) => {
+    try {
+        const result = await testcaseModel.deleteProblemTestCase(testcaseid);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}

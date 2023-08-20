@@ -1,4 +1,5 @@
 const problemModel = require('../models/problem.model');
+const testcaseModel = require('../models/testcase.model');
 
 exports.getAllProblems = async () => {
     try {
@@ -93,6 +94,62 @@ exports.createProblemSolution = async (id, solution) => {
 exports.updateProblemSolution = async (id, solutionid, solution) => {    
     try {
         const result = await problemModel.updateProblemSolution(id, solutionid, solution);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.getTimeLimitByProblemId = async (id) => {
+    try {
+        const result = await problemModel.getTimeLimitByProblemId(id);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+exports.getAllProblemTestCases = async (id) => {
+    try {
+        const result = await testcaseModel.getAllProblemTestCases(id);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+exports.addProblemTestCase = async (id, testcase) => {
+    try {
+        const result = await testcaseModel.addProblemTestCase(id, testcase);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.getProblemTestCaseById = async (testcaseid) => {
+    try {
+        const result = await testcaseModel.getProblemTestCaseById(testcaseid);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.updateProblemTestCase = async (testcaseid, testcase) => {
+    try {
+        const result = await testcaseModel.updateProblemTestCase(testcaseid, testcase);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.deleteProblemTestCase = async (testcaseid) => {
+    try {
+        const result = await testcaseModel.deleteProblemTestCase(testcaseid);
         return result;
     } catch (error) {
         throw error;
