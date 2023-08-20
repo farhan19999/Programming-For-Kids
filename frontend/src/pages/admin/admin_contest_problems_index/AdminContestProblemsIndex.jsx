@@ -44,7 +44,7 @@ function AdminContestProblemsIndex() {
         navigate(`/admin/contest/${contestid}/problem/${problemid}`);
     };
     const handleAddProblemClick = () => {
-        navigate(`/admin-contest-problem-add`);
+        navigate(`/admin/contest/${contestid}/problem-add`); //navigate(`/admin-contest-problem-add`);
     }
 
     const handleSaveClick = () => {

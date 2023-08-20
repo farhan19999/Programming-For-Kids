@@ -87,7 +87,7 @@ const router = createBrowserRouter([
   },
   {
     
-    path: "/admin-contest-problem-add",
+    path: "/admin/contest/:contestid/problem-add",  //admin-contest-problem-add
     element: <AdminContestProblemAdd />,
     
   },
