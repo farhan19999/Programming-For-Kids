@@ -48,6 +48,32 @@ export default function AdminContestProblemDetails() {
     setSampleOutput(event.target.value);
   };
 
+  const [sampleInputFile, setSampleInputFile] = useState(null);
+  const handleInputFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const inputContent = event.target.result;
+        setSampleInputFile(inputContent);
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  const [sampleOutputFile, setSampleOutputFile] = useState(null);
+  const handleOutputFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const outputContent = event.target.result;
+        setSampleOutputFile(outputContent);
+      };
+      reader.readAsText(file);
+    }
+  };
+
   const { contestid, problemid } = useParams(); // http://localhost:3001/admin/contest/1/problem/3
 
   useEffect(() => {
@@ -79,17 +105,17 @@ export default function AdminContestProblemDetails() {
     navigate("/admin-contest-problems-index");
   };
 
-  const handleSave = () => {
-    axios
-      .put(
+  const handleSave = () => { 
+    axios 
+      .put( 
         `http://localhost:3000/api/contests/${contestid}/problems/${problemid}`,
         {
           title: problem.title,
           difficulty_level: problem.difficulty_level,
           problem_statement: problemStatement,
           topic: problem.topic,
-          sample_input: sampleInput,
-          sample_output: sampleOutput,
+          sample_input: sampleInputFile||sampleInput,
+          sample_output: sampleOutputFile||sampleOutput,
           time_limit: problem.time_limit,
           category: problem.category,
         }
@@ -205,8 +231,9 @@ export default function AdminContestProblemDetails() {
           </label>
           <input
             className="form-control form-control-me"
-            id="formFileLg"
+            id="sampleInputFile"
             type="file"
+            onChange={handleInputFileChange}
           />
         </div>
         <div
@@ -222,8 +249,9 @@ export default function AdminContestProblemDetails() {
           </label>
           <input
             className="form-control form-control-me"
-            id="formFileLg"
+            id="sampleOutputFile"
             type="file"
+            onChange={handleOutputFileChange}
           />
         </div>
       </div>
