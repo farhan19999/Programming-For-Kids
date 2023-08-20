@@ -67,6 +67,8 @@ router.put('/:id', controller.updateContest)
 
 router.get('/:id/problems', controller.getContestProblems)
 router.post('/:id/problems', controller.addContestProblem)
+
+router.get('/:id/problems/:problemid', controller.getContestProblemById)
 router.put('/:id/problems/:problemid', controller.updateContestProblem)
 router.delete('/:id/problems/:problemid', controller.deleteContestProblem)
 

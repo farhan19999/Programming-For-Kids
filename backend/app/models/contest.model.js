@@ -75,6 +75,19 @@ const addContestProblem = async (id, problem) => {
     }
 }
 
+//TODO: #8 add a column in problem table to store the contest problem index or tag i.e. A/B/C/D/E/F
+
+const getContestProblemById = async (id, problemid) => {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('SELECT * FROM pfk.problem WHERE contestid = $1 AND problemid = $2', [id, problemid])
+        client.release()
+        return result.rows[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const updateContestProblem = async (id, problemid, problem) => {
     try {
         const client = await pool.connect()
@@ -161,4 +174,4 @@ const getContestStanding = async (id) => {
 }
 
 
-module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestStanding};
+module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestStanding, getContestProblemById };

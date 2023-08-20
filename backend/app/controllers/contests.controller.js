@@ -54,6 +54,15 @@ exports.addContestProblem = async (req, res) => {
     }
 }
 
+exports.getContestProblemById = async (req, res) => {
+    try {
+        const problem = await service.getContestProblemById(req.params.id, req.params.problemid);
+        res.status(200).json(problem);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
 exports.updateContestProblem = async (req, res) => {
     try {
         const problem = await service.updateContestProblem(req.params.id, req.params.problemid, req.body);
