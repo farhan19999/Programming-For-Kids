@@ -92,7 +92,7 @@ const router = createBrowserRouter([
     
   },
   {
-    path: "/admin-contest-problems-index",
+    path: "/admin/contest/:contestid",  // admin-contest-problems-index
     element: <AdminContestProblemIndex />,
   },
   
