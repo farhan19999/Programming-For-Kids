@@ -41,7 +41,7 @@ function AdminContestProblemsIndex() {
     const navigate = useNavigate(); // Initialize useNavigate
     const handleModifyClick = (problemid) => {
         // Navigate to the specific project details page
-        navigate(`/admin-contest-problem-details/${problemid}`);
+        navigate(`/admin/contest/${contestid}/problem/${problemid}`);
     };
     const handleAddProblemClick = () => {
         navigate(`/admin-contest-problem-add`);

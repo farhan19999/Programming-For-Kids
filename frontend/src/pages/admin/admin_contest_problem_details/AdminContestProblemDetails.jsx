@@ -47,20 +47,33 @@ export default function AdminContestProblemDetails() {
     setSampleOutput(event.target.value);
   };
 
-  const { problemid } = useParams();
-  const [contestid, setContestid] = useState(0);
+  const { contestid, problemid } = useParams();
+  // const [contestid, setContestid] = useState(0);
 
   useEffect(() => {
     axios
       .get(`http://localhost:3000/api/problems/${problemid}`)
       .then((response) => {
         setProblem(response.data);
-        setContestid(response.data.contestid);
+        // setContestid(response.data.contestid);
         setProblemStatement(response.data.problem_statement);
         setSampleInput(response.data.sample_input);
         setSampleOutput(response.data.sample_output);
       });
   }, [problemid]);
+
+  const [contest, setContest] = useState('');
+  useEffect(() => {
+    axios.get(`http://localhost:3000/api/contests/${contestid}`)   // For getting contest title
+      .then(response => {
+        const contest = response.data;
+        setContest(contest);
+
+      })
+      .catch(error => {
+        console.error('Error fetching contest :', error);
+      });
+  }, [contestid]);
 
   const navigate = useNavigate();
   const handleCancel = () => {
@@ -97,7 +110,7 @@ export default function AdminContestProblemDetails() {
       <Navbar />
 
       <h4 style={{ textAlign: "center", marginTop: "60px" }}>
-        Contest Title: Array Round 1 (Rated for Div. 3)
+        Contest Title: {contest.title} (Rated for Div.{contest.div})
       </h4>
 
       <div style={{ marginTop: "35px" }}>
