@@ -8,9 +8,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
-import SubNavbar from "../../../components/sub_navbar/SubNavbar";
 import TimeRemaining from "../../../components/time_remaining/Timer";
 import Footer from "../../../components/footer/Footer";
+import { useNavigate } from "react-router-dom";
+
 
 export default function AdminContestProblemDetails() {
   const defaultState = {
@@ -24,18 +25,26 @@ export default function AdminContestProblemDetails() {
     The first line of input is X and the second line is Y. Print the output.`,
     topic: "Array",
     sample_input: `15
-    50`,
+50`,
     sample_output: "5",
     time_limit: "45",
   };
 
   const [problem, setProblem] = useState(defaultState);
-  const [editingField, setEditingField] = useState(null);
-  const [editedValue, setEditedValue] = useState("");
-  const [problemStatement, setProblemStatement] = useState("Hello World!");
+
+  const [problemStatement, setProblemStatement] = useState(problem.problem_statement);
+  const [sampleInput, setSampleInput] = useState(problem.sample_input);
+  const [sampleOutput, setSampleOutput] = useState(problem.sample_output);
 
   const handleProblemStatementChange = (event) => {
-    setProblem(event.target.value);
+    setProblemStatement(event.target.value);
+  };
+  const handleSampleInputChange = (event) => {
+    setSampleInput(event.target.value);
+  };
+
+  const handleSampleOutputChange = (event) => {
+    setSampleOutput(event.target.value);
   };
 
   const { problemid } = useParams();
@@ -47,46 +56,41 @@ export default function AdminContestProblemDetails() {
       .then((response) => {
         setProblem(response.data);
         setContestid(response.data.contestid);
-        problem.problem_statement = "sqqqqqqqqqeaeaaaaaaaaa";
+        setProblemStatement(response.data.problem_statement);
+        setSampleInput(response.data.sample_input);
+        setSampleOutput(response.data.sample_output);
       });
   }, [problemid]);
 
-  const handleEdit = (field) => {
-    setEditingField(field);
-    setEditedValue(problem[field]);
+  const navigate = useNavigate();
+  const handleCancel = () => {
+    navigate("/admin-contest-problems-index"); 
   };
 
   const handleSave = () => {
-    // if (editingField && editedValue !== problem[editingField]) {
-    //   const updatedProblem = {
-    //     ...problem,
-    //     [editingField]: editedValue,
-    //   };
-
     axios
       .put(
         `http://localhost:3000/api/contests/${contestid}/problems/${problemid}`,
         {
           title: problem.title,
           difficulty_level: problem.difficulty_level,
-          problem_statement: problem.problem_statement,
+          problem_statement: problemStatement,
           topic: problem.topic,
-          sample_input: problem.sample_input,
-          sample_output: problem.sample_output,
+          sample_input: sampleInput,
+          sample_output: sampleOutput,
           time_limit: problem.time_limit,
           category: problem.category,
         }
       )
       .then((response) => {
-        // setProblem(updatedProblem);
         console.log("Problem updated:", response.data);
-        // setEditingField(null);
       })
       .catch((error) => {
         console.error("Error updating problem:", error);
       });
-    // }
   };
+
+  
 
   return (
     <div style={{ position: "relative" }}>
@@ -96,10 +100,10 @@ export default function AdminContestProblemDetails() {
         Contest Title: Array Round 1 (Rated for Div. 3)
       </h4>
 
-      <div style={{ marginTop: "30px" }}>
-        <h5 style={{ textAlign: "center", textDecoration: "underline" }}>
+      <div style={{ marginTop: "35px" }}>
+        <h4 style={{ textAlign: "center", textDecoration: "underline" }}>
           {problem.title}
-        </h5>
+        </h4>
       </div>
 
       <TimeRemaining />
@@ -112,18 +116,6 @@ export default function AdminContestProblemDetails() {
           marginTop: "20px",
         }}
       >
-        {/* <AdminProblemDetailsEdit
-          problem={problem}
-          editingField={editingField}
-          editedValue={editedValue}
-          onEdit={handleEdit}
-          onSave={handleSave}
-          onCancel={() => {
-            setEditingField(null);
-            setEditedValue("");
-          }}
-        /> */}
-
         <div
           className="form-group"
           style={{
@@ -133,12 +125,12 @@ export default function AdminContestProblemDetails() {
           <label for="problemStatement">
             <p style={{ fontSize: "18px" }}>Problem Statement</p>
           </label>
-          <textarea style={{backgroundColor:"#ccc"}}
+          <textarea
+            style={{ backgroundColor: "#ccc" }}
             className="form-control"
             id="problemStatement"
             rows="3"
-            // defaultValue={problem.problem_statement}
-            value={problem.problem_statement}
+            value={problemStatement}
             onChange={handleProblemStatementChange}
           ></textarea>
         </div>
@@ -148,34 +140,35 @@ export default function AdminContestProblemDetails() {
             display: "flex",
             fontSize: "17px",
             justifyContent: "space-between",
-            marginTop: "20px", // Add spacing between problem description and sample boxes
+            marginTop: "20px",
           }}
         >
-          <div className="form-group" style={{width:"48%"}}>
+          <div className="form-group" style={{ width: "48%" }}>
             <label for="sampleInput">
               <p style={{ fontSize: "18px" }}>Sample Input:</p>
             </label>
-            <textarea style={{backgroundColor:"#ccc"}}
-            className="form-control"
-            id="sampleInput"
-            rows="3"
-            value={problem.sample_input}
-            onChange={handleProblemStatementChange}
-          ></textarea>
+            <textarea
+              style={{ backgroundColor: "#ccc" }}
+              className="form-control"
+              id="sampleInput"
+              rows="3"
+              value={sampleInput}
+              onChange={handleSampleInputChange}
+            ></textarea>
           </div>
 
-          <div className="form-group" style={{width:"48%"}}>
+          <div className="form-group" style={{ width: "48%" }}>
             <label for="sampleOutput">
               <p style={{ fontSize: "18px" }}>Sample Output:</p>
             </label>
-            <textarea style={{backgroundColor:"#ccc"}}
-            className="form-control"
-            id="sampleOutput"
-            rows="3"
-            // defaultValue={problem.problem_statement}
-            value={problem.sample_output}
-            onChange={handleProblemStatementChange}
-          ></textarea>
+            <textarea
+              style={{ backgroundColor: "#ccc" }}
+              className="form-control"
+              id="sampleOutput"
+              rows="3"
+              value={sampleOutput}
+              onChange={handleSampleOutputChange}
+            ></textarea>
           </div>
         </div>
       </div>
@@ -198,8 +191,39 @@ export default function AdminContestProblemDetails() {
         type="file"
       /> */}
 
+      <button
+        type="button"
+        className="btn btn-dark"
+        style={{
+          position: "relative",
+          bottom: "0px",
+          right: "0",
+          width: "120px",
+          marginLeft: "80%",
+          marginTop: "50px",
+        }}
+        onClick={handleSave}
+      >
+        Save
+      </button>
+      <button
+        type="button"
+        className="btn btn-dark"
+        style={{
+          position: "relative",
+          bottom: "0px",
+          right: "0",
+          marginRight: "50px",
+          width: "120px",
+          marginLeft: "10px",
+          marginTop: "50px",
+        }}
+        onClick={handleCancel}
+      >
+        Cancel
+      </button>
+
       <Footer />
     </div>
   );
 }
-
