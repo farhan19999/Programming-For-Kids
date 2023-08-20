@@ -30,6 +30,5 @@ const downloadFileFromFirebase = async (remote_file_path, local_file_path) => {
     
 }
 
-uploadFileToFirebase('./app/files/test.txt', '/submission/test.txt', 'test.txt');
 
 module.exports = { uploadFileToFirebase, downloadFileFromFirebase }
