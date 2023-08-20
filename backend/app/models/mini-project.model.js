@@ -1,7 +1,7 @@
 
-const {pool_config} = require('../config/db.config')
-const pg = require('pg')
-const pool = new pg.Pool(pool_config)
+const {pool} = require('../config/db.config')
+// const pg = require('pg')
+// const pool = new pg.Pool(pool_config)
 
 const getAllMiniProjects = async () => {
     try {

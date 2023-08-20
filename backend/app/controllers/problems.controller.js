@@ -99,5 +99,49 @@ exports.updateproblemSolution = async (req, res) => {
     }
 }
 
+exports.getAllProblemTestCases = async (req, res) => {
+    try {
+        const testcases = await problemService.getAllProblemTestCases(req.params.id);
+        res.status(200).json(testcases);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
 
+
+exports.addProblemTestCase = async (req, res) => {
+    try {
+        const testcase = await problemService.addProblemTestCase(req.params.id, req.body);
+        res.status(200).json(testcase);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+exports.getProblemTestCaseById = async (req, res) => {
+    try {
+        const testcase = await problemService.getProblemTestCaseById(req.params.testcaseid);
+        res.status(200).json(testcase);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+exports.deleteProblemTestCase = async (req, res) => {
+    try {
+        const testcase = await problemService.deleteProblemTestCase(req.params.testcaseid);
+        res.status(200).json(testcase);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+exports.updateProblemTestCase = async (req, res) => {
+    try {
+        const testcase = await problemService.updateProblemTestCase(req.params.testcaseid, req.body);
+        res.status(200).json(testcase);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
 
