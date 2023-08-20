@@ -10,8 +10,8 @@ import DateTimePicker from '../../../components/date_time_picker/DateTimerPicker
 
 function AdminContestProblemsIndex() {
 
-    // const { contestid } = useParams();
-    const contestid = 1;
+    const { contestid } = useParams();
+
     const [problems, setProblems] = useState([]);
     const [contest, setContest] = useState('');
     useEffect(() => {
