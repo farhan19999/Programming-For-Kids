@@ -1,3 +1,4 @@
+require('dotenv').config()
 // Import the functions you need from the SDKs you need
 const { initializeApp } = require( "firebase/app");
 const { getAnalytics } = require("firebase/analytics");
@@ -7,13 +8,13 @@ const { getAnalytics } = require("firebase/analytics");
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBp5SwIbWOh_kKdRzzstCv70bJrUD1qNac",
-  authDomain: "programming-for-kids-395814.firebaseapp.com",
-  projectId: "programming-for-kids-395814",
-  storageBucket: "programming-for-kids-395814.appspot.com",
-  messagingSenderId: "950822436478",
-  appId: "1:950822436478:web:b7aa28f5327925eca4622f",
-  measurementId: "G-750KNF8C5D"
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
