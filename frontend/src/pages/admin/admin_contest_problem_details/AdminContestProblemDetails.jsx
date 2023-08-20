@@ -1,12 +1,16 @@
+/*
+ *
+ *   Author: Arif
+ *
+ */
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
 import SubNavbar from "../../../components/sub_navbar/SubNavbar";
 import TimeRemaining from "../../../components/time_remaining/Timer";
-import CodeEditor from "../../../components/code_editor/CodeEditor";
 import Footer from "../../../components/footer/Footer";
-import AdminProblemDetailsEdit from "../../../components/admin_problem_details_edit/AdminProblemDetailsEdit";
 
 export default function AdminContestProblemDetails() {
   const defaultState = {
@@ -28,15 +32,23 @@ export default function AdminContestProblemDetails() {
   const [problem, setProblem] = useState(defaultState);
   const [editingField, setEditingField] = useState(null);
   const [editedValue, setEditedValue] = useState("");
+  const [problemStatement, setProblemStatement] = useState("Hello World!");
+
+  const handleProblemStatementChange = (event) => {
+    setProblem(event.target.value);
+  };
 
   const { problemid } = useParams();
-  const contestid = 1;
+  const [contestid, setContestid] = useState(0);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/problems/${problemid}`).then((response) => {
-      setProblem(response.data);
-      console.log(response.data);
-    });
+    axios
+      .get(`http://localhost:3000/api/problems/${problemid}`)
+      .then((response) => {
+        setProblem(response.data);
+        setContestid(response.data.contestid);
+        problem.problem_statement = "sqqqqqqqqqeaeaaaaaaaaa";
+      });
   }, [problemid]);
 
   const handleEdit = (field) => {
@@ -45,41 +57,62 @@ export default function AdminContestProblemDetails() {
   };
 
   const handleSave = () => {
-    if (editingField && editedValue !== problem[editingField]) {
-      const updatedProblem = {
-        ...problem,
-        [editingField]: editedValue,
-      };
+    // if (editingField && editedValue !== problem[editingField]) {
+    //   const updatedProblem = {
+    //     ...problem,
+    //     [editingField]: editedValue,
+    //   };
 
-      axios
-        .put(
-          `http://localhost:3000/api/contests/${contestid}/problems/${problemid}`,
-          updatedProblem
-        )
-        .then((response) => {
-          setProblem(updatedProblem);
-          console.log("Problem updated:", response.data);
-          setEditingField(null);
-        })
-        .catch((error) => {
-          console.error("Error updating problem:", error);
-        });
-    }
+    axios
+      .put(
+        `http://localhost:3000/api/contests/${contestid}/problems/${problemid}`,
+        {
+          title: problem.title,
+          difficulty_level: problem.difficulty_level,
+          problem_statement: problem.problem_statement,
+          topic: problem.topic,
+          sample_input: problem.sample_input,
+          sample_output: problem.sample_output,
+          time_limit: problem.time_limit,
+          category: problem.category,
+        }
+      )
+      .then((response) => {
+        // setProblem(updatedProblem);
+        console.log("Problem updated:", response.data);
+        // setEditingField(null);
+      })
+      .catch((error) => {
+        console.error("Error updating problem:", error);
+      });
+    // }
   };
 
   return (
     <div style={{ position: "relative" }}>
       <Navbar />
-      <SubNavbar />
 
-      <h4 style={{ textAlign: "center", marginTop: "20px" }}>
+      <h4 style={{ textAlign: "center", marginTop: "60px" }}>
         Contest Title: Array Round 1 (Rated for Div. 3)
       </h4>
 
+      <div style={{ marginTop: "30px" }}>
+        <h5 style={{ textAlign: "center", textDecoration: "underline" }}>
+          {problem.title}
+        </h5>
+      </div>
+
       <TimeRemaining />
 
-      <div style={{ display: "flex", justifyContent: "left", width: "200%" }}>
-        <AdminProblemDetailsEdit
+      <div
+        style={{
+          marginLeft: "50px",
+          marginLeft: "50px",
+          marginRight: "50px",
+          marginTop: "20px",
+        }}
+      >
+        {/* <AdminProblemDetailsEdit
           problem={problem}
           editingField={editingField}
           editedValue={editedValue}
@@ -89,17 +122,84 @@ export default function AdminContestProblemDetails() {
             setEditingField(null);
             setEditedValue("");
           }}
-        />
+        /> */}
+
+        <div
+          className="form-group"
+          style={{
+            width: "100%",
+          }}
+        >
+          <label for="problemStatement">
+            <p style={{ fontSize: "18px" }}>Problem Statement</p>
+          </label>
+          <textarea style={{backgroundColor:"#ccc"}}
+            className="form-control"
+            id="problemStatement"
+            rows="3"
+            // defaultValue={problem.problem_statement}
+            value={problem.problem_statement}
+            onChange={handleProblemStatementChange}
+          ></textarea>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            fontSize: "17px",
+            justifyContent: "space-between",
+            marginTop: "20px", // Add spacing between problem description and sample boxes
+          }}
+        >
+          <div className="form-group" style={{width:"48%"}}>
+            <label for="sampleInput">
+              <p style={{ fontSize: "18px" }}>Sample Input:</p>
+            </label>
+            <textarea style={{backgroundColor:"#ccc"}}
+            className="form-control"
+            id="sampleInput"
+            rows="3"
+            value={problem.sample_input}
+            onChange={handleProblemStatementChange}
+          ></textarea>
+          </div>
+
+          <div className="form-group" style={{width:"48%"}}>
+            <label for="sampleOutput">
+              <p style={{ fontSize: "18px" }}>Sample Output:</p>
+            </label>
+            <textarea style={{backgroundColor:"#ccc"}}
+            className="form-control"
+            id="sampleOutput"
+            rows="3"
+            // defaultValue={problem.problem_statement}
+            value={problem.sample_output}
+            onChange={handleProblemStatementChange}
+          ></textarea>
+          </div>
+        </div>
       </div>
 
-      <label for="formFileLg" class="form-label">Test Cases (Input) File: </label>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+      {/* <label for="formFileLg" class="form-label">
+        Test Cases (Input) File:{" "}
+      </label>
+      <input
+        className="form-control form-control-lg"
+        id="formFileLg"
+        type="file"
+      />
 
-
-        <label for="formFileLg" class="form-label">Test Cases (Output) File: </label>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+      <label for="formFileLg" class="form-label">
+        Test Cases (Output) File:{" "}
+      </label>
+      <input
+        className="form-control form-control-lg"
+        id="formFileLg"
+        type="file"
+      /> */}
 
       <Footer />
     </div>
   );
 }
+
