@@ -44,7 +44,11 @@ function AdminContestProblemsIndex() {
         navigate(`/admin-contest-problem-details/${problemid}`);
     };
     const handleAddProblemClick = () => {
+        navigate(`/admin-contest-problem-add`);
+    }
 
+    const handleSaveClick = () => {
+        navigate(`/admin-contest-add`);
     }
     return (
         <div>
@@ -92,7 +96,7 @@ function AdminContestProblemsIndex() {
             <button type="button" className="btn btn-dark" onClick={() => handleAddProblemClick()} style={{ position: "absolute", width: "190px", height: "42px", marginTop: "10px", marginLeft: "73%" }}>
                 Add New Problem
             </button>
-            <button type="button" className="btn btn-dark" onClick={() => handleAddProblemClick()} style={{ position: "absolute", width: "120px", height: "42px", marginTop: "10px", marginLeft: "88%" }}>
+            <button type="button" className="btn btn-dark" onClick={() => handleSaveClick()} style={{ position: "absolute", width: "120px", height: "42px", marginTop: "10px", marginLeft: "88%" }}>
                 Save
             </button>
             <div>
