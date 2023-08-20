@@ -1,3 +1,4 @@
+const pg = require('pg')
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -12,5 +13,18 @@ const pool_config = {
     maxwaitingclients: 10,
 }
 
+const render_pool_config = {
+    host: 'dpg-cjf4o5gcfp5c73ff5su0-a.oregon-postgres.render.com',
+    user: 'programmingforkidsdev_user',
+    password : '800jpkRwzb8fzAB8KwhgpUtXqQs8R2RN',
+    database: 'programmingforkidsdev',
+    max: 10,
+    idleTimeoutMillis: 10000,
+    connectionTimeoutMillis: 2000,
+    maxwaitingclients: 10,
+    ssl:true,
+}
 
-module.exports = {pool_config};
+const pool = new pg.Pool(render_pool_config)
+
+module.exports = {pool_config, pool, render_pool_config};

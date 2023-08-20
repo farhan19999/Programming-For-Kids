@@ -1,4 +1,4 @@
-const { downloadFile } = require('./dropbox.service');
+const { downloadFileFromFirebase } = require('./firebase.service');
 const { getTestCasesByProblemId } = require('../models/problem.model');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
@@ -7,7 +7,7 @@ const fs = require('fs').promises;
 
 const prepareCodeFile = async (code_file_path, file_name) => {
     try {
-        const result = await downloadFile(`${code_file_path}/${file_name}`, `./app/files/${file_name}`);
+        const result = await downloadFileFromFirebase(`${code_file_path}/${file_name}`, `./app/files/${file_name}`);
         return result;
     } catch (err) {
         console.log(err);
@@ -17,8 +17,8 @@ const prepareCodeFile = async (code_file_path, file_name) => {
 
 const load_test_cases = async (input_file, output_file, problemid, testcaseid) => {
     try {
-        const result = await downloadFile(`/problems/${problemid}/testcases/${testcaseid}/${input_file}`, `./app/files/${input_file}`);
-        const result2 = await downloadFile(`/problems/${problemid}/testcases/${testcaseid}/${output_file}`, `./app/files/${output_file}`);
+        const result = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${testcaseid}/${input_file}`, `./app/files/${input_file}`);
+        const result2 = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${testcaseid}/${output_file}`, `./app/files/${output_file}`);
         //console.log('input and ouput file loaded');
     } catch (err) {
         console.log(err);

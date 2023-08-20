@@ -1,6 +1,8 @@
-const {pool_config} = require('../config/db.config')
-const pg = require('pg')
-const pool = new pg.Pool(pool_config)
+//const {pool_config} = require('../config/db.config')
+//const pg = require('pg')
+//const pool = new pg.Pool(pool_config)
+
+const {pool} = require('../config/db.config')
 
 const getAllContests = async () => {
     try {
@@ -87,6 +89,27 @@ const updateContestProblem = async (id, problemid, problem) => {
     }
 }
 
+const getContestProblemById = async (id, problemid) => {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('SELECT * FROM pfk.problem WHERE contestid = $1 AND problemid = $2', [id, problemid])
+        client.release()
+        return result.rows[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getContestProblemByCategory = async (id, category) => {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('SELECT * FROM pfk.problem WHERE contestid = $1 AND category = $2', [id, category])
+        client.release()
+        return result.rows[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 const deleteContestProblem = async (id, problemid) => {
     try {
@@ -164,4 +187,4 @@ const getContestScores = async (id) => {
 }
 
 
-module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores};
+module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores, getContestProblemById, getContestProblemByCategory};

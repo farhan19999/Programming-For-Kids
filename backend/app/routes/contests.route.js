@@ -87,8 +87,18 @@ router.put('/:id', controller.updateContest)
 
 router.get('/:id/problems', controller.getContestProblems)
 router.post('/:id/problems', controller.addContestProblem)
+
+router.get('/:id/problems/:problemid', controller.getContestProblemById)
+router.get('/:id/problems/categories/:category', controller.getContestProblemByCategory)
 router.put('/:id/problems/:problemid', controller.updateContestProblem)
 router.delete('/:id/problems/:problemid', controller.deleteContestProblem)
+
+router.get('/:id/problems/:problemid/testcases', controller.getContestProblemTestCases);
+router.post('/:id/problems/:problemid/testcases', controller.addContestProblemTestCase);
+
+router.get('/:id/problems/:problemid/testcases/:testcaseid', controller.getContestProblemTestCaseById);
+router.put('/:id/problems/:problemid/testcases/:testcaseid', controller.updateContestProblemTestCase);
+router.delete('/:id/problems/:problemid/testcases/:testcaseid', controller.deleteContestProblemTestCase);
 
 
 router.get('/:id/submissions', controller.getAllContestSubmissions)
