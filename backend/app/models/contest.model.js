@@ -68,8 +68,8 @@ const addContestProblem = async (id, problem) => {
         const client = await pool.connect()
         const maxProblemId = await client.query('SELECT MAX(problemid) FROM pfk.problem')
         const result = await client.query(
-            'INSERT INTO pfk.problem (problemid, contestid, title, difficulty_level,  problem_statement, topic, sample_input, sample_output, time_limit)VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', 
-                                    [maxProblemId.rows[0].max + 1, id, problem.title, problem.difficulty_level, problem.problem_statement, problem.topic, problem.sample_input, problem.sample_output, problem.time_limit])
+            'INSERT INTO pfk.problem (problemid, contestid, title, difficulty_level,  problem_statement, topic, sample_input, sample_output, time_limit, category ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',  
+                                        [maxProblemId.rows[0].max + 1, id, problem.title, problem.difficulty_level, problem.problem_statement, problem.topic, problem.sample_input, problem.sample_output, problem.time_limit, problem.category])   
         client.release()
         return result.rows[0]
     } catch (error) {
@@ -77,18 +77,6 @@ const addContestProblem = async (id, problem) => {
     }
 }
 
-//TODO: #8 add a column in problem table to store the contest problem index or tag i.e. A/B/C/D/E/F
-
-const getContestProblemById = async (id, problemid) => {
-    try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.problem WHERE contestid = $1 AND problemid = $2', [id, problemid])
-        client.release()
-        return result.rows[0]
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 const updateContestProblem = async (id, problemid, problem) => {
     try {

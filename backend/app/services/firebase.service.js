@@ -1,6 +1,5 @@
 const { app } = require('../config/firebase.config.js');
-const { getStorage, uploadBytes, ref, getStream, getBytes } = require('firebase/storage');
-const { uploadFile } = require('./dropbox.service.js');
+const { getStorage, uploadBytes, ref, getStream } = require('firebase/storage');
 const fs = require('fs').promises;
 const storage = getStorage(app);
 
