@@ -59,6 +59,18 @@ const getRegisteredContests = async (id) => {
     }
 }
 
+const addRegisteredContest = async (id, contestid) => {
+    try {
+        const client = await pool.connect()
+        const maxParticipationId = await client.query('SELECT MAX(participationid) FROM pfk.contest_participation_history')
+        const result = await client.query('INSERT INTO pfk.contest_participation_history (participationid, userid, contestid, standing) VALUES ($1, $2, $3, $4) RETURNING *', [maxParticipationId.rows[0].max + 1, id, contestid, 0])
+        client.release()
+        return result.rows[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const getAllPracticeSubmissionByUserId = async (id) => {
     try {
         const client = await pool.connect()
@@ -72,4 +84,4 @@ const getAllPracticeSubmissionByUserId = async (id) => {
 
 
 
-module.exports = {getAllUsers, getUserById, createUser, updateUser, getRegisteredContests, getAllPracticeSubmissionByUserId}
+module.exports = {getAllUsers, getUserById, createUser, updateUser, getRegisteredContests, getAllPracticeSubmissionByUserId,addRegisteredContest}

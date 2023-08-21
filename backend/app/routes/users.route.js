@@ -207,6 +207,8 @@ router.put('/:id', controller.updateUser)
  *          description: Some server error      
  */
 router.get('/:id/registered-contests',controller.getRegisteredContests)
+router.post('/:id/registered-contests',controller.addRegisteredContest)
+
 
 //TODO #1: add contest recommendation feature
 //router.get('/:id/recommended-contests',controller.getRecommendedContests)
