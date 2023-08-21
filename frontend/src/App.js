@@ -70,7 +70,7 @@ const router = createBrowserRouter([
     element: <Contest_Problem_Details />,
   },
   {
-    path: "/my-submissions",
+    path: "/contest/:contestid/my-submissions",
     element: <My_Submissions />,
   },
   {

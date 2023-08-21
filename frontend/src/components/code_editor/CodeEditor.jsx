@@ -17,7 +17,7 @@ const CodeEditor = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("c_cpp"); // Default language
   const [submissionStatus, setSubmissionStatus] = useState("Pending"); // Submission status
   const [codeContent, setCodeContent] = useState(""); // Store the code content
-  const { problemid } = useParams();
+  const { contestid, problemid } = useParams();
   const navigate = useNavigate();
 
   const handleLanguageChange = (event) => {
@@ -32,7 +32,6 @@ const CodeEditor = () => {
     const isCorrect = false;
     // Replace with actual submission logic
     setSubmissionStatus(isCorrect ? "Pending" : "Pending");
-    const contestid = 1;
     const userid = 1;
 
     try {
@@ -69,7 +68,7 @@ const CodeEditor = () => {
       console.error("Error uploading to Firebase:", error);
     }
 
-    navigate(`/my-submissions`);
+    navigate(`/contest/${contestid}/my-submissions`);
   };
 
   return (

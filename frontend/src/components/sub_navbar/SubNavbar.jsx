@@ -18,7 +18,7 @@ function SubNavbar() {
               <NavLink className="nav-link" to="/contest/1">Problems</NavLink>
             </li>
             <li className={`nav-item ${location.pathname === '/my-submissions' ? 'active' : ''}`}>
-              <NavLink className="nav-link" to="/my-submissions">My Submissions</NavLink>
+              <NavLink className="nav-link" to="/contest/1/my-submissions">My Submissions</NavLink>
             </li>
             <li className={`nav-item ${location.pathname === '/standings' ? 'active' : ''}`}>
               <NavLink className="nav-link" to="/standings">Standings</NavLink>

@@ -6,7 +6,7 @@ import SubNavbar from "../../components/sub_navbar/SubNavbar";
 import Table from "../../components/my_submissions_table/Table";
 
 
-export default function IndividualProblem() {
+export default function My_Submissions() {
   return (
     <div style={{ position: "relative" }}>
       <Navbar />
