@@ -3,7 +3,7 @@
 import React from "react";
 import Navbar from "../../../components/navbar/Navbar";
 import SubNavbar from "../../../components/sub_navbar/SubNavbar";
-import Table from "../../../components/my_submissions_table/Table";
+import SubmissionTable from "../../../components/my_submissions_table/SubmissionTable";
 
 
 function Submission_IndividualProblem() {
@@ -17,7 +17,7 @@ function Submission_IndividualProblem() {
       </h4>
 
       
-      <Table />
+      <SubmissionTable />
 
 
     </div>

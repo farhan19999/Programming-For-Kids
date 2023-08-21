@@ -12,7 +12,7 @@ import Submission_IndividualProblem from "./pages/programming_contest/my_submiss
 import Standings_Crogramming_Contest from "./pages/programming_contest/standings/standings";
 import SignUp from "./pages/signup/SignUp";
 import Signin from "./pages/signin/Signin";
-import Standings from "./pages/standings/Standings";
+import Standings  from "./pages/standings/Standings";
 import MiniProject from "./pages/mini_project_contest/MiniProject";
 import AdminMPindex from "./pages/admin/admin_miniproject_index/AdminMPindex";
 import AdminMPdetails from "./pages/admin/admin_miniproject_details/AdminMPdetails";
@@ -53,10 +53,10 @@ const router = createBrowserRouter([
     path:"/contest/my-submissions",
     element:<Submission_IndividualProblem/>
   },
-  {
-    path:"/contest/standings",
-    element:<Standings_Crogramming_Contest/>
-  },
+  // {
+  //   path:"/contest/standings",
+  //   element:<Standings_Crogramming_Contest/>
+  // },
   {
     path: "/signup",
     element: <SignUp />,
@@ -74,7 +74,7 @@ const router = createBrowserRouter([
     element: <My_Submissions />,
   },
   {
-    path: "/standings",
+    path: "/contest/:contestid/standings",
     element: <Standings />,
   },
   {

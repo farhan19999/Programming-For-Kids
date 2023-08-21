@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export default function Table() {
+export default function SubmissionTable() {
   return (
     <div>
       <table className="table table-bordered table-hover" style={{ marginLeft: "30px", marginTop: "20px", marginBottom: "40px", marginRight: "30px", width: "96%" }}>

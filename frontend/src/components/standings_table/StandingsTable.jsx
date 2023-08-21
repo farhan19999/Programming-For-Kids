@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export default function Table() {
+export default function StandingsTable() {
   const rows = [
     { who: "Alice", A: 350, B: 800, C: 1000, D: 1600, E: 750, F: 3000 },
     { who: "Bob", A: 250, B: 600, C: 900, D: 1400, E: 700, F: 2000 },
