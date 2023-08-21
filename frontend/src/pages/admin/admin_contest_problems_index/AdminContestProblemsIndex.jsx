@@ -1,7 +1,8 @@
 //Author:Mahbub
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; import Navbar from '../../../components/navbar/Navbar'
+import { useParams } from 'react-router-dom';
+import Navbar from '../../../components/navbar/Navbar'
 import Footer from '../../../components/footer/Footer';
 import Timer from '../../../components/time_remaining/Timer';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
