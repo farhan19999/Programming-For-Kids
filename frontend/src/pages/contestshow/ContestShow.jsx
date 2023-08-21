@@ -4,7 +4,7 @@ import ContestTitle from '../../components/contesttitle/ContestTitle';
 import Footer from '../../components/footer/Footer';
 //Author: MAHBUB
 
-function ShowContest() {
+function Contest() {
   return (
     <div style={{ height: '100vh',marginTop:"25px"}}>
     <Navbar/>
@@ -13,9 +13,9 @@ function ShowContest() {
         </div>
       <ContestTitle/>
       
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
 
-export default ShowContest;
+export default Contest;

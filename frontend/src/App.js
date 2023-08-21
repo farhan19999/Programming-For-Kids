@@ -42,11 +42,11 @@ const router = createBrowserRouter([
     element: <Profile />,
   },
   {
-    path: "/contestRegistration",
+    path: "/contest/:contestid/Registration",
     element: <Contest_Registration />,
   },
   {
-    path: "/contest",
+    path: "/user/:userid/contests/",
     element: <Contest />,
   },
   {

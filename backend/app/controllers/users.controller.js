@@ -55,3 +55,12 @@ exports.getAllPracticeSubmissionByUserId = async (req, res) =>{
     }
 
 }
+
+exports.addRegisteredContest = async (req, res) => {
+    try {
+        const contest = await user_services.addRegisteredContest(req.params.id, req.body.contestid)
+        res.status(200).json(contest)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
