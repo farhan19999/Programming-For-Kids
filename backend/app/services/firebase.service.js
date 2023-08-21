@@ -29,8 +29,4 @@ const downloadFileFromFirebase = async (remote_file_path, local_file_path) => {
     
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/backend
 module.exports = { uploadFileToFirebase, downloadFileFromFirebase }
