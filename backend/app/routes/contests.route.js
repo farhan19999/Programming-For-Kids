@@ -1,5 +1,5 @@
 const router = require('express').Router()
-
+const { param } = require("express-validator");
 const controller = require('../controllers/contests.controller')
 /**
  * @swagger
@@ -81,8 +81,8 @@ router.get('/', controller.getContests)
 router.post('/', controller.createContest)
 
 
-router.get('/:id', controller.getContestById)
-router.put('/:id', controller.updateContest)
+router.get('/:id', param('id').isEmpty(), controller.getContestById)
+router.put('/:id',param('id').isEmpty(), controller.updateContest)
 
 
 router.get('/:id/problems', controller.getContestProblems)
