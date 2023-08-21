@@ -10,6 +10,8 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
+import storage from "../../../utils/firebase";
+import { ref, uploadBytes } from "firebase/storage";
 
 export default function AdminContestProblemDetails() {
   const defaultState = {
@@ -47,29 +49,29 @@ export default function AdminContestProblemDetails() {
     setSampleOutput(event.target.value);
   };
 
-  const [sampleInputFile, setSampleInputFile] = useState(null);
-  const handleInputFileChange = (event) => {
+  const handleInputFileChange = (event) => {         ///// path : /problems/problemid/testcases/input_timestamp.txt
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const inputContent = event.target.result;
-        setSampleInputFile(inputContent);
-      };
-      reader.readAsText(file);
+      // create new file in path ./src/files/input.txt and copy the inputContent into it
+      // get current timestamp and append it to the filename
+      const timestamp = Date.now();
+      const filename = `input_${timestamp}.txt`;
+      const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
+      uploadBytes(storageRef, file).then(() => {
+        console.log('Uploaded the input test cases file!');
+      });
     }
   };
 
-  const [sampleOutputFile, setSampleOutputFile] = useState(null);
-  const handleOutputFileChange = (event) => {
+  const handleOutputFileChange = (event) => {         ///// path : /problems/problemid/testcases/output_timestamp.txt
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const outputContent = event.target.result;
-        setSampleOutputFile(outputContent);
-      };
-      reader.readAsText(file);
+      const timestamp = Date.now();
+      const filename = `output_${timestamp}.txt`;
+      const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
+      uploadBytes(storageRef, file).then(() => {
+        console.log('Uploaded the output test cases file!');
+      });
     }
   };
 
@@ -125,8 +127,8 @@ export default function AdminContestProblemDetails() {
         difficulty_level: document.getElementById("difficulty").value,
         problem_statement: sampleProblemStatementFile || problemStatement,
         topic: document.getElementById("topic").value,
-        sample_input: sampleInputFile || sampleInput,
-        sample_output: sampleOutputFile || sampleOutput,
+        sample_input: sampleInput,
+        sample_output: sampleOutput,
         time_limit: document.getElementById("time_limit").value,
         category: document.getElementById("category").value,
       })
