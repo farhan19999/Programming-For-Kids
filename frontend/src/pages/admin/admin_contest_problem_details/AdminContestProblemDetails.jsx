@@ -11,6 +11,8 @@ import Navbar from "../../../components/navbar/Navbar";
 import TimeRemaining from "../../../components/time_remaining/Timer";
 import Footer from "../../../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
+import storage from "../../../utils/firebase";
+import { ref, uploadBytes } from "firebase/storage";
 
 export default function AdminContestProblemDetails() {
   const defaultState = {
@@ -48,16 +50,17 @@ export default function AdminContestProblemDetails() {
     setSampleOutput(event.target.value);
   };
 
-  const [sampleInputFile, setSampleInputFile] = useState(null);
-  const handleInputFileChange = (event) => {
+  const handleInputFileChange = (event) => {         ///// path : /problems/problemid/testcases/input_timestamp.txt
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const inputContent = event.target.result;
-        setSampleInputFile(inputContent);
-      };
-      reader.readAsText(file);
+      // create new file in path ./src/files/input.txt and copy the inputContent into it
+      // get current timestamp and append it to the filename
+      const timestamp = Date.now();
+      const filename = `input_${timestamp}.txt`;
+      const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
+      uploadBytes(storageRef, file).then(() => {
+        console.log('Uploaded a blob or file!');
+      });
     }
   };
 
@@ -114,8 +117,8 @@ export default function AdminContestProblemDetails() {
           difficulty_level: problem.difficulty_level,
           problem_statement: problemStatement,
           topic: problem.topic,
-          sample_input: sampleInputFile||sampleInput,
-          sample_output: sampleOutputFile||sampleOutput,
+          sample_input: sampleInput,
+          sample_output: sampleOutput,
           time_limit: problem.time_limit,
           category: problem.category,
         }

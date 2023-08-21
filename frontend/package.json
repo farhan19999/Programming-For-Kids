@@ -20,6 +20,7 @@
     "chart.js": "^4.3.3",
     "dropbox": "^10.34.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.49",
+    "firebase": "^10.2.0",
     "fullcalendar": "^6.1.8",
     "jquery": "^3.7.0",
     "mdb-ui-kit": "^6.4.1",

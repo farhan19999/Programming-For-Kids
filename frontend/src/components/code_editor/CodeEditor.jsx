@@ -32,31 +32,15 @@ const CodeEditor = () => {
 
     const userid = 1;
 
-    axios
-      .post(
-        `http://localhost:3000/api/contests/${contestid}/submissions/${problemid}/${userid}`,
-        {
-          submitted_code: null,
-          submitted_time:  new Date().toISOString().slice(0, 19).replace('T', ' '),
-          language: selectedLanguage, 
-          score: null,
-          submission_filename: "a.cpp",
-        }
-      )
-      .then((response) => {
-        console.log("Code submitted:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error submitting code:", error);
-      });
+    
 
     try {
       const accessToken =
         "sl.BkW5zdaED8f20HjtPlIdfSrr68VBoWZAqSkWjZx71Z8LGTj3hFps30pLOe0WusVsbYAwBfMDv_bFFFT7Hz070Wt3MIxSUzZD2sQZJkP0sS5NXyS046Bnkvtyz1SZhT83DjMqIoYNAV4Cx5A1DJ508ZI";
       const content = new Blob([codeContent], { type: "text/plain" });
 
-      // Upload the code content to Dropbox
-      await axios.post(
+      // Upload the code content to FIREBASE
+      await axios.post(   
         "https://content.dropboxapi.com/2/files/upload",
         content,
         {
@@ -64,7 +48,7 @@ const CodeEditor = () => {
             Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/octet-stream",
             "Dropbox-API-Arg": JSON.stringify({
-              path: "/a.cpp", // Specify the path and filename : /contest/contestid/userid/A_timestamp.cpp
+              path: "/a.cpp", // `/contests/${contestid}/submissions/${userid=1}/userid_problemid_timestamp.c`
               mode: "overwrite",
             }),
           },
@@ -76,6 +60,25 @@ const CodeEditor = () => {
     } catch (error) {
       console.error("Error uploading to Dropbox:", error);
     }
+
+    axios
+      .post(
+        `http://localhost:3000/api/contests/${contestid}/submissions/${problemid}/${userid}`,
+        {
+          submitted_code: null,
+          submitted_time:  new Date().toISOString().slice(0, 19).replace('T', ' '),
+          language: selectedLanguage, 
+          submission_filename: "a.cpp", // change
+        }
+      )
+      .then((response) => {
+        console.log("Code submitted:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error submitting code:", error);
+      });
+
+      
   };
 
   return (
