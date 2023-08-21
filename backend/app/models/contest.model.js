@@ -149,7 +149,7 @@ const getContestSubmissionByProblemId = async (id, problemid) => {
 const getContestSubmissionByUserId = async (id, userid) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.contest_submission WHERE contestid = $1 AND userid = $2', [id, userid])
+        const result = await client.query('SELECT * FROM pfk.contest_submission as cs inner join pfk.problem as p on (cs.problemid = p.problemid)  WHERE cs.contestid = $1 AND cs.userid = $2', [id, userid])
         client.release()
         return result.rows
     } catch (error) {
