@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react'; 
 import Navbar from '../../../components/navbar/Navbar' 
 import Footer from '../../../components/footer/Footer'; 
-import Timer from '../../../components/time_remaining/Timer'; 
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios'; 
  

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import AceEditor from "react-ace";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import storage from "../../utils/firebase";
 import { ref, uploadBytes } from "firebase/storage";
@@ -18,6 +18,8 @@ const CodeEditor = () => {
   const [submissionStatus, setSubmissionStatus] = useState("Pending"); // Submission status
   const [codeContent, setCodeContent] = useState(""); // Store the code content
   const { problemid } = useParams();
+  const navigate = useNavigate();
+
   const handleLanguageChange = (event) => {
     setSelectedLanguage(event.target.value);
   };
@@ -66,6 +68,8 @@ const CodeEditor = () => {
     } catch (error) {
       console.error("Error uploading to Firebase:", error);
     }
+
+    navigate(`/my-submissions`);
   };
 
   return (

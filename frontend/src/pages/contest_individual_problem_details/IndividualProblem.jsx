@@ -37,6 +37,19 @@ The first line of input is X and the second line is Y. Print the output.`,
     });
   }, [problemid]);
 
+  const [contest, setContest] = useState("");
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/api/contests/${contestid}`) // For getting contest title
+      .then((response) => {
+        const contest = response.data;
+        setContest(contest);
+      })
+      .catch((error) => {
+        console.error("Error fetching contest :", error);
+      });
+  }, [contestid]);
+
   // const moveToNextProblem = () => {
   //   // Implement your logic here to move to the next problem
   //   // Assuming you have a list of problems and their IDs
@@ -65,7 +78,7 @@ The first line of input is X and the second line is Y. Print the output.`,
       <SubNavbar />
 
       <h4 style={{ textAlign: "center", marginTop: "20px" }}>
-        Contest Title: Array Round 1 (Rated for Div. 3)
+        Contest Title: {contest.title} (Rated for Div. {contest.div})
       </h4>
       <div style={{  }}>
         <TimeRemaining />
