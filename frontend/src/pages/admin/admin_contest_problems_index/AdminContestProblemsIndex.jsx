@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import DateTimePicker from '../../../components/date_time_picker/DateTimerPicker';
 
 function AdminContestProblemsIndex() {
-
+    
+    const default_contestid=1;
     const { contestid } = useParams();
-
+    if(!contestid)contestid = default_contestid;
     const [problems, setProblems] = useState([]);
     const [contest, setContest] = useState('');
     useEffect(() => {
@@ -77,7 +78,7 @@ function AdminContestProblemsIndex() {
 
                     {problems.map(problem => (
                         <tr key={problem.problemid}>
-                            <td>{problem.problemid}</td>
+                            <td>{problem.category}</td>
                             <td>{problem.title}</td>
                             <td></td>
                             <td></td>

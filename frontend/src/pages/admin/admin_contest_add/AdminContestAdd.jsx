@@ -27,8 +27,20 @@ function AdminContestAdd() {
     } 
  
     const handleAddNewContestClick = () => {
-        navigate(`/admin-contest-add-new`); 
+        navigate(`/admin/contest-add-new`); 
     } 
+    const calculateRemainingTime = (startTime) => {
+        const now = new Date();
+        const startTimeMs = new Date(startTime);
+        const remainingTimeMs = Math.max(startTimeMs-now, 0);
+
+        const days = Math.floor(remainingTimeMs / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remainingTimeMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((remainingTimeMs % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remainingTimeMs % (1000 * 60)) / 1000);
+
+        return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    };
  
     return ( 
         <div> 
@@ -56,7 +68,7 @@ function AdminContestAdd() {
                         <tr key={contest.contestid}>
                             <td>{contest.contestid}</td>
                             <td>{contest.title}</td>
-                            <td></td>
+                            <td>{calculateRemainingTime(contest.start_time)} </td>
                             <td>
                                 <button type="button" className="btn btn-dark" onClick={() => handleModifyClick(contest.contestid)}>
                                     Modify 

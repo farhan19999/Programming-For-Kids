@@ -78,11 +78,11 @@ const router = createBrowserRouter([
     element: <Standings />,
   },
   {
-    path: "/admin-contest-add",
+    path: "/admin/contest-add",
     element: <AdminContestAdd />,
   },
   {
-    path: "/admin-contest-add-new",
+    path: "/admin/contest-add-new",
     element: <AdminContestAddNew />,
   },
   {
