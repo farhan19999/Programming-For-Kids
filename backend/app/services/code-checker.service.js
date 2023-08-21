@@ -25,14 +25,7 @@ const load_test_cases = async (input_file, output_file, problemid, testcaseid) =
         throw err;
     }
 }
-/**
- * 
- * @param {*} code_file_path 
- * @param {*} file_name 
- * @param {*} problemid 
- * @param {*} time_limit 
- * @returns 
- */
+
 const cCodeRunner = async (code_file_path, file_name, problemid, time_limit) => {
     try {
         const result = await prepareCodeFile(code_file_path, file_name);
@@ -40,6 +33,11 @@ const cCodeRunner = async (code_file_path, file_name, problemid, time_limit) => 
         //console.log(testcases)
         const sample_testcases = [{ testcaseid: 1, input_file: 'input-1.txt', output_file: 'output-1.txt' }]
         const { stdout, stderr } = await exec(`gcc -o ./app/files/a ./app/files/${file_name}`);
+        if(stderr){
+            console.log('Compilation Error');
+            await fs.unlink(`./app/files/${file_name}`);
+            return 'CE';
+        }
 
         let verdict = '';
 
