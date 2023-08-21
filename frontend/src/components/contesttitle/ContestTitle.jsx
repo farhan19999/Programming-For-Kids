@@ -40,7 +40,7 @@ function ContestTitle() {
   }
 
   return (
-    <div className="row" >
+    <div className="row" style={{marginLeft:"30px"}} >
       <h4>Registered Contests:</h4>
       {rc['registered-contests'] ? (
         rc['registered-contests'].map((item) => (

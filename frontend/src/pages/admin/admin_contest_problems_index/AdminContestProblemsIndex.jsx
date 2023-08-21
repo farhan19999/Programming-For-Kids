@@ -100,9 +100,9 @@ function AdminContestProblemsIndex() {
             <button type="button" className="btn btn-dark" onClick={() => handleSaveClick()} style={{ position: "absolute", width: "120px", height: "42px", marginTop: "10px", marginLeft: "88%" }}>
                 Save
             </button>
-            <div>
+            {/* <div>
                 <DateTimePicker />
-            </div>
+            </div> */}
             {/* <div>
                 <input-duration id="bob"></input-duration><br />
 

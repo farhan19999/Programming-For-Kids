@@ -30,7 +30,8 @@ export default function AdminContestProblemDetails() {
     sample_output: "5",
     time_limit: "45",
   };
-
+  let outputfilename=null;
+let inputfilename=null;
   const [problem, setProblem] = useState(defaultState);
 
   const [problemStatement, setProblemStatement] = useState(
@@ -56,8 +57,8 @@ export default function AdminContestProblemDetails() {
       // create new file in path ./src/files/input.txt and copy the inputContent into it
       // get current timestamp and append it to the filename
       const timestamp = Date.now();
-      const filename = `input_${timestamp}.txt`;
-      const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
+      inputfilename = `input_${timestamp}.txt`;
+      const storageRef = ref(storage, `problems/${problemid}/testcases/${inputfilename}`);
       uploadBytes(storageRef, file).then(() => {
         console.log('Uploaded the input test cases file!');
       });
@@ -68,8 +69,8 @@ export default function AdminContestProblemDetails() {
     const file = event.target.files[0];
     if (file) {
       const timestamp = Date.now();
-      const filename = `output_${timestamp}.txt`;
-      const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
+      outputfilename = `output_${timestamp}.txt`;
+      const storageRef = ref(storage, `problems/${problemid}/testcases/${outputfilename}`);
       uploadBytes(storageRef, file).then(() => {
         console.log('Uploaded the output test cases file!');
       });
@@ -107,9 +108,9 @@ export default function AdminContestProblemDetails() {
     navigate(`/admin/contest/${contestid}`);
   };
 
-  const handleSave = () => { 
-    axios 
-      .put( 
+  const handleSave = () => {
+    axios
+      .put(
         `http://localhost:3000/api/contests/${contestid}/problems/${problemid}`,
         {
           title: problem.title,
@@ -128,7 +129,25 @@ export default function AdminContestProblemDetails() {
       .catch((error) => {
         console.error("Error updating problem:", error);
       });
-      navigate(`/admin/contest/${contestid}`);
+    if (inputfilename && outputfilename) {
+      axios.post(
+        `http://localhost:3000/api/contests/${contestid}/problems/${problemid}/testcases`,
+        {
+          input_file: inputfilename,
+          output_file: outputfilename,
+
+        }
+      )
+        .then((response) => {
+          console.log("file updated:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error updating file:", error);
+        });
+    }
+
+
+    navigate(`/admin/contest/${contestid}`);
   };
 
   return (
@@ -145,7 +164,7 @@ export default function AdminContestProblemDetails() {
         </h4>
       </div>
 
-      <TimeRemaining />
+      {/* <TimeRemaining /> */}
 
       <div
         style={{
@@ -165,7 +184,7 @@ export default function AdminContestProblemDetails() {
             <p style={{ fontSize: "18px" }}>Problem Statement</p>
           </label>
           <textarea
-            style={{ backgroundColor: "#ccc" }}
+            style={{ backgroundColor: "#eee" }}
             className="form-control"
             id="problemStatement"
             rows="6"
@@ -187,7 +206,7 @@ export default function AdminContestProblemDetails() {
               <p style={{ fontSize: "18px" }}>Sample Input:</p>
             </label>
             <textarea
-              style={{ backgroundColor: "#ccc" }}
+              style={{ backgroundColor: "#eee" }}
               className="form-control"
               id="sampleInput"
               rows="3"
@@ -201,7 +220,7 @@ export default function AdminContestProblemDetails() {
               <p style={{ fontSize: "18px" }}>Sample Output:</p>
             </label>
             <textarea
-              style={{ backgroundColor: "#ccc" }}
+              style={{ backgroundColor: "#eee" }}
               className="form-control"
               id="sampleOutput"
               rows="3"
