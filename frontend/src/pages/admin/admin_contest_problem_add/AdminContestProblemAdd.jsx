@@ -49,31 +49,31 @@ export default function AdminContestProblemDetails() {
     setSampleOutput(event.target.value);
   };
 
-  const handleInputFileChange = (event) => {         ///// path : /problems/problemid/testcases/input_timestamp.txt
-    const file = event.target.files[0];
-    if (file) {
-      // create new file in path ./src/files/input.txt and copy the inputContent into it
-      // get current timestamp and append it to the filename
-      const timestamp = Date.now();
-      const filename = `input_${timestamp}.txt`;
-      const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
-      uploadBytes(storageRef, file).then(() => {
-        console.log('Uploaded the input test cases file!');
-      });
-    }
-  };
+  // const handleInputFileChange = (event) => {         ///// path : /problems/problemid/testcases/input_timestamp.txt
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     // create new file in path ./src/files/input.txt and copy the inputContent into it
+  //     // get current timestamp and append it to the filename
+  //     const timestamp = Date.now();
+  //     const filename = `input_${timestamp}.txt`;
+  //     const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
+  //     uploadBytes(storageRef, file).then(() => {
+  //       console.log('Uploaded the input test cases file!');
+  //     });
+  //   }
+  // };
 
-  const handleOutputFileChange = (event) => {         ///// path : /problems/problemid/testcases/output_timestamp.txt
-    const file = event.target.files[0];
-    if (file) {
-      const timestamp = Date.now();
-      const filename = `output_${timestamp}.txt`;
-      const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
-      uploadBytes(storageRef, file).then(() => {
-        console.log('Uploaded the output test cases file!');
-      });
-    }
-  };
+  // const handleOutputFileChange = (event) => {         ///// path : /problems/problemid/testcases/output_timestamp.txt
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const timestamp = Date.now();
+  //     const filename = `output_${timestamp}.txt`;
+  //     const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
+  //     uploadBytes(storageRef, file).then(() => {
+  //       console.log('Uploaded the output test cases file!');
+  //     });
+  //   }
+  // };
 
   const [sampleProblemStatementFile, setSampleProblemStatementFile] =
     useState(null);
@@ -153,7 +153,7 @@ export default function AdminContestProblemDetails() {
       <div
         style={{
           marginLeft: "50px",
-          marginLeft: "50px",
+          // marginLeft: "50px",
           marginRight: "50px",
           marginTop: "20px",
         }}
@@ -319,7 +319,7 @@ export default function AdminContestProblemDetails() {
         </div>
       </div>
 
-      <div
+      {/* <div
         style={{
           display: "flex",
           fontSize: "17px",
@@ -365,7 +365,7 @@ export default function AdminContestProblemDetails() {
             onChange={handleOutputFileChange}
           />
         </div>
-      </div>
+      </div> */}
 
       <button
         type="button"
