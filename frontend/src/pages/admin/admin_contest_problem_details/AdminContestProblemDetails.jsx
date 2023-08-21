@@ -59,21 +59,20 @@ export default function AdminContestProblemDetails() {
       const filename = `input_${timestamp}.txt`;
       const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
       uploadBytes(storageRef, file).then(() => {
-        console.log('Uploaded a blob or file!');
+        console.log('Uploaded the input test cases file!');
       });
     }
   };
 
-  const [sampleOutputFile, setSampleOutputFile] = useState(null);
-  const handleOutputFileChange = (event) => {
+  const handleOutputFileChange = (event) => {         ///// path : /problems/problemid/testcases/output_timestamp.txt
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const outputContent = event.target.result;
-        setSampleOutputFile(outputContent);
-      };
-      reader.readAsText(file);
+      const timestamp = Date.now();
+      const filename = `output_${timestamp}.txt`;
+      const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
+      uploadBytes(storageRef, file).then(() => {
+        console.log('Uploaded the output test cases file!');
+      });
     }
   };
 

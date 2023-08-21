@@ -67,8 +67,9 @@ The first line of input is X and the second line is Y. Print the output.`,
       <h4 style={{ textAlign: "center", marginTop: "20px" }}>
         Contest Title: Array Round 1 (Rated for Div. 3)
       </h4>
-
-      <TimeRemaining />
+      <div style={{  }}>
+        <TimeRemaining />
+      </div>
 
       <div style={{ display: "flex" }}>
         <ProblemDetails problem={problem} />

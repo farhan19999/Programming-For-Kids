@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import AceEditor from "react-ace";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import storage from "../../utils/firebase";
+import { ref, uploadBytes } from "firebase/storage";
 
 // Import ace themes and modes here if needed
 import "ace-builds/src-noconflict/theme-monokai";
@@ -12,7 +14,7 @@ import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/mode-c_cpp";
 
 const CodeEditor = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState("java"); // Default language
+  const [selectedLanguage, setSelectedLanguage] = useState("c_cpp"); // Default language
   const [submissionStatus, setSubmissionStatus] = useState("Pending"); // Submission status
   const [codeContent, setCodeContent] = useState(""); // Store the code content
   const { problemid } = useParams();
@@ -29,56 +31,41 @@ const CodeEditor = () => {
     // Replace with actual submission logic
     setSubmissionStatus(isCorrect ? "Accepted" : "Wrong Answer");
     const contestid = 1;
-
     const userid = 1;
 
-    
-
     try {
-      const accessToken =
-        "sl.BkW5zdaED8f20HjtPlIdfSrr68VBoWZAqSkWjZx71Z8LGTj3hFps30pLOe0WusVsbYAwBfMDv_bFFFT7Hz070Wt3MIxSUzZD2sQZJkP0sS5NXyS046Bnkvtyz1SZhT83DjMqIoYNAV4Cx5A1DJ508ZI";
       const content = new Blob([codeContent], { type: "text/plain" });
 
       // Upload the code content to FIREBASE
-      await axios.post(   
-        "https://content.dropboxapi.com/2/files/upload",
-        content,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/octet-stream",
-            "Dropbox-API-Arg": JSON.stringify({
-              path: "/a.cpp", // `/contests/${contestid}/submissions/${userid=1}/userid_problemid_timestamp.c`
-              mode: "overwrite",
-            }),
-          },
-        }
-      );
+      const timestamp = Date.now();
+      const filename = `${userid}_${problemid}_${timestamp}.c`;
+      const storageRef = ref(storage, `/contests/${contestid}/submissions/${userid}/${filename}`);
+      await uploadBytes(storageRef, content);
 
-      console.log("Code uploaded to Dropbox");
-      console.log("Code content:", codeContent);
+      console.log("Code uploaded to Firebase Storage");
+      console.log("Code content:", codeContent); // since code upload successful, now do post request to backend
+      axios
+        .post(
+          `http://localhost:3000/api/contests/${contestid}/submissions/${problemid}/${userid}`,
+          {
+            submitted_code: null,
+            submitted_time: new Date()
+              .toISOString()
+              .slice(0, 19)
+              .replace("T", " "),
+            language: selectedLanguage,
+            submission_filename: filename,
+          }
+        )
+        .then((response) => {
+          console.log("Code submitted:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting code:", error);
+        });
     } catch (error) {
-      console.error("Error uploading to Dropbox:", error);
+      console.error("Error uploading to Firebase:", error);
     }
-
-    axios
-      .post(
-        `http://localhost:3000/api/contests/${contestid}/submissions/${problemid}/${userid}`,
-        {
-          submitted_code: null,
-          submitted_time:  new Date().toISOString().slice(0, 19).replace('T', ' '),
-          language: selectedLanguage, 
-          submission_filename: "a.cpp", // change
-        }
-      )
-      .then((response) => {
-        console.log("Code submitted:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error submitting code:", error);
-      });
-
-      
   };
 
   return (
@@ -92,7 +79,7 @@ const CodeEditor = () => {
             value={selectedLanguage}
             onChange={handleLanguageChange}
           >
-            <option value={"C++"}>C++</option> {/* Added C++ option */}
+            <option value={"c_cpp"}>C++</option> 
             <option value={"java"}>Java</option>
             <option value={"python"}>Python</option>
             {/* Add more language options here */}
