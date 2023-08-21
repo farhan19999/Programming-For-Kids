@@ -134,7 +134,7 @@ exports.addContestProblemSubmission = async (req, res) => {
         const time_limit = await problemService.getTimeLimitByProblemId(req.params.problemid);
         codeCheckerService.cCodeRunner(`/contests/${req.params.id}/submissions/${req.params.userid}`,filename, req.params.problemid, time_limit)
         .then((verdict) => {
-            service.updateContestSubmission(req.params.id, req.params.problemid, req.params.userid, verdict);
+            service.updateContestProblemSubmission(submission.submissionid, verdict);
         })
         .catch((err) => {
             console.log(err);

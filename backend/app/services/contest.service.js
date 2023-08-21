@@ -129,6 +129,15 @@ exports.addContestProblemSubmission = async (id, problemid, userid, submission) 
     }
 }
 
+exports.updateContestProblemSubmission = async (submissionid, verdict) => {
+    try {
+        const result = await contestModel.updateContestProblemSubmission(submissionid, verdict);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
 exports.getContestStanding = async (id) => {
     try {
         const scores = await contestModel.getContestScores(id);
