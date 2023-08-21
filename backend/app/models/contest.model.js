@@ -187,5 +187,17 @@ const getContestScores = async (id) => {
 
 }
 
+const updateContestProblemSubmission = async (submissionid, status) => {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('UPDATE pfk.contest_submission SET status = $1 WHERE submissionid = $2 RETURNING *', 
+                                    [status, submissionid])
+        client.release()
+        return result.rows[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores, getContestProblemById, getContestProblemByCategory};
+
+module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores, getContestProblemById, getContestProblemByCategory, updateContestProblemSubmission};
