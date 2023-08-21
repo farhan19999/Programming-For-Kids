@@ -43,7 +43,7 @@ const cCodeRunner = async (code_file_path, file_name, problemid, time_limit) => 
 
         let verdict = '';
 
-        for (let testcase of sample_testcases) {
+        for (let testcase of testcases) {
             //console.log(testcase);
             const result2 = await load_test_cases(testcase.input_file, testcase.output_file, problemid, testcase.testcaseid);
             try {
