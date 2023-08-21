@@ -45,7 +45,7 @@ const cCodeRunner = async (code_file_path, file_name, problemid, time_limit) => 
             //console.log(testcase);
             const result2 = await load_test_cases(testcase.input_file, testcase.output_file, problemid, testcase.testcaseid);
             try {
-                console.log(`testcase ${testcase.input_file} file loaded`);
+                //console.log(`testcase ${testcase.input_file} file loaded`);
                 const { pid, stdout, stderr } = await exec(`"./app/files/a.exe" < ./app/files/${testcase.input_file}`, { timeout: time_limit });
                 const data = await fs.readFile(`./app/files/${testcase.output_file}`, 'utf8');
                 if (data === stdout) {
@@ -80,14 +80,14 @@ const cCodeRunner = async (code_file_path, file_name, problemid, time_limit) => 
     } catch (err) {
         console.log(err);
         await fs.unlink(`./app/files/${file_name}`);
-        await fs.unlink(`./app/files/a.exe`);
-        throw err;
+        //await fs.unlink(`./app/files/a.exe`);
+        return 'CE';
     }
     await fs.unlink(`./app/files/${file_name}`);
     await fs.unlink(`./app/files/a.exe`);
     return verdict;
 }
 
-//cCodeRunner('/contests/1/submissions/1', 'A_1.c', 1, 1000);
+//cCodeRunner('/contests/1/submissions/1', '1_1_1692604207154.c', 1, 2000);
 
 module.exports = { cCodeRunner };
