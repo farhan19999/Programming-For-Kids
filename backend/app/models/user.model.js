@@ -1,7 +1,7 @@
-const {pool_config} = require('../config/db.config')
+const {pool} = require('../config/db.config')
 
-const pg = require('pg')
-const pool = new pg.Pool(pool_config)
+//const pg = require('pg')
+//const pool = new pg.Pool(pool_config)
 
 const getAllUsers = async () => {
     try {
@@ -40,7 +40,7 @@ const createUser = async (user) => {
 const updateUser = async (id, user) => {
     try{
         const client = await pool.connect()
-        const result = await client.query('UPDATE pfk.users SET username = $1, email_address = $2, password = $3 WHERE userid = $4 RETURNING *', [user.username, user.email_address, user.password, id])
+        const result = await client.query('UPDATE pfk.users SET  email_address = $1, password = $2, phone_no = $3 WHERE userid = $4 RETURNING *', [user.email_address, user.password, user.phone_no, id]) 
         client.release()
         return result.rows[0]
     } catch (error) {

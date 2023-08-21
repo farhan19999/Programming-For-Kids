@@ -53,6 +53,26 @@ const controller = require('../controllers/contests.controller')
  *                     $ref: '#/components/schemas/Contest'
  *       500:
  *          description: Some server error
+ *    
+ *   post:
+ *     summary: Create a new contest
+ *     tags: [Contests]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#components/schemas/Contest'
+ *     responses:
+ *       200:
+ *         description: The contest was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Contest'
+ *       500:
+ *         description: Some server error
+ * 
  * 
  * 
  * 
@@ -67,8 +87,18 @@ router.put('/:id', controller.updateContest)
 
 router.get('/:id/problems', controller.getContestProblems)
 router.post('/:id/problems', controller.addContestProblem)
+
+router.get('/:id/problems/:problemid', controller.getContestProblemById)
+router.get('/:id/problems/categories/:category', controller.getContestProblemByCategory)
 router.put('/:id/problems/:problemid', controller.updateContestProblem)
 router.delete('/:id/problems/:problemid', controller.deleteContestProblem)
+
+router.get('/:id/problems/:problemid/testcases', controller.getContestProblemTestCases);
+router.post('/:id/problems/:problemid/testcases', controller.addContestProblemTestCase);
+
+router.get('/:id/problems/:problemid/testcases/:testcaseid', controller.getContestProblemTestCaseById);
+router.put('/:id/problems/:problemid/testcases/:testcaseid', controller.updateContestProblemTestCase);
+router.delete('/:id/problems/:problemid/testcases/:testcaseid', controller.deleteContestProblemTestCase);
 
 
 router.get('/:id/submissions', controller.getAllContestSubmissions)
@@ -77,7 +107,6 @@ router.get('/:id/submissions/:userid/', controller.getContestSubmissionByUserId)
 
 
 router.post('/:id/submissions/:problemid/:userid', controller.addContestProblemSubmission)
-
 
 router.get('/:id/standings', controller.getContestStanding)
 
