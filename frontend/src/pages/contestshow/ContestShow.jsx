@@ -9,7 +9,7 @@ function ShowContest() {
     <div style={{ height: '100vh',marginTop:"25px"}}>
     <Navbar/>
       <div style={{ fontSize: '24px', fontWeight: 'bold', padding: '20px' }}>
-        Registered Contests:
+        {/* Registered Contests: */}
         </div>
       <ContestTitle/>
       
