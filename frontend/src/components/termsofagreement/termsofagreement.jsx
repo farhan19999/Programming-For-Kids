@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 function ShowTermsOfAgreements({ userid, contestid }) {
 
     const navigate = useNavigate(); // Initialize useNavigate
-
+    userid=1;
     const handleRegisterButton = () => {
         axios.post(`http://localhost:3000/api/users/${userid}/registered-contests`,
             {
@@ -25,6 +25,7 @@ function ShowTermsOfAgreements({ userid, contestid }) {
 
     }
     return (
+        
         <div className="row">
             <div className="d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                 Do not copy

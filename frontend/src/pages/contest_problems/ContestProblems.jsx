@@ -40,9 +40,9 @@ const ContestProblems = () => {
   }, [contestid]);
 
   const navigate = useNavigate(); // Initialize useNavigate
-  const handleModifyClick = (problemid) => {
+  const handleEnterClick = (problemid) => {
     // Navigate to the specific project details page
-    navigate(`/contest-problem-details/${problemid}`);
+    navigate(`/contest/${contestid}/problem/${problemid}`);
   };
 
 
@@ -63,9 +63,9 @@ const ContestProblems = () => {
         <tbody>
           {problems.map(problem => (
             <tr key={problem.problemid}>
-              <td>{problem.problemid}</td>
+              <td>{problem.category}</td>
               <td>{problem.title}</td>
-              <td><button type="button" className="btn btn-dark" onClick={() => handleModifyClick(problem.problemid)}>
+              <td><button type="button" className="btn btn-dark" onClick={() => handleEnterClick(problem.problemid)}>
                   Enter 
                 </button></td>
             </tr>

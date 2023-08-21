@@ -66,7 +66,7 @@ const router = createBrowserRouter([
     element: <Signin />,
   },
   {
-    path: "/contest-problem-details/:problemid", // Route for detailed page with problemid
+    path: "/contest/:contestid/problem/:problemid", // Route for detailed page with problemid
     element: <Contest_Problem_Details />,
   },
   {

@@ -2,6 +2,7 @@ import React from 'react';
 //Author: MAHBUB
 
 function Navbar() {
+const {userid} = 1;
     return (
         <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
@@ -17,7 +18,7 @@ function Navbar() {
                             <a className="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="/user/:userid/contests/">Contest</a>
+                            <a className="nav-link active" href="/user/1/contests/">Contest</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link active" href="/#">Practice</a>

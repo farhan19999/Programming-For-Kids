@@ -28,10 +28,10 @@ The first line of input is X and the second line is Y. Print the output.`,
     time_limit: "45",
   };
 
-  const { problemid } = useParams();
+  const { contestid,problemid } = useParams();
   const [problem, setProblem] = useState(defaultState);
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/problems/${problemid}`).then((response) => {
+    axios.get(`http://localhost:3000/api/contests/${contestid}/problems/${problemid}`).then((response) => {
       setProblem(response.data);
       console.log(response.data);
     });

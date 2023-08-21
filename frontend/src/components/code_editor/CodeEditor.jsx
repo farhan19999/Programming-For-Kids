@@ -29,7 +29,7 @@ const CodeEditor = () => {
     // Simulate submission logic here
     const isCorrect = false;
     // Replace with actual submission logic
-    setSubmissionStatus(isCorrect ? "Accepted" : "Wrong Answer");
+    setSubmissionStatus(isCorrect ? "Pending" : "Pending");
     const contestid = 1;
     const userid = 1;
 
@@ -79,7 +79,7 @@ const CodeEditor = () => {
             value={selectedLanguage}
             onChange={handleLanguageChange}
           >
-            <option value={"c_cpp"}>C++</option> 
+            <option value={"c_cpp"}>C</option> 
             <option value={"java"}>Java</option>
             <option value={"python"}>Python</option>
             {/* Add more language options here */}

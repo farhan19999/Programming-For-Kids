@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useParams } from "react-router-dom";
+
 
 function ContestTitle() {
   const default_rc = {
@@ -9,10 +11,12 @@ function ContestTitle() {
 
   const [rc, setRc] = useState(default_rc);
 
+  const { userid } = useParams(); 
+
   const [ac, setAc] = useState({ contests: [] });
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/users/6/registered-contests").then((response) => {
+    axios.get(`http://localhost:3000/api/users/${userid}/registered-contests`).then((response) => {
       setRc(response.data);
       console.log(response.data);
     })
@@ -30,6 +34,10 @@ function ContestTitle() {
     navigate(`/contest/${contestid}/Registration`); 
 
   }
+  const handleTitleClick=(contestid)=>{
+    navigate(`/contest/${contestid}`);
+
+  }
 
   return (
     <div className="row" >
@@ -37,7 +45,7 @@ function ContestTitle() {
       {rc['registered-contests'] ? (
         rc['registered-contests'].map((item) => (
           <div className='d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded' style={{ width: '51%' }} key={item.id}>
-            <a href='/contest/1' style={{ fontSize: '20px', width: '80%', color: 'black' }}>Contest Title: {item.title} div-{item.div} </a>
+            <button onClick={()=>handleTitleClick(item.contestid)} style={{ fontSize: '20px', width: '80%', color: 'black' }}>Contest Title: {item.title} div-{item.div} </button>
           </div>
         ))
       ) : (

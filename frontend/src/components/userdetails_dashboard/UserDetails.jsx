@@ -11,7 +11,7 @@ function UserDetails() {
   };
   const [user,setUser]=useState(default_user);
   useEffect(()=>{
-    axios.get("http://localhost:3000/api/users").then((response)=>{
+    axios.get("http://localhost:3000/api/users/1").then((response)=>{
       setUser(response.data)
       console.log(response);
     })
