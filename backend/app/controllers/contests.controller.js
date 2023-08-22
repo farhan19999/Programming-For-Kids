@@ -1,6 +1,7 @@
 const service = require('../services/contest.service');
 const codeCheckerService  = require('../services/code-checker.service');
 const problemService = require('../services/problem.service');
+const { validationResult } = require('express-validator');
 
 
 exports.getContests = async (req, res) => {
@@ -13,6 +14,10 @@ exports.getContests = async (req, res) => {
 }
 
 exports.getContestById = async (req, res) => {
+    const result = validationResult(req);
+    if(result.errors.length !== 0){
+        return res.status(400).json({ errors: result.errors });
+    }
     try {
         const contest = await service.getContestById(req.params.id);
         res.status(200).json(contest);
