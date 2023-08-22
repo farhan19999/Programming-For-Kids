@@ -102,9 +102,9 @@ exports.getAllContestSubmissions = async (id) => {
     }
 }
 
-exports.getContestSubmissionByProblemId = async (id, problemid) => {
+exports.getContestSubmissionsByProblemId = async (id, problemid) => {
     try {
-        const submission = await contestModel.getContestSubmissionByProblemId(id, problemid);
+        const submission = await contestModel.getContestSubmissionsByProblemId(id, problemid);
         return submission;
     } catch (error) {
         throw error;
@@ -150,7 +150,7 @@ exports.getContestStanding = async (id) => {
 
         user_list.forEach(uid => {
             const user_scores = scores.filter((s) => s.userid === uid)
-            const temp = { 'userid': uid }
+            const temp = { 'userid': uid, 'username' : user_scores[0].username }
             user_scores.forEach(s => {
                 temp[s.category] = s.score
             })

@@ -1,65 +1,68 @@
-// Arif
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+  DatatableWrapper,
+  Filter,
+  Pagination,
+  PaginationOptions,
+  TableBody,
+  TableHeader
+} from 'react-bs-datatable';
+import { Col, Row, Table } from 'react-bootstrap';
 
-import React from "react";
 
-export default function SubmissionTable() {
+const header = [
+  { title: 'Problem', prop: 'title' },
+  { title: 'Submitted Time', prop: 'submitted_time' },
+  { title: 'Language', prop: 'language' },
+  { title: 'Status', prop: 'status' },
+];
+
+
+
+// Then, use it in a component.
+export default function SubmissionTable({contestid, userid}) {
+
+  const [submissions, setSubmissions] = useState(null);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/api/contests/${contestid}/submissions/?userid=${userid}`).then((res) => {
+      setSubmissions(res.data.submissions);
+    });
+  },[contestid, userid]);
+
   return (
-    <div>
-      <table className="table table-bordered table-hover" style={{ marginLeft: "30px", marginTop: "20px", marginBottom: "40px", marginRight: "30px", width: "96%" }}>
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col" style={{ width: "23%" }}>When</th>
-            <th scope="col" style={{ width: "23%" }}>Problem Name</th>
-            <th scope="col" style={{ width: "23%" }}>Language</th>
-            <th scope="col" style={{ width: "23%" }}>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">C</th>
-            <td>2:15 pm</td>
-            <td>Tracking Segment</td>
-            <td>C++</td>
-            <td>Accepted</td>
-          </tr>
-          <tr>
-            <th scope="row">B</th>
-            <td>3:15 pm</td>
-            <td>OMSK Metro</td>
-            <td>C++</td>
-            <td>Wrong Answer</td>
-          </tr>
-          <tr>
-            <th scope="row">F</th>
-            <td>4:15 pm</td>
-            <td>Big Bang</td>
-            <td>C++</td>
-            <td>Compilation Error</td>
-          </tr>
-          <tr>
-            <th scope="row">A</th>
-            <td>5:15 pm</td>
-            <td>Shopping</td>
-            <td>C++</td>
-            <td>Accepted</td>
-          </tr>
-          <tr>
-            <th scope="row">D</th>
-            <td>6:15 pm</td>
-            <td>Sum Array</td>
-            <td>C++</td>
-            <td>Accepted</td>
-          </tr>
-          <tr>
-            <th scope="row">E</th>
-            <td>7:15 pm</td>
-            <td>Apple Tree</td>
-            <td>C++</td>
-            <td>Accepted</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <DatatableWrapper body={submissions} headers={header}>
+      <Row className="mb-4">
+        <Col
+          xs={12}
+          lg={4}
+          className="d-flex flex-col justify-content-end align-items-end"
+        >
+          <Filter />
+        </Col>
+        <Col
+          xs={12}
+          sm={6}
+          lg={4}
+          className="d-flex flex-col justify-content-lg-center align-items-center justify-content-sm-start mb-2 mb-sm-0"
+        >
+          <PaginationOptions />
+        </Col>
+        <Col
+          xs={12}
+          sm={6}
+          lg={4}
+          className="d-flex flex-col justify-content-end align-items-end"
+        >
+          <Pagination />
+        </Col>
+      </Row>
+      <Table>
+        <TableHeader />
+        <TableBody />
+      </Table>
+    </DatatableWrapper>
   );
 }
+

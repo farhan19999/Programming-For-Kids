@@ -29,15 +29,15 @@ The first line of input is X and the second line is Y. Print the output.`,
   };
 
   const { contestid,problemid } = useParams();
-  const [problem, setProblem] = useState(defaultState);
+  const [problem, setProblem] = useState(null);
   useEffect(() => {
     axios.get(`http://localhost:3000/api/contests/${contestid}/problems/${problemid}`).then((response) => {
       setProblem(response.data);
       console.log(response.data);
     });
-  }, [problemid]);
+  }, [contestid,problemid]);
 
-  const [contest, setContest] = useState("");
+  const [contest, setContest] = useState(null);
   useEffect(() => {
     axios
       .get(`http://localhost:3000/api/contests/${contestid}`) // For getting contest title
@@ -72,10 +72,12 @@ The first line of input is X and the second line is Y. Print the output.`,
     marginBottom: "30px",
   };
 
+  if(!contest || !problem) return (<div>Loading...</div>);
+
   return (
     <div style={{ position: "relative" }}>
       <Navbar />
-      <SubNavbar />
+      <SubNavbar contestid={contestid}/>
 
       <h4 style={{ textAlign: "center", marginTop: "20px" }}>
         Contest Title: {contest.title} (Rated for Div. {contest.div})

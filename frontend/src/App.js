@@ -22,7 +22,7 @@ import AdminContestAddNew from "./pages/admin/admin_contest_add_new/AdminContest
 import AdminContestProblemAdd from "./pages/admin/admin_contest_problem_add/AdminContestProblemAdd";
 import AdminContestProblemIndex from "./pages/admin/admin_contest_problems_index/AdminContestProblemsIndex";
 import AdminContestProblemDetails from "./pages/admin/admin_contest_problem_details/AdminContestProblemDetails";
-import My_Submissions from "./pages/my_submissions/My_Submissions";
+import MySubmissions from "./pages/my_submissions/MySubmissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
 import ContestProblems from "./pages/contest_problems/ContestProblems";
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/contest/:contestid/my-submissions",
-    element: <My_Submissions />,
+    element: <MySubmissions />,
   },
   {
     path: "/contest/:contestid/standings",

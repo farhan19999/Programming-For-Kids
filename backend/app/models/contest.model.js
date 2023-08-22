@@ -135,7 +135,7 @@ const getAllContestSubmissions = async (id) => {
     }
 }
 
-const getContestSubmissionByProblemId = async (id, problemid) => {
+const getContestSubmissionsByProblemId = async (id, problemid) => {
     try {
         const client = await pool.connect()
         const result = await client.query('SELECT * FROM pfk.contest_submission WHERE contestid = $1 AND problemid = $2', [id, problemid])
@@ -179,7 +179,7 @@ const getContestScores = async (id) => {
                                            where cs.contestid = $1 \
                                            Group by u.userid, u.username, prob.category", [id])
         client.release()
-        console.log(result.rows)
+        //console.log(result.rows)
         return result.rows
     } catch (error) {
         console.log(error)
@@ -188,10 +188,14 @@ const getContestScores = async (id) => {
 }
 
 const updateContestProblemSubmission = async (submissionid, status) => {
+    let score = 0;
+    if(status === 'Accepted'){
+        score = 100;
+    }
     try {
         const client = await pool.connect()
-        const result = await client.query('UPDATE pfk.contest_submission SET status = $1 WHERE submissionid = $2 RETURNING *', 
-                                    [status, submissionid])
+        const result = await client.query('UPDATE pfk.contest_submission SET status = $1, score = $2 WHERE submissionid = $3 RETURNING *', 
+                                    [status, score, submissionid])
         client.release()
         return result.rows[0]
     } catch (error) {
@@ -200,4 +204,4 @@ const updateContestProblemSubmission = async (submissionid, status) => {
 }
 
 
-module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores, getContestProblemById, getContestProblemByCategory, updateContestProblemSubmission};
+module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionsByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores, getContestProblemById, getContestProblemByCategory, updateContestProblemSubmission};

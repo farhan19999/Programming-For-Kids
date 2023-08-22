@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom'; // Import NavLink and u
 
 function SubNavbar({contestid}) {
   const location = useLocation(); // Get the current location
-
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#e3f2fd", marginTop:"18px" }}>
       <div className="container-fluid">

@@ -1,7 +1,5 @@
 // Arif
-
-
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
@@ -14,11 +12,10 @@ const ContestProblems = () => {
   const [problems, setProblems] = useState([]);
   const [contest, setContest] = useState('');
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/contests/${contestid}`)   // For getting contest title
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/api/contests/${contestid}`)   // For getting contest title
       .then(response => {
         const contest = response.data;
         setContest(contest);
-
       })
       .catch(error => {
         console.error('Error fetching contest :', error);
@@ -28,7 +25,7 @@ const ContestProblems = () => {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/contests/${contestid}/problems`)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/api/contests/${contestid}/problems`)
       .then(response => {
         const contestProblems = response.data.filter(problem => problem.contestid === parseInt(contestid));
         setProblems(contestProblems);
@@ -45,12 +42,12 @@ const ContestProblems = () => {
     navigate(`/contest/${contestid}/problem/${problemid}`);
   };
 
-
+  if(!contest || !problems) return (<div>Loading...</div>);
 
   return (
     <div>
       <Navbar />
-      <SubNavbar />
+      <SubNavbar contestid={contestid}/>
       <h3 style={{ margin: '25px', padding:'2px' }}>Contest Title: {contest.title} (Rated for Div.{contest.div})</h3>
       <table className="table table-hover" style={{ margin: '25px', fontSize: '18px' }}>
         <thead>

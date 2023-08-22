@@ -10,21 +10,17 @@ import axios from "axios";
 export default function Standings() {
   const { contestid } = useParams();
   const [contest, setContest] = useState(null);
-  const [standings, setStandings] = useState(null);
+  
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/contests/${contestid}`).then((res) => {
+    axios.get(`{process.env.REACT_APP_SERVER_URL}/api/contests/${contestid}`).then((res) => {
       setContest(res.data);
     });
   },[contestid]);
 
-  useEffect(() => {
-    axios.get(`http://localhost:3000/api/contests/${contestid}/standings`).then((res) => {
-      setStandings(res.data);
-    });
-  },[contestid]);
 
-  if(!contest || !standings) return (<div>Loading...</div>);
+
+  if(!contest) return (<div>Loading...</div>);
 
   return (
     <div style={{ position: "relative" }}>
@@ -36,7 +32,7 @@ export default function Standings() {
       </h4>
 
       
-      <StandingsTable />
+      <StandingsTable contestid = {contestid}/>
       
       <Footer />
 
