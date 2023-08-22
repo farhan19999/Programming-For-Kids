@@ -7,6 +7,7 @@ import TimeRemaining from "../../components/time_remaining/Timer";
 import ProblemDetails from "../../components/problem_details/ProblemDetails";
 import CodeEditor from "../../components/code_editor/CodeEditor";
 import Footer from "../../components/footer/Footer";
+import Loading from "../../components/loading/Loading";
 
 export default function IndividualProblem() {
 
@@ -72,7 +73,7 @@ The first line of input is X and the second line is Y. Print the output.`,
     marginBottom: "30px",
   };
 
-  if(!contest || !problem) return (<div>Loading...</div>);
+  if(!contest || !problem) return (<Loading/>);
 
   return (
     <div style={{ position: "relative" }}>

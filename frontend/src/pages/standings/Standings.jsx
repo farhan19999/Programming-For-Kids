@@ -6,21 +6,22 @@ import SubNavbar from "../../components/sub_navbar/SubNavbar";
 import StandingsTable from "../../components/standings_table/StandingsTable";
 import Footer from "../../components/footer/Footer";
 import axios from "axios";
+import Loading from "../../components/loading/Loading";
 
 export default function Standings() {
   const { contestid } = useParams();
   const [contest, setContest] = useState(null);
   
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    axios.get(`{process.env.REACT_APP_SERVER_URL}/api/contests/${contestid}`).then((res) => {
+    axios.get(`${server_url}/api/contests/${contestid}`).then((res) => {
       setContest(res.data);
     });
-  },[contestid]);
+  },[server_url, contestid]);
 
 
 
-  if(!contest) return (<div>Loading...</div>);
+  if(!contest) return (<Loading />);
 
   return (
     <div style={{ position: "relative" }}>

@@ -9,6 +9,7 @@ import {
   TableHeader
 } from 'react-bs-datatable';
 import { Col, Row, Table } from 'react-bootstrap';
+import Loading from '../loading/Loading';
 
 
 const header = [
@@ -21,15 +22,17 @@ const header = [
 
 
 // Then, use it in a component.
-export default function SubmissionTable({contestid, userid}) {
+export default function SubmissionTable({ contestid, userid }) {
 
   const [submissions, setSubmissions] = useState(null);
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/api/contests/${contestid}/submissions/?userid=${userid}`).then((res) => {
-      setSubmissions(res.data.submissions);
+    axios.get(`${server_url}/api/contests/${contestid}/submissions/?userid=${userid}`).then((res) => {
+      setSubmissions(res.data);
     });
-  },[contestid, userid]);
+  }, [server_url, contestid, userid]);
+
+  if (!submissions) return (<Loading/>);
 
   return (
     <DatatableWrapper body={submissions} headers={header}>

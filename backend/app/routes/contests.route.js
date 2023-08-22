@@ -82,8 +82,8 @@ router.get('/', controller.getContests)
 router.post('/', controller.createContest)
 
 
-router.get('/:id', param('id').isEmpty(), controller.getContestById)
-router.put('/:id',param('id').isEmpty(), controller.updateContest)
+router.get('/:id', param('id').notEmpty(), controller.getContestById)
+router.put('/:id',param('id').notEmpty(), controller.updateContest)
 
 
 router.get('/:id/problems', controller.getContestProblems)

@@ -9,6 +9,7 @@ import {
   TableHeader
 } from 'react-bs-datatable';
 import { Col, Row, Table } from 'react-bootstrap';
+import Loading from '../loading/Loading';
 
 
 const header = [
@@ -26,12 +27,14 @@ const header = [
 export default function StandingsTable({contestid}) {
 
   const [standings, setStandings] = useState(null);
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/contests/${contestid}/standings`).then((res) => {
+    axios.get(`${server_url}/api/contests/${contestid}/standings`).then((res) => {
+      console.log(res.data);
       setStandings(res.data);
     });
-  },[contestid]);
+  },[server_url,contestid]);
+  if(!standings) return (<Loading />);
 
   return (
     <DatatableWrapper body={standings} headers={header}>

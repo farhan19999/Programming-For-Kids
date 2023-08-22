@@ -151,6 +151,10 @@ exports.getContestStanding = async (id) => {
         user_list.forEach(uid => {
             const user_scores = scores.filter((s) => s.userid === uid)
             const temp = { 'userid': uid, 'username' : user_scores[0].username }
+            const categories = ['A', 'B', 'C', 'D', 'E']
+            categories.forEach(c => {
+                temp[c] = 0;
+            })
             user_scores.forEach(s => {
                 temp[s.category] = s.score
             })

@@ -5,14 +5,16 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import SubNavbar from '../../components/sub_navbar/SubNavbar';
+import Loading from '../../components/loading/Loading';
 
 
 const ContestProblems = () => {
   const { contestid } = useParams();
   const [problems, setProblems] = useState([]);
   const [contest, setContest] = useState('');
+  const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/api/contests/${contestid}`)   // For getting contest title
+    axios.get(`${server_url}/api/contests/${contestid}`)   // For getting contest title
       .then(response => {
         const contest = response.data;
         setContest(contest);
@@ -25,7 +27,7 @@ const ContestProblems = () => {
 
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/api/contests/${contestid}/problems`)
+    axios.get(`${server_url}/api/contests/${contestid}/problems`)
       .then(response => {
         const contestProblems = response.data.filter(problem => problem.contestid === parseInt(contestid));
         setProblems(contestProblems);
@@ -42,7 +44,7 @@ const ContestProblems = () => {
     navigate(`/contest/${contestid}/problem/${problemid}`);
   };
 
-  if(!contest || !problems) return (<div>Loading...</div>);
+  if(!contest || !problems) return (<Loading />);
 
   return (
     <div>
