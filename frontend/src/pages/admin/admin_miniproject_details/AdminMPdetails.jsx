@@ -1,26 +1,19 @@
 // Arif
 
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/theme-monokai";
 import Navbar from "../../../components/navbar/Navbar";
 import Timer from "../../../components/time_remaining/Timer";
+import axios from "axios";
 
-export default function AdminMPDetails() {
-  const initialCode = `#include <stdio.h>
-#include <stdlib.h>
-using namespace std;
-
-int main() {
-  int a, b;
-  cin >> a >> b;
-  cout << a + b << endl;
-  return 0;
-}`;
-
+const AdminMPDetails = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [code, setCode] = useState(initialCode);
+  const [code, setCode] = useState("");
+
+  const { projectid } = useParams();
 
   const handleCodeChange = (newCode) => {
     setCode(newCode);
@@ -31,26 +24,58 @@ int main() {
   };
 
   const handleSaveButtonClick = () => {
-    // Implement your save logic here
+    // Implement save logic here
+    axios
+      .put(`http://localhost:3000/api/mini-projects/${projectid}`, {
+        starting_code: code, // Pass the updated code to the backend
+        title: problem.title,
+        project_details: problem.project_details,
+        starting_time: problem.starting_time,
+      })
+      .then((response) => {
+        console.log("Code saved:", response.data);
+        setIsEditing(false);
+      })
+      .catch((error) => {
+        console.error("Error saving code:", error);
+      });
+
     console.log("Saving code:", code);
     setIsEditing(false);
   };
 
+  const [problem, setProblem] = useState({});
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/api/mini-projects/${projectid}`)
+      .then((response) => {
+        setProblem(response.data);
+        setCode(response.data.starting_code);
+        console.log(response.data);
+      });
+  }, [projectid]);
+
   return (
     <div style={containerStyle}>
       <Navbar />
-      <h2 style={{ marginTop: "35px", position: "relative", marginLeft: "45px", marginTop: "40px" }}>Admin</h2>
-      <h4 style={{ textAlign: "center" }}>Mini Project Contest Title: Make A Calculator</h4>
+      <h2
+        style={{
+          marginTop: "35px",
+          position: "relative",
+          marginLeft: "45px",
+          marginTop: "40px",
+        }}
+      >
+        Admin
+      </h2>
+      <h3 style={{ textAlign: "center" }}>Mini Project: {problem.title}</h3>
       <Timer />
 
       <div style={projectDetailsStyle}>
-          1. You are given a skeleton code. Modify this code to make a
-          calculator. <br />
-          2. Make sure that the button colors must be blue. <br />
-          <br />
-          <b style={{ fontSize: "20px" }}>Code:</b> <br />
+        {problem.project_details}
+        <br /> <br />
       </div>
-
+      <p style={{ marginLeft: "50px", fontWeight: "bold" }}>Code:</p>
       {isEditing ? (
         <AceEditor
           mode="c_cpp"
@@ -89,19 +114,7 @@ int main() {
       )}
     </div>
   );
-}
-
-// Other styles remain the same
-
-const editButtonStyle = {
-  position: "relative",
-  bottom: "0px",
-  left: "50%",
-  marginBottom: "20px",
-  marginLeft: "-32px",
-  width: "120px",
 };
-
 
 const containerStyle = {
   marginBottom: "60px",
@@ -121,8 +134,8 @@ const projectDetailsStyle = {
 
 const codeBoxStyle = {
   backgroundColor: "#444",
-  fontSize:"125px",
-  color:"white",
+  fontSize: "125px",
+  color: "white",
   padding: "20px",
   borderRadius: "5px",
   fontSize: "17px",
@@ -136,13 +149,23 @@ const codeBoxStyle = {
   width: "800px",
 };
 
+const editButtonStyle = {
+  position: "relative",
+  bottom: "0px",
+  left: "50%",
+  marginBottom: "20px",
+  marginLeft: "-32px",
+  width: "120px",
+};
 
 const saveButtonStyle = {
-  position: "relative", 
-  bottom: "0px", // Position at the bottom
-  right: "0", // Position at the right
+  position: "relative",
+  bottom: "0px",
+  right: "0",
   marginRight: "50px",
   width: "120px",
   marginLeft: "730px",
   marginTop: "5px",
 };
+
+export default AdminMPDetails;

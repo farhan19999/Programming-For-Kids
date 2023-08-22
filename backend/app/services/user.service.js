@@ -53,3 +53,13 @@ exports.getAllPracticeSubmissionByUserId = async (id)=>{
         console.log(error)
     }
 }
+
+
+exports.addRegisteredContest = async (id, contestid)=>{
+    try {
+        const updatedUser = await userModel.addRegisteredContest(id, contestid)
+        return updatedUser
+    } catch (error) {
+        console.log(error)
+    }
+}
