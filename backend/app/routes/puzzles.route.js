@@ -102,16 +102,16 @@ router.get('/:id', puzzles_controller.getPuzzleById);
 router.put('/:id', puzzles_controller.updatePuzzle);
 
 
-router.get('/:today', puzzles_controller.getTodaysPuzzle);
+router.get('/date/:today', puzzles_controller.getTodaysPuzzle);
 
-router.post('/:today/submission', puzzles_controller.createPuzzleSubmission);
-router.get('/:today/submission/:userid', puzzles_controller.getPuzzleSubmissionByUserId);
+router.post('/date/:today/submission', puzzles_controller.createPuzzleSubmission);
+router.get('/date/:today/submission/:userid', puzzles_controller.getPuzzleSubmissionByUserId);
 
 router.get('/:id/solution', puzzles_controller.getPuzzleSolutionById)
 router.post('/:id/solution', puzzles_controller.createPuzzleSolution)
 router.put('/:id/solution', puzzles_controller.updatePuzzleSolution)
 
-router.get('/:today/solution', puzzles_controller.getTodaysPuzzleSolution)
+router.get('/date/:today/solution', puzzles_controller.getTodaysPuzzleSolution)
 
 
 
