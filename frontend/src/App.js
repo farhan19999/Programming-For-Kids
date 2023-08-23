@@ -26,7 +26,7 @@ import MySubmissions from "./pages/my_submissions/MySubmissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
 import ContestProblems from "./pages/contest_problems/ContestProblems";
-import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzzle";
+import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzle";
 
 const router = createBrowserRouter([
   {

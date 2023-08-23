@@ -22,7 +22,7 @@ const ContestProblems = () => {
       .catch(error => {
         console.error('Error fetching contest :', error);
       });
-  }, [contestid]);
+  }, [server_url,contestid]);
 
 
 
@@ -36,7 +36,7 @@ const ContestProblems = () => {
       .catch(error => {
         console.error('Error fetching contest problems:', error);
       });
-  }, [contestid]);
+  }, [server_url,contestid]);
 
   const navigate = useNavigate(); // Initialize useNavigate
   const handleEnterClick = (problemid) => {
