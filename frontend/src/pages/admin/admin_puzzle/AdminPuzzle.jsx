@@ -25,8 +25,8 @@ function AdminPuzzle() {
         // navigate(`/admin/contest/${contestid}`); 
     }
 
-    const handleAddNewContestClick = () => {
-        // navigate(`/admin/contest-add-new`); 
+    const handleAddNewPuzzleClick = () => {
+        navigate(`/admin/daily-puzzle/add`); 
     }
 
     return (
@@ -45,7 +45,7 @@ function AdminPuzzle() {
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Creation Date</th>
+                        <th scope="col">Created</th>
                         <th scope="col">Puzzle Details</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -65,7 +65,7 @@ function AdminPuzzle() {
                     ))}
                     <tr>
                         <td colSpan="4">
-                            <button type="button" onClick={handleAddNewContestClick} className="btn btn-dark" style={{ width: "190px", height: "42px", marginTop: "10px", marginLeft: "38%" }}>
+                            <button type="button" onClick={handleAddNewPuzzleClick} className="btn btn-dark" style={{ width: "190px", height: "42px", marginTop: "10px", marginLeft: "38%" }}>
                                 Add New Puzzle
                             </button>
                         </td>

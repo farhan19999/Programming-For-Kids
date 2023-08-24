@@ -28,6 +28,7 @@ import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
 import ContestProblems from "./pages/contest_problems/ContestProblems";
 import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzle";
 import AdminDailyPuzzle from "./pages/admin/admin_puzzle/AdminPuzzle";
+import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
 
 const router = createBrowserRouter([
   {
@@ -79,7 +80,7 @@ const router = createBrowserRouter([
     element: <Standings />,
   },
   {
-    path: "/admin/contest-add",
+    path: "/admin/contests",
     element: <AdminContestAdd />,
   },
   {
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
   {
     path: "/admin/daily-puzzle", // Route for detailed page with contestid
     element: <AdminDailyPuzzle />,
+  },
+  {
+    path: "/admin/daily-puzzle/add", // Route for detailed page with contestid
+    element: <AdminDailyPuzzleAdd />,
   },
 
 ]);
