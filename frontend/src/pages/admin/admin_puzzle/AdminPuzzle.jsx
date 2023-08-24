@@ -22,7 +22,7 @@ function AdminPuzzle() {
     }, []);
 
     const handleModifyClick = (puzzleid) => {
-        // navigate(`/admin/contest/${contestid}`); 
+        navigate(`/admin/daily-puzzle/modify`);
     }
 
     const handleAddNewPuzzleClick = () => {

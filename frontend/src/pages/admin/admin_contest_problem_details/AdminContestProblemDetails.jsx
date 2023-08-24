@@ -289,9 +289,9 @@ let inputfilename=null;
           marginLeft: "80%",
           marginTop: "50px",
         }}
-        onClick={handleSave}
+        onClick={handleCancel}
       >
-        Save
+        Cancel
       </button>
       <button
         type="button"
@@ -305,9 +305,9 @@ let inputfilename=null;
           marginLeft: "10px",
           marginTop: "50px",
         }}
-        onClick={handleCancel}
+        onClick={handleSave}
       >
-        Cancel
+        Save
       </button>
 
       <Footer />

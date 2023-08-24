@@ -29,6 +29,7 @@ import ContestProblems from "./pages/contest_problems/ContestProblems";
 import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzle";
 import AdminDailyPuzzle from "./pages/admin/admin_puzzle/AdminPuzzle";
 import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
+import AdminDailyPuzzleModify from "./pages/admin/admin_puzzle_modify/AdminPuzzleModify";
 
 const router = createBrowserRouter([
   {
@@ -138,6 +139,10 @@ const router = createBrowserRouter([
   {
     path: "/admin/daily-puzzle/add", // Route for detailed page with contestid
     element: <AdminDailyPuzzleAdd />,
+  },
+  {
+    path: "/admin/daily-puzzle/modify", // Route for detailed page with contestid
+    element: <AdminDailyPuzzleModify />,
   },
 
 ]);
