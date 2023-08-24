@@ -8,11 +8,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
-import TimeRemaining from "../../../components/time_remaining/Timer";
 import Footer from "../../../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
-import storage from "../../../utils/firebase";
-import { ref, uploadBytes } from "firebase/storage";
 
 export default function AdminContestProblemDetails() {
     const defaultState = {
