@@ -90,8 +90,8 @@ export default function AdminContestProblemDetails() {
 
     const navigate = useNavigate();
 
-    const handleCancel = () => {
-        // navigate(`/admin/contest/${contestid}`);
+    const handleCancelClick = () => {
+        navigate(`/admin/daily-puzzle`);
     };
 
     const handleSaveClick = () => {
@@ -121,7 +121,7 @@ export default function AdminContestProblemDetails() {
             <Navbar />
 
             <h3 style={{ textAlign: "center", marginTop: "20px" }}>
-                Daily Puzzle:
+                Create Daily Puzzle
             </h3>
 
             <div className="container">
@@ -143,7 +143,7 @@ export default function AdminContestProblemDetails() {
 
                         <div className="form-group">
                             <label htmlFor="problemStatement">
-                                <p style={{ fontSize: "18px",marginTop:'20px' }}>Problem Solution :</p>
+                                <p style={{ fontSize: "18px", marginTop: '20px' }}>Problem Solution :</p>
                             </label>
                             <textarea
                                 style={{ backgroundColor: "#eee" }}
@@ -162,7 +162,7 @@ export default function AdminContestProblemDetails() {
                                 <p style={{ fontSize: "19px" }}>Puzzle Code :</p>
                             </label>
                             <textarea
-                                style={{ backgroundColor: "#222",color:"white" }}
+                                style={{ backgroundColor: "#222", color: "white" }}
                                 className="form-control"
                                 id="solution"
                                 rows="15"
@@ -173,7 +173,6 @@ export default function AdminContestProblemDetails() {
                 </div>
             </div>
 
-
             <button
                 type="button"
                 className="btn btn-dark"
@@ -182,12 +181,12 @@ export default function AdminContestProblemDetails() {
                     bottom: "0px",
                     right: "0",
                     width: "120px",
-                    marginLeft: "80%",
+                    marginLeft: "76%",
                     marginTop: "50px",
                 }}
-                onClick={handleSaveClick}
+                onClick={handleCancelClick}
             >
-                Save
+                Cancel
             </button>
             <button
                 type="button"
@@ -201,9 +200,9 @@ export default function AdminContestProblemDetails() {
                     marginLeft: "10px",
                     marginTop: "50px",
                 }}
-                onClick={handleCancel}
+                onClick={handleSaveClick}
             >
-                Cancel
+                Save
             </button>
 
             <Footer />
