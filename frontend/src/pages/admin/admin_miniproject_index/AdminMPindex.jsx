@@ -19,12 +19,12 @@ export default function AdminMPindex() {
 
   const handleModifyClick = (projectid) => {
     // Navigate to the specific project details page
-    navigate(`/admin-miniproject-details/${projectid}`);
+    navigate(`/admin/miniprojects/${projectid}`);
   };
 
   const handleAddBtnClick = () => {
     // Navigate to the specific project details page
-    navigate(`/admin-miniproject-add`);
+    navigate(`/admin/miniprojects/add`);
   };
 
   return (

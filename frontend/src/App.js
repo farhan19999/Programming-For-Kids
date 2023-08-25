@@ -80,6 +80,8 @@ const router = createBrowserRouter([
     path: "/contest/:contestid/standings",
     element: <Standings />,
   },
+
+  ///////////////////////////// ADMIN CONTESTS /////////////////////////////
   {
     path: "/admin/contests",
     element: <AdminContestAdd />,
@@ -103,19 +105,30 @@ const router = createBrowserRouter([
     path: "/admin/contest/:contestid/problem/:problemid",
     element: <AdminContestProblemDetails />,
   },
+  ///////////////////////////// ADMIN CONTESTS END /////////////////////////////
+
   {
     path: "/miniproject/:projectid", // Route for detailed page with projectid
     element: <MiniProject />,
   },
+
+  ///////////////////////////// ADMIN MINI PROJECTS /////////////////////////////
   {
-    path: "/admin-miniproject-index",
+    path: "/admin/miniprojects",
     element: <AdminMPindex />,
   },
 
   {
-    path: "/admin-miniproject-details/:projectid", // Route for detailed page with projectid
+    path: "/admin/miniprojects/:projectid", // Route for detailed page with projectid
     element: <AdminMPdetails />,
   },
+
+  {
+    path: "/admin/miniprojects/add", 
+    element: <AdminMPadd />,
+  },
+  ///////////////////////////// ADMIN MINI PROJECTS END /////////////////////////////
+
   {
     path: "/miniproject",
     element: <MiniProjectList />,
@@ -125,13 +138,11 @@ const router = createBrowserRouter([
     element: <ContestProblems />,
   },
   {
-    path: "/admin-miniproject-add", // Route for detailed page with contestid
-    element: <AdminMPadd />,
-  },
-  {
     path: "/daily-puzzle", // Route for detailed page with contestid
     element: <DailyPuzzle />,
   },
+
+  ///////////////////////////// ADMIN DAILY PUZZLE /////////////////////////////
   {
     path: "/admin/daily-puzzle", // Route for detailed page with contestid
     element: <AdminDailyPuzzle />,
@@ -144,6 +155,7 @@ const router = createBrowserRouter([
     path: "/admin/daily-puzzle/modify", // Route for detailed page with contestid
     element: <AdminDailyPuzzleModify />,
   },
+  ///////////////////////////// ADMIN DAILY PUZZLE END /////////////////////////////
 
 ]);
 

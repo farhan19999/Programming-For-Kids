@@ -60,10 +60,9 @@ const AdminMPDetails = () => {
       <Navbar />
       <h2
         style={{
-          marginTop: "35px",
+          marginTop: "95px",
           position: "relative",
           marginLeft: "45px",
-          marginTop: "40px",
         }}
       >
         Admin
