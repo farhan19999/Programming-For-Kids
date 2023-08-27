@@ -104,11 +104,14 @@ let inputfilename=null;
   }, [contestid]);
 
   const navigate = useNavigate();
-  const handleCancel = () => {
+  const handleCancelClick = () => {
     navigate(`/admin/contest/${contestid}`);
   };
+  const handleDeleteClick=()=>{
+    navigate(`/admin/contest/${contestid}`);
+  }
 
-  const handleSave = () => {
+  const handleSaveClick = () => {
     axios
       .put(
         `http://localhost:3000/api/contests/${contestid}/problems/${problemid}`,
@@ -286,10 +289,26 @@ let inputfilename=null;
           bottom: "0px",
           right: "0",
           width: "120px",
-          marginLeft: "80%",
+          marginLeft: "50px",
           marginTop: "50px",
         }}
-        onClick={handleCancel}
+        onClick={handleDeleteClick}
+      >
+        Delete
+      </button>
+
+      <button
+        type="button"
+        className="btn btn-dark"
+        style={{
+          position: "relative",
+          bottom: "0px",
+          right: "0",
+          width: "120px",
+          marginLeft: "69%",
+          marginTop: "50px",
+        }}
+        onClick={handleCancelClick}
       >
         Cancel
       </button>
@@ -305,7 +324,7 @@ let inputfilename=null;
           marginLeft: "10px",
           marginTop: "50px",
         }}
-        onClick={handleSave}
+        onClick={handleSaveClick}
       >
         Save
       </button>
