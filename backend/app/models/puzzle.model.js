@@ -47,6 +47,17 @@ const updatePuzzle = async (id, puzzle) => {
     }
 }
 
+const deletePuzzle = async (id) => {
+    try{
+        const client = await pool.connect()
+        const result = await client.query('DELETE FROM pfk.puzzle WHERE puzzleid = $1 RETURNING *', [id])
+        client.release()
+        return result.rows[0]
+    }catch(error){
+        console.log(error)
+    }
+}
+
 const getTodaysPuzzle = async (today) => {
     try {
         const client = await pool.connect()
@@ -104,4 +115,4 @@ const getPuzzleSubmissionByUserId = async (userid) => {
 
 }
 
-module.exports = { getAllPuzzles, createPuzzle, getPuzzleById, updatePuzzle, getTodaysPuzzle, updatePuzzleSolution, getTodaysPuzzleSolution, createPuzzleSubmission, getPuzzleSubmissionByUserId }
+module.exports = { getAllPuzzles, createPuzzle, getPuzzleById, updatePuzzle, getTodaysPuzzle, updatePuzzleSolution, getTodaysPuzzleSolution, createPuzzleSubmission, getPuzzleSubmissionByUserId, deletePuzzle }
