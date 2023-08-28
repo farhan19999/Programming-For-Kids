@@ -8,10 +8,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Home() {
   return (
-    <div style={{ marginTop: "65px" }}>
+    <div >
       <Navbar />
 
-      <header className="bg-dark text-white text-center py-5">
+      <header className=" text-white text-center py-5" style={{background:"#222"}}>
         <div className="container">
           <h1 style={{ marginTop: "60px" }} className="display-4">
             Welcome to Programming For Kids
@@ -30,8 +30,8 @@ export default function Home() {
         <div className="row">
           <div className="col-md-4">
             <div
-              className="card bg-secondary text-white mb-4"
-              style={{ height: "100%" }}
+              className="card  text-white mb-4"
+              style={{ height: "100%", background:"#222" }}
             >
               <div className="card-body">
                 <h5 className="card-title">Contest</h5>
@@ -53,8 +53,8 @@ export default function Home() {
 
           <div className="col-md-4">
             <div
-              className="card bg-secondary text-white mb-4"
-              style={{ height: "100%" }}
+              className="card  text-white mb-4"
+              style={{ height: "100%",background:"#222" }}
             >
               <div className="card-body">
                 <h5 className="card-title">Practice</h5>
@@ -76,8 +76,8 @@ export default function Home() {
 
           <div className="col-md-4">
             <div
-              className="card bg-secondary text-white mb-4"
-              style={{ height: "100%" }}
+              className="card text-white mb-4"
+              style={{ height: "100%",background:"#222" }}
             >
               <div className="card-body">
                 <h5 className="card-title">Mini-Projects</h5>
@@ -103,8 +103,8 @@ export default function Home() {
         <div className="row justify-content-center">
           <div className="col-md-4">
             <div
-              className="card bg-secondary text-white mb-4"
-              style={{ height: "100%" }}
+              className="card  text-white mb-4"
+              style={{ height: "100%",background:"#222" }}
             >
               <div className="card-body">
                 <h5 className="card-title">Daily Puzzle</h5>
@@ -126,8 +126,8 @@ export default function Home() {
 
           <div className="col-md-4">
             <div
-              className="card bg-secondary text-white mb-4"
-              style={{ height: "100%" }}
+              className="card text-white mb-4"
+              style={{ height: "100%",background:"#222" }}
             >
               <div className="card-body">
                 <h5 className="card-title">Code Game</h5>

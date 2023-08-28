@@ -4,9 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Navbar from '../../../components/navbar/Navbar'
 import Footer from '../../../components/footer/Footer';
-import Timer from '../../../components/time_remaining/Timer';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import DateTimePicker from '../../../components/date_time_picker/DateTimerPicker';
 
 function AdminContestProblemsIndex() {
     
@@ -117,16 +115,6 @@ function AdminContestProblemsIndex() {
             <button type="button" className="btn btn-dark" onClick={() => handleSaveClick()} style={{ position: "absolute", width: "120px", height: "42px", marginTop: "10px", marginLeft: "88%" }}>
                 Save
             </button>
-            {/* <div>
-                <DateTimePicker />
-            </div> */}
-            {/* <div>
-                <input-duration id="bob"></input-duration><br />
-
-                <script type="module">
-                    import id from 'https://cdn.jsdelivr.net/npm/input-duration/+esm'
-                </script>
-            </div> */}
 
             <Footer />
         </div>

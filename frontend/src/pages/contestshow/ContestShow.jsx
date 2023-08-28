@@ -6,7 +6,7 @@ import Footer from '../../components/footer/Footer';
 
 function Contest() {
   return (
-    <div style={{ height: '100vh',marginTop:"25px"}}>
+    <div>
     <Navbar/>
       <div style={{ fontSize: '24px', fontWeight: 'bold', padding: '20px' }}>
         {/* Registered Contests: */}

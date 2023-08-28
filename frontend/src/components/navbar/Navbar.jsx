@@ -3,7 +3,7 @@ import React from 'react';
 
 function Navbar() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid" style={{height:"50px"}}>
                 <a className="navbar-brand" href="/">Programming For Kids</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -20,7 +20,7 @@ function Navbar() {
                             <a className="nav-link active" href="/user/1/contests/">Contest</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="/#">Practice</a>
+                            <a className="nav-link active" href="/practice">Practice</a>
                         </li>
 
                         <li className="nav-item">
