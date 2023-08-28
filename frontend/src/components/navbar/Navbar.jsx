@@ -28,7 +28,7 @@ function Navbar() {
                             <NavLink className="nav-link active" to={user.loggedIn ? `/user/${user.userid}/contests/` : "/contest"}>Contest</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link active" to="/#">Practice</NavLink>
+                            <NavLink className="nav-link active" to="/practice">Practice</NavLink>
                         </li>
 
                         <li className="nav-item">

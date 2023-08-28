@@ -21,6 +21,7 @@ import AdminContestAddNew from "./pages/admin/admin_contest_add_new/AdminContest
 import AdminContestProblemAdd from "./pages/admin/admin_contest_problem_add/AdminContestProblemAdd";
 import AdminContestProblemIndex from "./pages/admin/admin_contest_problems_index/AdminContestProblemsIndex";
 import AdminContestProblemDetails from "./pages/admin/admin_contest_problem_details/AdminContestProblemDetails";
+import PracticeProblemIndex from './pages/practice/practice_problem_index/PracticeProblemIndex';
 import MySubmissions from "./pages/my_submissions/MySubmissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
@@ -29,7 +30,8 @@ import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzle";
 import AdminDailyPuzzle from "./pages/admin/admin_puzzle/AdminPuzzle";
 import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
 import AdminDailyPuzzleModify from "./pages/admin/admin_puzzle_modify/AdminPuzzleModify";
-import SignOut from "./pages/signout/SignOut";
+import SignOut from "./pages/signout/SignOut";import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -109,6 +111,15 @@ const router = createBrowserRouter([
     element: <AdminContestProblemDetails />,
   },
   ///////////////////////////// ADMIN CONTESTS END /////////////////////////////
+  {
+    path: "/practice",
+    element: <PracticeProblemIndex />,
+  },
+  // {
+  //   path: "/practice/:problemid/submissions",
+  //   element: <PracticeProblemSubmission />,
+  // },
+
 
   {
     path: "/miniproject/:projectid", // Route for detailed page with projectid
@@ -155,7 +166,7 @@ const router = createBrowserRouter([
     element: <AdminDailyPuzzleAdd />,
   },
   {
-    path: "/admin/daily-puzzle/modify", // Route for detailed page with contestid
+    path: "/admin/daily-puzzle/:puzzleid/modify", // Route for detailed page with contestid
     element: <AdminDailyPuzzleModify />,
   },
   ///////////////////////////// ADMIN DAILY PUZZLE END /////////////////////////////

@@ -5,7 +5,7 @@ function SubNavbar({contestid}) {
   const location = useLocation(); // Get the current location
   
   return (
-    <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#e3f2fd", marginTop:"18px" }}>
+    <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#e3f2fd", marginTop:"0px" }}>
       <div className="container-fluid">
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"

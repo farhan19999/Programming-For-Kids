@@ -61,7 +61,7 @@ export default function AdminMPindex() {
         </tbody>
       </table>
 
-      <button type="button" onClick={() => handleAddBtnClick()} className="btn btn-dark" style={{position:"absolute" ,width:"190px", height:"42px",marginTop:"10px" ,marginLeft:"50px"}}>
+      <button type="button" onClick={() => handleAddBtnClick()} className="btn btn-dark" style={{position:"absolute" ,width:"190px", height:"42px",marginTop:"10px" ,marginLeft:"42%"}}>
         Add New Project
       </button>
 

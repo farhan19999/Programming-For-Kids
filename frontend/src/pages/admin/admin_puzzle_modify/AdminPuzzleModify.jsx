@@ -45,7 +45,11 @@ export default function AdminContestProblemDetails() {
 
     useEffect(() => {
         axios
+<<<<<<< HEAD
             .get(`${server_url}/api/puzzles/1`)
+=======
+            .get(`http://localhost:3000/api/puzzles/${puzzleid}`)
+>>>>>>> 100a4f932def49d2de93818785282fdb2a817cad
             .then((response) => {
                 setPuzzle(response.data);
                 setPuzzleProblemStatement(response.data.problem);
@@ -59,14 +63,38 @@ export default function AdminContestProblemDetails() {
         navigate(`/admin/daily-puzzle`);
     };
 
+    const handleDeleteClick = () => {
+        axios
+            .delete(
+                `http://localhost:3000/api/puzzles/11`
+            )
+            .then((response) => {
+                console.log("Problem deleted:", response.data);
+            })
+            .catch((error) => {
+                console.error("Error deleting problem:", error);
+            });
+        navigate(`/admin/daily-puzzle`);
+    }
+
     const handleSaveClick = () => {
+        // const formattedDate = new Date().toLocaleString('en-US', {
+        //     year: 'numeric',
+        //     month: 'long',
+        //     day: 'numeric',
+        //     hour: 'numeric',
+        //     minute: 'numeric',
+        //     second: 'numeric',
+        //     timeZoneName: 'short'
+        // });
         axios
             .put(
                 `${server_url}/api/puzzles/1`,
                 {
-                    problem:puzzleproblemStatement,
+                    problem: puzzleproblemStatement,
                     puzzle_code: puzzle_code,
                     solution: solution,
+                    // date:formattedDate,
                 }
             )
             .then((response) => {
@@ -144,7 +172,23 @@ export default function AdminContestProblemDetails() {
                     bottom: "0px",
                     right: "0",
                     width: "120px",
-                    marginLeft: "76%",
+                    marginLeft: "07%",
+                    marginTop: "50px",
+                }}
+                onClick={handleDeleteClick}
+            >
+                Delete
+            </button>
+
+            <button
+                type="button"
+                className="btn btn-dark"
+                style={{
+                    position: "relative",
+                    bottom: "0px",
+                    right: "0",
+                    width: "120px",
+                    marginLeft: "930px",
                     marginTop: "50px",
                 }}
                 onClick={handleCancelClick}

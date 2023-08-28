@@ -49,7 +49,7 @@ export default function DailyPuzzle() {
   };
 
   return (
-    <>
+    <div>
       <Navbar />
       <div className="container">
         <div className="row P-3">
@@ -98,6 +98,6 @@ export default function DailyPuzzle() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
