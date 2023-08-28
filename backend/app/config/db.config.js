@@ -20,7 +20,7 @@ const render_pool_config = {
     database: process.env.DB_DATABASE,
     max: 10,
     idleTimeoutMillis: 10000,
-    connectionTimeoutMillis: 2000,
+    connectionTimeoutMillis: 30000,
     maxwaitingclients: 10,
     ssl:true,
 }
