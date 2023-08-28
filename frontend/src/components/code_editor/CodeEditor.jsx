@@ -45,9 +45,10 @@ const CodeEditor = () => {
 
       console.log("Code uploaded to Firebase Storage");
       console.log("Code content:", codeContent); // since code upload successful, now do post request to backend
+      const server_url = process.env.REACT_APP_SERVER_URL;
       axios
         .post(
-          `http://localhost:3000/api/contests/${contestid}/submissions/${problemid}/${userid}`,
+          `${server_url}/api/contests/${contestid}/submissions/${problemid}/${userid}`,
           {
             submitted_code: null,
             submitted_time: new Date()

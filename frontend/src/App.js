@@ -9,7 +9,6 @@ import Profile from "./pages/studentprofile/StudentProfile";
 import Contest_Registration from "./pages/contest_registration/Contest_Registration";
 import Contest from "./pages/contestshow/ContestShow";
 import Submission_IndividualProblem from "./pages/programming_contest/my_submissions/My_Submissions"
-import Standings_Crogramming_Contest from "./pages/programming_contest/standings/standings";
 import SignUp from "./pages/signup/SignUp";
 import Signin from "./pages/signin/Signin";
 import Standings  from "./pages/standings/Standings";
@@ -31,7 +30,7 @@ import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzle";
 import AdminDailyPuzzle from "./pages/admin/admin_puzzle/AdminPuzzle";
 import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
 import AdminDailyPuzzleModify from "./pages/admin/admin_puzzle_modify/AdminPuzzleModify";
-import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
+import SignOut from "./pages/signout/SignOut";import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +64,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path: "/signout",
+    element: <SignOut />,
   },
   {
     path: "/signin",

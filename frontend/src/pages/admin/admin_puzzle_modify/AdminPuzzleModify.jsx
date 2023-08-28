@@ -41,9 +41,15 @@ export default function AdminContestProblemDetails() {
 
     const { puzzleid } = useParams(); // http://localhost:3001/admin/puzzles/1
 
+    const server_url = process.env.REACT_APP_SERVER_URL;
+
     useEffect(() => {
         axios
+<<<<<<< HEAD
+            .get(`${server_url}/api/puzzles/1`)
+=======
             .get(`http://localhost:3000/api/puzzles/${puzzleid}`)
+>>>>>>> 100a4f932def49d2de93818785282fdb2a817cad
             .then((response) => {
                 setPuzzle(response.data);
                 setPuzzleProblemStatement(response.data.problem);
@@ -83,7 +89,7 @@ export default function AdminContestProblemDetails() {
         // });
         axios
             .put(
-                `http://localhost:3000/api/puzzles/1`,
+                `${server_url}/api/puzzles/1`,
                 {
                     problem: puzzleproblemStatement,
                     puzzle_code: puzzle_code,

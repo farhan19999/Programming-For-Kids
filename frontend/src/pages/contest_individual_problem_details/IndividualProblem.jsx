@@ -31,8 +31,9 @@ The first line of input is X and the second line is Y. Print the output.`,
 
   const { contestid,problemid } = useParams();
   const [problem, setProblem] = useState(null);
+  const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/contests/${contestid}/problems/${problemid}`).then((response) => {
+    axios.get(`${server_url}/api/contests/${contestid}/problems/${problemid}`).then((response) => {
       setProblem(response.data);
       console.log(response.data);
     });
@@ -41,7 +42,7 @@ The first line of input is X and the second line is Y. Print the output.`,
   const [contest, setContest] = useState(null);
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/contests/${contestid}`) // For getting contest title
+      .get(`${server_url}/api/contests/${contestid}`) // For getting contest title
       .then((response) => {
         const contest = response.data;
         setContest(contest);

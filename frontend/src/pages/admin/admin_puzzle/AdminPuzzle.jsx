@@ -9,9 +9,9 @@ import axios from 'axios';
 function AdminPuzzle() {
     const [puzzlesData, setPuzzlesData] = useState({ puzzles: [] }); // Initialize with an object containing an empty array
     const navigate = useNavigate();
-
+    const server_url = process.env.REACT_APP_SERVER_URL;
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/puzzles/`)
+        axios.get(`${server_url}/api/puzzles/`)
             .then(response => {
                 const puzzleDataFromApi = response.data;
                 setPuzzlesData(puzzleDataFromApi);

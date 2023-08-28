@@ -1,5 +1,4 @@
 //Author: MAHBUB
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
@@ -8,8 +7,9 @@ function ShowTermsOfAgreements({ userid, contestid }) {
 
     const navigate = useNavigate(); // Initialize useNavigate
     userid=1;
+    const server_url = process.env.REACT_APP_SERVER_URL;
     const handleRegisterButton = () => {
-        axios.post(`http://localhost:3000/api/users/${userid}/registered-contests`,
+        axios.post(`${server_url}/api/users/${userid}/registered-contests`,
             {
                 userid: userid,
                 contestid: contestid,

@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 export default function AdminMPindex() {
   const [project, setProject] = useState([]);
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    axios.get("http://localhost:3000/api/mini-projects").then((response) => {
+    axios.get(`${server_url}/api/mini-projects`).then((response) => {
       setProject(response.data.mini_projects); // Update to access the 'mini_projects' array in response
       console.log(response.data);
     });

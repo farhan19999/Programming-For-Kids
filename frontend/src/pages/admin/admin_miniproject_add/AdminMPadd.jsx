@@ -18,12 +18,13 @@ export default function AdminMPadd() {
   const handleCodeChange = (newCode) => {
     setStartingCode(newCode);
   };
+  const server_url = process.env.REACT_APP_SERVER_URL;
 
   const handleSave = () => {
     // Perform saving logic here using the values of projectTitle, projectDescription, startingCode, startingTime
     // For example: make an API request to save the data to the backend
     axios
-      .post("http://localhost:3000/api/mini-projects", {
+      .post(`${server_url}/api/mini-projects`, {
         title: projectTitle,
         project_description: projectDescription,
         starting_code: startingCode,
