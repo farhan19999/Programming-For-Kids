@@ -25,10 +25,11 @@ function SignUpPage() {
     const rating =0;
     const ranking=null;
     console.log(email_address);
+    const server_url = process.env.REACT_APP_SERVER_URL;
     try {
       // Handle validations
       axios
-        .post("http://localhost:3000/api/users", { username,password,phone_no,email_address, rating, ranking })
+        .post(`${server_url}/api/users`, { username,password,phone_no,email_address, rating, ranking })
         .then(response => {
           console.log(response);
           window.location.href = "/";

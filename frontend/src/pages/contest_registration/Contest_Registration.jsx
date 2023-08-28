@@ -10,9 +10,9 @@ function ShowContestRegistration() {
   const { contestid } = useParams();
   if(!contestid) contestid=1;
   const [contest, setContest] = useState('');
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/contests/${contestid}`)
+    axios.get(`${server_url}/api/contests/${contestid}`)
       .then(response => {
         const contest = response.data;
         setContest(contest);

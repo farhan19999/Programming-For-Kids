@@ -9,9 +9,9 @@ import axios from 'axios';
 function AdminContestAdd() { 
     const [contestData, setContestData] = useState({ contests: [] }); // Initialize with an object containing an empty array
     const navigate = useNavigate(); 
-  
+    const server_url = process.env.REACT_APP_SERVER_URL;
     useEffect(() => { 
-        axios.get(`http://localhost:3000/api/contests/`) 
+        axios.get(`${server_url}/api/contests/`) 
             .then(response => { 
                 const contestDataFromApi = response.data; 
                 setContestData(contestDataFromApi); 

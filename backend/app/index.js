@@ -11,6 +11,8 @@ const contests_route = require('./routes/contests.route')
 const mini_projects_route = require('./routes/mini-projects.route')
 const problems_route = require('./routes/problems.route')
 const puzzles_route = require('./routes/puzzles.route')
+const auth_route = require('./routes/auth.route')
+
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -21,7 +23,7 @@ app.use('/api/contests', contests_route)
 app.use('/api/mini-projects', mini_projects_route)
 app.use('/api/problems', problems_route)
 app.use('/api/puzzles', puzzles_route)
-
+app.use('/api/auth', auth_route)
 
 app.get('/',(req,res)=>{
     res.send("Welcome")

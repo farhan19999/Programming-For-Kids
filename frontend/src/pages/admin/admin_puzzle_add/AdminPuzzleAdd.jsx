@@ -47,11 +47,11 @@ export default function AdminContestProblemDetails() {
     const handleCancelClick = () => {
         navigate(`/admin/daily-puzzle`);
     };
-
+    const server_url = process.env.REACT_APP_SERVER_URL;
     const handleSaveClick = () => {
         const currentDate = new Date();
         axios
-          .post(`http://localhost:3000/api/puzzles/`, {
+          .post(`${server_url}/api/puzzles/`, {
             problem: document.getElementById("problemStatement").value,
             solution: document.getElementById("problemSolution").value,
             puzzle_code: document.getElementById("puzzle_code").value,

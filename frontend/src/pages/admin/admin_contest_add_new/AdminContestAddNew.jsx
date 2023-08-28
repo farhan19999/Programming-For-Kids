@@ -10,10 +10,10 @@ import Footer from "../../../components/footer/Footer";
 function AdminContestAddNew() {
   const navigate = useNavigate(); // Initialize useNavigate
 
-  
+  const server_url = process.env.REACT_APP_SERVER_URL;
   const handleAddContestClick = () => {
     // make a post request to the backend to add a new contest on '/api/contests/'
-    axios.post(`http://localhost:3000/api/contests/`, {
+    axios.post(`${server_url}/api/contests/`, {
         title: document.getElementById("title").value,
         div: document.getElementById("division").value,
         start_time: document.getElementById("start_time").value,

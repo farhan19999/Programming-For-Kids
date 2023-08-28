@@ -41,9 +41,11 @@ export default function AdminContestProblemDetails() {
 
     const { puzzleid } = useParams(); // http://localhost:3001/admin/puzzles/1
 
+    const server_url = process.env.REACT_APP_SERVER_URL;
+
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/puzzles/1`)
+            .get(`${server_url}/api/puzzles/1`)
             .then((response) => {
                 setPuzzle(response.data);
                 setPuzzleProblemStatement(response.data.problem);
@@ -60,7 +62,7 @@ export default function AdminContestProblemDetails() {
     const handleSaveClick = () => {
         axios
             .put(
-                `http://localhost:3000/api/puzzles/1`,
+                `${server_url}/api/puzzles/1`,
                 {
                     problem:puzzleproblemStatement,
                     puzzle_code: puzzle_code,

@@ -22,11 +22,11 @@ const AdminMPDetails = () => {
   const handleEditButtonClick = () => {
     setIsEditing(true);
   };
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   const handleSaveButtonClick = () => {
     // Implement save logic here
     axios
-      .put(`http://localhost:3000/api/mini-projects/${projectid}`, {
+      .put(`${server_url}/api/mini-projects/${projectid}`, {
         starting_code: code, // Pass the updated code to the backend
         title: problem.title,
         project_details: problem.project_details,
@@ -47,7 +47,7 @@ const AdminMPDetails = () => {
   const [problem, setProblem] = useState({});
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/mini-projects/${projectid}`)
+      .get(`${server_url}/api/mini-projects/${projectid}`)
       .then((response) => {
         setProblem(response.data);
         setCode(response.data.starting_code);

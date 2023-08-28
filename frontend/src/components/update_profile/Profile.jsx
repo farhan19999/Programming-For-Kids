@@ -1,4 +1,3 @@
-import React from 'react';
 import {useState,useEffect} from 'react';
 import "./profile.css"
 import axios from 'axios';
@@ -14,22 +13,14 @@ function Profile() {
 		rating: 1500,
 	  };
 	  const [user,setUser]=useState(default_user);
+	  const server_url = process.env.REACT_APP_SERVER_URL;
 	  useEffect(()=>{
-		axios.get("http://localhost:3000/api/users").then((response)=>{
+		axios.get(`${server_url}/api/users`).then((response)=>{
 		  setUser(response.data)
 		  console.log(response);
 		})
-	  },[]);
+	  },[server_url]);
 
-	  const [userData, setUserData] = useState({
-		userid:user.userid,
-		username: user.username,
-		password: '',
-		rating: user.rating,
-		ranking: user.ranking,
-		phone_no: '',
-		email_address: ''
-	  });
 	
 	  const handleFormSubmit = async (e) => {
 		e.preventDefault();
@@ -40,7 +31,7 @@ function Profile() {
 		try {
 		  // Handle validations
 		  axios
-			.put("http://localhost:3000/api/users/"+user.userid, { password,phone_no,email_address})
+			.put(`${server_url}/api/users/${user.userid}`, { password,phone_no,email_address})
 			.then(response => {
 			  console.log(response);
 			  window.location.href = "/";

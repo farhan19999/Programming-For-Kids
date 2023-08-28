@@ -78,10 +78,10 @@ let inputfilename=null;
   };
 
   const { contestid, problemid } = useParams(); // http://localhost:3001/admin/contest/1/problem/3
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/problems/${problemid}`)
+      .get(`${server_url}/api/problems/${problemid}`)
       .then((response) => {
         setProblem(response.data);
         setProblemStatement(response.data.problem_statement);
@@ -93,7 +93,7 @@ let inputfilename=null;
   const [contest, setContest] = useState("");
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/contests/${contestid}`) // For getting contest title
+      .get(`${server_url}/api/contests/${contestid}`) // For getting contest title
       .then((response) => {
         const contest = response.data;
         setContest(contest);
@@ -111,7 +111,7 @@ let inputfilename=null;
   const handleSave = () => {
     axios
       .put(
-        `http://localhost:3000/api/contests/${contestid}/problems/${problemid}`,
+        `${server_url}/api/contests/${contestid}/problems/${problemid}`,
         {
           title: problem.title,
           difficulty_level: problem.difficulty_level,
@@ -131,7 +131,7 @@ let inputfilename=null;
       });
     if (inputfilename && outputfilename) {
       axios.post(
-        `http://localhost:3000/api/contests/${contestid}/problems/${problemid}/testcases`,
+        `${server_url}/api/contests/${contestid}/problems/${problemid}/testcases`,
         {
           input_file: inputfilename,
           output_file: outputfilename,

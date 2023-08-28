@@ -82,6 +82,19 @@ const getAllPracticeSubmissionByUserId = async (id) => {
     }
 }
 
+const findUser = async (email_address, password) => {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('SELECT userid FROM pfk.users WHERE email_address = $1 and password = $2', [email_address, password])
+        client.release()
+        return result.rows[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
-module.exports = {getAllUsers, getUserById, createUser, updateUser, getRegisteredContests, getAllPracticeSubmissionByUserId,addRegisteredContest}
+
+
+
+module.exports = {getAllUsers, getUserById, createUser, updateUser, getRegisteredContests, getAllPracticeSubmissionByUserId,addRegisteredContest, findUser}
