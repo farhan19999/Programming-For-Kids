@@ -43,7 +43,7 @@ export default function AdminContestProblemDetails() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/puzzles/1`)
+            .get(`http://localhost:3000/api/puzzles/${puzzleid}`)
             .then((response) => {
                 setPuzzle(response.data);
                 setPuzzleProblemStatement(response.data.problem);

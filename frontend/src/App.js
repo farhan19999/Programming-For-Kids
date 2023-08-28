@@ -163,7 +163,7 @@ const router = createBrowserRouter([
     element: <AdminDailyPuzzleAdd />,
   },
   {
-    path: "/admin/daily-puzzle/modify", // Route for detailed page with contestid
+    path: "/admin/daily-puzzle/:puzzleid/modify", // Route for detailed page with contestid
     element: <AdminDailyPuzzleModify />,
   },
   ///////////////////////////// ADMIN DAILY PUZZLE END /////////////////////////////
