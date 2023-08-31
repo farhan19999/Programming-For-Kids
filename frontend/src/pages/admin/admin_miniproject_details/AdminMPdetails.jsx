@@ -58,7 +58,7 @@ export default function AdminMPDetails() {
 
   const handleSaveClick = () => {
     axios
-      .put(`${server_url}/api/mini-projects/${projectid}`, {
+      .put(`http://localhost:3000/api/mini-projects/${projectid}`, {
         starting_code: code, // Pass the updated code to the backend
         title: project.title,
         project_details: projectDetails,

@@ -5,6 +5,8 @@ import Navbar from '../../../components/navbar/Navbar'
 import Footer from '../../../components/footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
+import Loading from '../../../components/loading/Loading';
 
 function AdminPuzzle() {
     const [puzzlesData, setPuzzlesData] = useState({ puzzles: [] }); // Initialize with an object containing an empty array
@@ -26,8 +28,13 @@ function AdminPuzzle() {
     }
 
     const handleAddNewPuzzleClick = () => {
-        navigate(`/admin/daily-puzzle/add`); 
+        navigate(`/admin/daily-puzzle/add`);
     }
+    if (!puzzlesData)
+        return
+    (
+        <Loading />
+    )
 
     return (
         <div>
@@ -40,7 +47,7 @@ function AdminPuzzle() {
             <h2 style={{ margin: "25px", marginLeft: "50px", fontWeight: "bold" }}>Admin</h2>
             <table
                 className="table table-hover"
-                style={{ margin: "25px", marginLeft: "50px", fontSize: "18px" }}
+                style={{ margin: "25px", fontSize: "18px" }}
             >
                 <thead>
                     <tr>
@@ -54,7 +61,7 @@ function AdminPuzzle() {
                     {puzzlesData.puzzles.map(puzzles => (
                         <tr key={puzzles.puzzleid}>
                             <td>{puzzles.puzzleid}</td>
-                            <td>{puzzles.date}</td>
+                            <td>{moment(puzzles.date).format("YYYY-MM-DD")}</td>
                             <td>{puzzles.problem}</td>
                             <td>
                                 <button type="button" className="btn btn-dark" onClick={() => handleModifyClick(puzzles.puzzleid)}>

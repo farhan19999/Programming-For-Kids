@@ -100,6 +100,7 @@ router.get('/', puzzles_controller.getAllPuzzles);
 router.post('/', puzzles_controller.createPuzzle);
 router.get('/:id', puzzles_controller.getPuzzleById);
 router.put('/:id', puzzles_controller.updatePuzzle);
+router.delete('/:id', puzzles_controller.deletePuzzle)
 
 
 router.get('/date/:today', puzzles_controller.getTodaysPuzzle);

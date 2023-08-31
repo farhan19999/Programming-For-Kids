@@ -62,7 +62,7 @@ export default function AdminContestProblemDetails() {
     const handleDeleteClick = () => {
         axios
             .delete(
-                `http://localhost:3000/api/puzzles/11`
+                `http://localhost:3000/api/puzzles/${puzzleid}`
             )
             .then((response) => {
                 console.log("Problem deleted:", response.data);
@@ -74,15 +74,15 @@ export default function AdminContestProblemDetails() {
     }
 
     const handleSaveClick = () => {
-        // const formattedDate = new Date().toLocaleString('en-US', {
-        //     year: 'numeric',
-        //     month: 'long',
-        //     day: 'numeric',
-        //     hour: 'numeric',
-        //     minute: 'numeric',
-        //     second: 'numeric',
-        //     timeZoneName: 'short'
-        // });
+        const formattedDate = new Date().toLocaleString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            timeZoneName: 'short'
+        });
         axios
             .put(
                 `${server_url}/api/puzzles/1`,
@@ -90,7 +90,7 @@ export default function AdminContestProblemDetails() {
                     problem: puzzleproblemStatement,
                     puzzle_code: puzzle_code,
                     solution: solution,
-                    // date:formattedDate,
+                    date:formattedDate,
                 }
             )
             .then((response) => {

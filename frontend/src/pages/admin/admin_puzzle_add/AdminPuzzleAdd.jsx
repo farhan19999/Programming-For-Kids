@@ -11,8 +11,7 @@ import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
 import storage from "../../../utils/firebase";
-import { ref, uploadBytes } from "firebase/storage";
-
+import moment from "moment";
 export default function AdminContestProblemDetails() {
     const defaultState = {
         puzzleid: 1,
@@ -47,22 +46,25 @@ export default function AdminContestProblemDetails() {
     const handleCancelClick = () => {
         navigate(`/admin/daily-puzzle`);
     };
+    const todaywithzone = new Date();
+    const today = moment(todaywithzone).format("YYYY-MM-DD");
+
     const server_url = process.env.REACT_APP_SERVER_URL;
     const handleSaveClick = () => {
         const currentDate = new Date();
         axios
-          .post(`${server_url}/api/puzzles/`, {
-            problem: document.getElementById("problemStatement").value,
-            solution: document.getElementById("problemSolution").value,
-            puzzle_code: document.getElementById("puzzle_code").value,
-            date: currentDate.toISOString(),
-          })
-          .then((response) => {
-            console.log("Problem updated:", response.data);
-          })
-          .catch((error) => {
-            console.error("Error updating problem:", error);
-          });
+            .post(`${server_url}/api/puzzles/`, {
+                problem: document.getElementById("problemStatement").value,
+                solution: document.getElementById("problemSolution").value,
+                puzzle_code: document.getElementById("puzzle_code").value,
+                date: today,
+            })
+            .then((response) => {
+                console.log("Problem updated:", response.data);
+            })
+            .catch((error) => {
+                console.error("Error updating problem:", error);
+            });
 
         navigate(`/admin/daily-puzzle`);
     };

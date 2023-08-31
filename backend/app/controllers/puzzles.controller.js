@@ -122,3 +122,12 @@ exports.getPuzzleSubmissionByUserId = async (req, res) => {
         res.status(500).send(error.message)
     }
 }
+
+exports.deletePuzzle = async (req, res) => {
+    try {
+        const puzzle = await puzzle_service.deletePuzzle(req.params.id)
+        res.status(200).json(puzzle)
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
