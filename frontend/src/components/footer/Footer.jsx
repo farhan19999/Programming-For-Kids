@@ -29,7 +29,7 @@ function Footer() {
 
             <ul className="list-unstyled">
               <li>
-                <a href="#!" className="text-light">Link 1</a>
+                <a href="#!" className="text-light"></a>
               </li>
               <li>
                 <a href="#!" className="text-light">Link 2</a>
@@ -82,7 +82,7 @@ function Footer() {
       </div>
       <div className="text-light text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
         © 2020 Copyright:
-        <a className="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        <a className="text-dark" href="https://mdbootstrap.com/">Programming For Kids</a>
       </div>
     </footer>
 

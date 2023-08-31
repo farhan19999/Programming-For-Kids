@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react';
 import "./profile.css"
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 //Author: MAHBUB
 //TODO #7: Hide Old password 
@@ -19,9 +20,10 @@ function Profile() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [phone, setPhone] = useState('');
-
+	const {userid}=useSelector(state=>state.user);
+	
 	useEffect(() => {
-		axios.get("http://localhost:3000/api/users/1").then((response) => {
+		axios.get(`http://localhost:3000/api/users/${userid}`).then((response) => {
 			setUser(response.data)
 			setUsername(response.data.username)
 			setPhone(response.data.phone_no)

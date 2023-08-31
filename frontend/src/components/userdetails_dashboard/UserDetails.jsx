@@ -39,7 +39,7 @@ function UserDetails() {
           </div>
           <div className="flex-grow-1 ms-3">
             <h5 className="mb-1">{user.username}</h5>
-            <p className="mb-2 pb-1" style={{ color: "#2b2a2a" }}>Grand Master</p>
+            {/* <p className="mb-2 pb-1" style={{ color: "#2b2a2a" }}></p> */}
             <div className="d-flex justify-content-start rounded-3 p-2 mb-2"
               style={{ backgroundcolor: "#efefef" }}>
               <div className="px-3">
