@@ -45,11 +45,7 @@ export default function AdminContestProblemDetails() {
 
     useEffect(() => {
         axios
-<<<<<<< HEAD
-            .get(`${server_url}/api/puzzles/1`)
-=======
             .get(`http://localhost:3000/api/puzzles/${puzzleid}`)
->>>>>>> 100a4f932def49d2de93818785282fdb2a817cad
             .then((response) => {
                 setPuzzle(response.data);
                 setPuzzleProblemStatement(response.data.problem);

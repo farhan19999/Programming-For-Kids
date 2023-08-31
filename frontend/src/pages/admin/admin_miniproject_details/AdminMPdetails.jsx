@@ -17,7 +17,7 @@ export default function AdminMPDetails() {
   const [projectDetails, setProjectDetails] = useState('');
   const [code, setCode] = useState('');
 
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   const handleProjectDetailsChange = (event) => {
     setProjectDetails(event.target.value);
   };
@@ -41,11 +41,6 @@ export default function AdminMPDetails() {
   const handleCancelClick = () => {
     navigate(`/admin/miniprojects`);
   };
-<<<<<<< HEAD
-  const server_url = process.env.REACT_APP_SERVER_URL;
-  const handleSaveButtonClick = () => {
-    // Implement save logic here
-=======
 
   const handleDeleteClick = () => {
     axios
@@ -62,7 +57,6 @@ export default function AdminMPDetails() {
   }
 
   const handleSaveClick = () => {
->>>>>>> 100a4f932def49d2de93818785282fdb2a817cad
     axios
       .put(`${server_url}/api/mini-projects/${projectid}`, {
         starting_code: code, // Pass the updated code to the backend
@@ -81,7 +75,6 @@ export default function AdminMPDetails() {
     navigate(`/admin/miniprojects`);
   };
 
-<<<<<<< HEAD
   const [problem, setProblem] = useState({});
   useEffect(() => {
     axios
@@ -93,8 +86,6 @@ export default function AdminMPDetails() {
       });
   }, [projectid]);
 
-=======
->>>>>>> 100a4f932def49d2de93818785282fdb2a817cad
   return (
     <div style={{ position: "relative" }}>
       <Navbar />
