@@ -84,7 +84,7 @@ export default function AdminMPDetails() {
         setCode(response.data.starting_code);
         console.log(response.data);
       });
-  }, [projectid]);
+  }, [server_url,projectid]);
 
   return (
     <div style={{ position: "relative" }}>

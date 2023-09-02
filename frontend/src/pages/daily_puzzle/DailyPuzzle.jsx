@@ -10,13 +10,22 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import moment from "moment";
 import Loading from "../../components/loading/Loading";
+import Confetti from "react-confetti";
+import useWindowSize from 'react-use/lib/useWindowSize'
+import {Modal} from 'react-bootstrap';
+
+
+// const contentStyle = { background: '#000' };
+// const overlayStyle = { background: 'rgba(0,0,0,0.5)' };
+// const arrowStyle = { color: '#000' }; // style for an svg element
 
 export default function DailyPuzzle() {
   const [puzzle, setPuzzle] = useState(null);
   const server_url = process.env.REACT_APP_SERVER_URL;
   const todaywithzone = new Date();
   const today = moment(todaywithzone).format("YYYY-MM-DD");
-
+  const [open, setOpen] = useState(false);
+  const [popupText, setPopupText] = useState("Wrong Answer");
   useEffect(() => {
     axios
       .get(`${server_url}/api/puzzles/date/${today}`)
@@ -32,22 +41,27 @@ export default function DailyPuzzle() {
   //return (<div></div>);
   if (!puzzle)
     return (
-      <div style={{marginTop:"160px"}}>
+      <div>
         <Navbar />
         <Loading />
       </div>
     );
   //console.log(typeof puzzle.puzzle_code);
 
-  const handleSubmit = () => {
-    const answer = document.getElementById("answerId").value;
-    if (answer === puzzle.solution) {
-      alert("Correct Answer");
-    } else {
-      alert("Wrong Answer");
-    }
-  };
 
+  const handleSubmit = () => {
+    if(puzzle.solution === document.getElementById("answerId").value){
+      setOpen(true);
+      setPopupText("Correct Answer");
+    }
+    else{
+      setOpen(true);
+      setPopupText("Wrong Answer");
+    }
+  }
+  const closeModal = () => {
+    setOpen(false);
+  }
   return (
     <div>
       <Navbar />
@@ -89,14 +103,24 @@ export default function DailyPuzzle() {
             <Button
               size={"sm"}
               variant="outline-secondary"
-              id="submitButtonId"
-              onClick={handleSubmit}
+              onClick={(e)=>handleSubmit()}
             >
               Submit
             </Button>
           </div>
         </div>
       </div>
+      <Modal show={open} onHide={closeModal} centered>
+      <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{popupText}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Footer />
     </div>
   );
