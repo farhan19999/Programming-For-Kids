@@ -17,8 +17,8 @@ const prepareCodeFile = async (code_file_path, file_name) => {
 
 const load_test_cases = async (input_file, output_file, problemid, testcaseid) => {
     try {
-        const result = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${testcaseid}/${input_file}`, `./app/files/${input_file}`);
-        const result2 = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${testcaseid}/${output_file}`, `./app/files/${output_file}`);
+        const result = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${input_file}`, `./app/files/${input_file}`);
+        const result2 = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${output_file}`, `./app/files/${output_file}`);
         //console.log('input and ouput file loaded');
     } catch (err) {
         console.log(err);
