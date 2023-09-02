@@ -77,7 +77,7 @@ let inputfilename=null;
     }
   };
 
-  const { contestid, problemid } = useParams(); // http://localhost:3001/admin/contest/1/problem/3
+  const { contestid, problemid } = useParams(); 
   const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
     axios

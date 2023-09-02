@@ -22,8 +22,10 @@ function Profile() {
 	const [phone, setPhone] = useState('');
 	const {userid}=useSelector(state=>state.user);
 	
+	const server_url = process.env.REACT_APP_SERVER_URL;
+
 	useEffect(() => {
-		axios.get(`http://localhost:3000/api/users/${userid}`).then((response) => {
+		axios.get(`${server_url}/api/users/${userid}`).then((response) => {
 			setUser(response.data)
 			setUsername(response.data.username)
 			setPhone(response.data.phone_no)
@@ -66,7 +68,7 @@ function Profile() {
 		try {
 			// Handle validations
 			axios
-				.put("http://localhost:3000/api/users/" + user.userid, 
+				.put(`${server_url}/api/users/` + user.userid, 
 				{
 					password:password, 
 					phone_no:phone, 

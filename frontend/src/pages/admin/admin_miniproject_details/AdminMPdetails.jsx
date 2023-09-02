@@ -25,10 +25,9 @@ export default function AdminMPDetails() {
   const handleCodeChange = (event) => {
     setCode(event.target.value);
   };
-
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/mini-projects/${projectid}`)
+      .get(`${server_url}/api/mini-projects/${projectid}`)
       .then((response) => {
         setProject(response.data);
         setCode(response.data.starting_code);
@@ -45,7 +44,7 @@ export default function AdminMPDetails() {
   const handleDeleteClick = () => {
     axios
       .delete(
-        `http://localhost:3000/api/mini-projects/${projectid}`
+        `${server_url}/api/mini-projects/${projectid}`
       )
       .then((response) => {
         console.log("Problem deleted:", response.data);
@@ -58,7 +57,7 @@ export default function AdminMPDetails() {
 
   const handleSaveClick = () => {
     axios
-      .put(`http://localhost:3000/api/mini-projects/${projectid}`, {
+      .put(`${server_url}/api/mini-projects/${projectid}`, {
         starting_code: code, // Pass the updated code to the backend
         title: project.title,
         project_details: projectDetails,
