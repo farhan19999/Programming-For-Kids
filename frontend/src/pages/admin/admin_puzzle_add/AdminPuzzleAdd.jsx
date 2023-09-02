@@ -4,19 +4,17 @@
  *
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
 import DatePicker from "../../../components/datePicker/DatePicker";
 import { useNavigate } from "react-router-dom";
-import storage from "../../../utils/firebase";
-import moment from "moment";
 export default function AdminContestProblemDetails() {
 
     const server_url = process.env.REACT_APP_SERVER_URL;
-    const [puzzle, setPuzzle] = useState(null);
+    const [puzzle, setPuzzle] = useState('');
 
     const handlePuzzleProblemStatementChange = (event) => {
         setPuzzle({
@@ -46,7 +44,7 @@ export default function AdminContestProblemDetails() {
         });
     }
 
-    const { puzzleid } = useParams();
+    // const { puzzleid } = useParams();
     const navigate = useNavigate();
 
     const handleCancelClick = () => {
@@ -54,38 +52,34 @@ export default function AdminContestProblemDetails() {
     };
 
     const handleSaveClick = () => {
-
-        const date = document.getElementById('dop').value;
-        let res;
-        axios.get(`${server_url}/api/puzzles/date/${date}`)
-            .then((reponse) => {
-                res = reponse;
-                alert(` Puzzle Already exits for this date`);
-                // console.log(reponse.data);
-            }
-            )
-            .catch((error) => {
-                res = error;
-                console.error("Error is: ", error);
-
-                axios
-                    .post(`${server_url}/api/puzzles/`, {
-                        problem: document.getElementById("problemStatement").value,
-                        solution: document.getElementById("problemSolution").value,
-                        puzzle_code: document.getElementById("puzzle_code").value,
-                        date: document.getElementById("dop").value,
-
-                    })
-                    .then((response) => {
-                        console.log("Problem updated:", response.data);
-                    })
-                    .catch((error) => {
-                        console.error("Error updating problem:", error);
-                    });
-            }
-            )
-        navigate(`/admin/daily-puzzle`);
+        const dateElement = document.getElementById("dop");
+        if (dateElement) {
+            const date = dateElement.value;
+            axios
+                .get(`${server_url}/api/puzzles/date/${date}`)
+                .then((response) => {
+                    alert(`Puzzle Already exists for this date`);
+                })
+                .catch((error) => {
+                    console.error("Error is: ", error);
+                    axios
+                        .post(`${server_url}/api/puzzles/`, {
+                            problem: puzzle.problem,
+                            solution: puzzle.solution,
+                            puzzle_code: puzzle.puzzle_code,
+                            date: date,
+                        })
+                        .then((response) => {
+                            console.log("Problem updated:", response.data);
+                        })
+                        .catch((error) => {
+                            console.error("Error updating problem:", error);
+                        });
+                });
+            navigate(`/admin/daily-puzzle`);
+        }
     };
+
 
     return (
         <div style={{ position: "relative" }}>

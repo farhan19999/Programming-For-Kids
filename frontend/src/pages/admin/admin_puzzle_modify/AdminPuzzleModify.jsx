@@ -39,7 +39,7 @@ export default function AdminContestProblemDetails() {
         });
     };
 
-    const handleDateChange =(event) =>{
+    const handleDateChange = (event) => {
         setPuzzle({
             ...puzzle,
             date: event.target.value,
@@ -59,6 +59,9 @@ export default function AdminContestProblemDetails() {
                 setPuzzle(response.data);
             });
     }, [puzzleid]);
+
+    const formattedDate = puzzle ? moment(puzzle.date).format('YYYY-MM-DD') : '';
+
 
 
     const navigate = useNavigate();
@@ -81,23 +84,14 @@ export default function AdminContestProblemDetails() {
     }
 
     const handleSaveClick = () => {
-        const formattedDate = new Date().toLocaleString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            timeZoneName: 'short'
-        });
         axios
             .put(
                 `${server_url}/api/puzzles/${puzzle.puzzleid}`,
                 {
-                    problem: document.getElementById("problemStatement").value,
-                    puzzle_code: document.getElementById("puzzle_code").value,
-                    solution: document.getElementById("solution").value,
-                    date: document.getElementById("dop").value,
+                    problem: puzzle.problem,
+                    puzzle_code: puzzle.puzzle_code,
+                    solution: puzzle.solution,
+                    date: puzzle.date,
                 }
             )
             .then((response) => {
@@ -177,7 +171,9 @@ export default function AdminContestProblemDetails() {
                     </div>
                 </div>
             </div>
-            <div onChange={handleDateChange} style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'} /></div>
+
+
+            <div onChange={handleDateChange} style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker value={formattedDate} id={'dop'} /></div>
 
 
             <button
