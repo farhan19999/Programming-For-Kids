@@ -32,7 +32,7 @@ export default function DailyPuzzle() {
   //return (<div></div>);
   if (!puzzle)
     return (
-      <div style={{marginTop:"160px"}}>
+      <div>
         <Navbar />
         <Loading />
       </div>

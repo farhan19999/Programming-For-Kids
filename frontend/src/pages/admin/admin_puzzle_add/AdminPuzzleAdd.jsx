@@ -9,6 +9,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
+import DatePicker from "../../../components/datePicker/DatePicker";
 import { useNavigate } from "react-router-dom";
 import storage from "../../../utils/firebase";
 import moment from "moment";
@@ -51,22 +52,47 @@ export default function AdminContestProblemDetails() {
 
     const server_url = process.env.REACT_APP_SERVER_URL;
     const handleSaveClick = () => {
-        const currentDate = new Date();
-        axios
-            .post(`${server_url}/api/puzzles/`, {
-                problem: document.getElementById("problemStatement").value,
-                solution: document.getElementById("problemSolution").value,
-                puzzle_code: document.getElementById("puzzle_code").value,
-                date: today,
-            })
-            .then((response) => {
-                console.log("Problem updated:", response.data);
-            })
-            .catch((error) => {
-                console.error("Error updating problem:", error);
-            });
 
-        navigate(`/admin/daily-puzzle`);
+        const date = document.getElementById('dop').value;
+        let res;
+        axios.get(`${server_url}/api/puzzles/date/${date}`)
+            .then((reponse) => {
+                res = reponse;
+                alert(` Puzzle Already exits for this date`);
+                // console.log(reponse.data);
+            }
+            )
+            .catch((error) => {
+                res = error;
+                console.error("Error is: ", error);
+
+                axios
+                    .post(`${server_url}/api/puzzles/`, {
+                        problem: document.getElementById("problemStatement").value,
+                        solution: document.getElementById("problemSolution").value,
+                        puzzle_code: document.getElementById("puzzle_code").value,
+                        date: document.getElementById("dop").value,
+
+                    })
+                    .then((response) => {
+                        console.log("Problem updated:", response.data);
+                    })
+                    .catch((error) => {
+                        console.error("Error updating problem:", error);
+                    });
+            }
+            )
+
+        // if (res) {
+
+        //     console.log(res.data);
+        // }
+        // else {
+        //     alert(`Puzzle already exists for ${date}`);
+        // }
+
+        // navigate(`/admin/daily-puzzle`);
+        // console.log(document.getElementById("dop").value);
     };
 
     return (
@@ -126,6 +152,8 @@ export default function AdminContestProblemDetails() {
                 </div>
             </div>
 
+            <div style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'} /></div>
+
             <button
                 type="button"
                 className="btn btn-dark"
@@ -159,6 +187,6 @@ export default function AdminContestProblemDetails() {
             </button>
 
             <Footer />
-        </div>
+        </div >
     );
 }

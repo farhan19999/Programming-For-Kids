@@ -9,32 +9,23 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
+import DatePicker from "../../../components/datePicker/DatePicker";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../../components/loading/Loading";
+import moment from "moment";
 
 export default function AdminContestProblemDetails() {
-    const defaultState = {
-        puzzleid: 1,
-        date: "2024-01-01T01:00:00.000Z",
-        problem: "What is the output of the following code?",
-        puzzle_code: "#include <stdio.h>\r\nint main() {\r\n    int x = 5;\r\n    printf(\"%d\\n\", x++);\r\n    printf(\"%d\\n\", x);\r\n    return 0;\r\n}",
-        solution: "5\r\n6",
-        language: "c",
-    };
 
-    const [puzzle, setPuzzle] = useState(defaultState);
-    const [puzzleproblemStatement, setPuzzleProblemStatement] = useState(puzzle.problem);
-    const [solution, setSolution] = useState(puzzle.solution);
-    const [puzzle_code, setPuzzle_Code] = useState(puzzle.puzzle_code);
-
+    const [puzzle, setPuzzle] = useState(null);
 
     const handlePuzzleProblemStatementChange = (event) => {
-        setPuzzleProblemStatement(event.target.value);
+        puzzle.problem = event.target.value;
     };
     const handleSolutionChange = (event) => {
-        setSolution(event.target.value);
+        puzzle.solution = event.target.value;
     };
     const handlePuzzleCodeChange = (event) => {
-        setPuzzle_Code(event.target.value);
+        puzzle.puzzle_code = event.target.value;
     };
 
 
@@ -48,11 +39,9 @@ export default function AdminContestProblemDetails() {
             .get(`http://localhost:3000/api/puzzles/${puzzleid}`)
             .then((response) => {
                 setPuzzle(response.data);
-                setPuzzleProblemStatement(response.data.problem);
-                setSolution(response.data.solution);
-                setPuzzle_Code(response.data.puzzle_code);
             });
     }, [puzzleid]);
+
 
     const navigate = useNavigate();
     const handleCancelClick = () => {
@@ -85,12 +74,12 @@ export default function AdminContestProblemDetails() {
         });
         axios
             .put(
-                `${server_url}/api/puzzles/1`,
+                `${server_url}/api/puzzles/${puzzle.puzzleid}`,
                 {
-                    problem: puzzleproblemStatement,
-                    puzzle_code: puzzle_code,
-                    solution: solution,
-                    date:formattedDate,
+                    problem: document.getElementById("problemStatement").value,
+                    puzzle_code: document.getElementById("puzzle_code").value,
+                    solution: document.getElementById("solution").value,
+                    date: document.getElementById("dop").value,
                 }
             )
             .then((response) => {
@@ -102,6 +91,17 @@ export default function AdminContestProblemDetails() {
 
         navigate(`/admin/daily-puzzle`);
     };
+
+    if (!puzzle) {
+        return (
+            <div>
+                <Navbar />
+                <Loading />
+                <Footer />
+            </div>
+
+        );
+    }
 
     return (
         <div style={{ position: "relative" }}>
@@ -122,7 +122,7 @@ export default function AdminContestProblemDetails() {
                                 className="form-control"
                                 id="problemStatement"
                                 rows="8"
-                                value={puzzleproblemStatement}
+                                value={puzzle.problem}
                                 onChange={handlePuzzleProblemStatementChange}
                             ></textarea>
                         </div>
@@ -134,9 +134,9 @@ export default function AdminContestProblemDetails() {
                             <textarea
                                 style={{ backgroundColor: "#eee" }}
                                 className="form-control"
-                                id="problemStatement"
+                                id="solution"
                                 rows="4"
-                                value={solution}
+                                value={puzzle.solution}
                                 onChange={handleSolutionChange}
                             ></textarea>
                         </div>
@@ -150,15 +150,17 @@ export default function AdminContestProblemDetails() {
                             <textarea
                                 style={{ backgroundColor: "#222", color: "white" }}
                                 className="form-control"
-                                id="solution"
+                                id="puzzle_code"
                                 rows="15"
-                                value={puzzle_code}
+                                value={puzzle.puzzle_code}
                                 onChange={handlePuzzleCodeChange}
                             ></textarea>
                         </div>
                     </div>
                 </div>
             </div>
+            <div style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'}  /></div>
+
 
             <button
                 type="button"

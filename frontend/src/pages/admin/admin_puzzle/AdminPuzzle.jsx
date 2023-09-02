@@ -53,7 +53,7 @@ function AdminPuzzle() {
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Created</th>
-                        <th scope="col">Puzzle Details</th>
+                        <th scope="col">Puzzle Title</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
