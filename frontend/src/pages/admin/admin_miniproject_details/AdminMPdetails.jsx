@@ -25,7 +25,6 @@ export default function AdminMPDetails() {
   const handleCodeChange = (event) => {
     setCode(event.target.value);
   };
-
   useEffect(() => {
     axios
       .get(`${server_url}/api/mini-projects/${projectid}`)
