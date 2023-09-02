@@ -1,4 +1,8 @@
-// Mahbub
+/*
+ *
+ *   Author: Mahbub
+ *
+ */
 
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../../components/navbar/Navbar'
@@ -31,10 +35,13 @@ function AdminPuzzle() {
         navigate(`/admin/daily-puzzle/add`);
     }
     if (!puzzlesData)
-        return
-    (
-        <Loading />
-    )
+        return (
+            <div>
+                <Navbar />
+                <Loading />
+                <Footer />
+            </div>
+        )
 
     return (
         <div>
@@ -52,7 +59,7 @@ function AdminPuzzle() {
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Created</th>
+                        <th scope="col">Date</th>
                         <th scope="col">Puzzle Title</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -72,7 +79,7 @@ function AdminPuzzle() {
                     ))}
                     <tr>
                         <td colSpan="4">
-                            <button type="button" onClick={handleAddNewPuzzleClick} className="btn btn-dark" style={{ width: "190px", height: "42px", marginTop: "10px", marginLeft: "38%" }}>
+                            <button type="button" className="btn btn-dark" onClick={handleAddNewPuzzleClick} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',width: "190px", height: "42px", marginTop: "10px", marginLeft: "38%" }}>
                                 Add New Puzzle
                             </button>
                         </td>

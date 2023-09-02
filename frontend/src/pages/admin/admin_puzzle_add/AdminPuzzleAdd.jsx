@@ -14,43 +14,45 @@ import { useNavigate } from "react-router-dom";
 import storage from "../../../utils/firebase";
 import moment from "moment";
 export default function AdminContestProblemDetails() {
-    const defaultState = {
-        puzzleid: 1,
-        date: "2024-01-01T01:00:00.000Z",
-        problem: "What is the output of the following code?",
-        puzzle_code: "#include <stdio.h>\r\nint main() {\r\n    int x = 5;\r\n    printf(\"%d\\n\", x++);\r\n    printf(\"%d\\n\", x);\r\n    return 0;\r\n}",
-        solution: "5\r\n6",
-        language: "c",
-    };
 
-    const [puzzle, setPuzzle] = useState(defaultState);
-    const [puzzleproblemStatement, setPuzzleProblemStatement] = useState(puzzle.problem);
-    const [solution, setSolution] = useState(puzzle.solution);
-    const [puzzle_code, setPuzzle_Code] = useState(puzzle.puzzle_code);
-
+    const server_url = process.env.REACT_APP_SERVER_URL;
+    const [puzzle, setPuzzle] = useState(null);
 
     const handlePuzzleProblemStatementChange = (event) => {
-        setPuzzleProblemStatement(event.target.value);
+        setPuzzle({
+            ...puzzle,
+            problem: event.target.value,
+        });
     };
+
     const handleSolutionChange = (event) => {
-        setSolution(event.target.value);
+        setPuzzle({
+            ...puzzle,
+            solution: event.target.value,
+        });
     };
+
     const handlePuzzleCodeChange = (event) => {
-        setPuzzle_Code(event.target.value);
+        setPuzzle({
+            ...puzzle,
+            puzzle_code: event.target.value,
+        });
     };
+
+    const handleDateChange = (event) => {
+        setPuzzle({
+            ...puzzle,
+            date: event.target.value,
+        });
+    }
 
     const { puzzleid } = useParams();
-
-
     const navigate = useNavigate();
 
     const handleCancelClick = () => {
         navigate(`/admin/daily-puzzle`);
     };
-    const todaywithzone = new Date();
-    const today = moment(todaywithzone).format("YYYY-MM-DD");
 
-    const server_url = process.env.REACT_APP_SERVER_URL;
     const handleSaveClick = () => {
 
         const date = document.getElementById('dop').value;
@@ -82,17 +84,7 @@ export default function AdminContestProblemDetails() {
                     });
             }
             )
-
-        // if (res) {
-
-        //     console.log(res.data);
-        // }
-        // else {
-        //     alert(`Puzzle already exists for ${date}`);
-        // }
-
-        // navigate(`/admin/daily-puzzle`);
-        // console.log(document.getElementById("dop").value);
+        navigate(`/admin/daily-puzzle`);
     };
 
     return (
@@ -152,7 +144,7 @@ export default function AdminContestProblemDetails() {
                 </div>
             </div>
 
-            <div style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'} /></div>
+            <div onChange={handleDateChange} style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'} /></div>
 
             <button
                 type="button"

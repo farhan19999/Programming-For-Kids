@@ -19,18 +19,36 @@ export default function AdminContestProblemDetails() {
     const [puzzle, setPuzzle] = useState(null);
 
     const handlePuzzleProblemStatementChange = (event) => {
-        puzzle.problem = event.target.value;
+        setPuzzle({
+            ...puzzle,
+            problem: event.target.value,
+        });
     };
+
     const handleSolutionChange = (event) => {
-        puzzle.solution = event.target.value;
+        setPuzzle({
+            ...puzzle,
+            solution: event.target.value,
+        });
     };
+
     const handlePuzzleCodeChange = (event) => {
-        puzzle.puzzle_code = event.target.value;
+        setPuzzle({
+            ...puzzle,
+            puzzle_code: event.target.value,
+        });
     };
 
+    const handleDateChange =(event) =>{
+        setPuzzle({
+            ...puzzle,
+            date: event.target.value,
+        });
+    }
 
 
-    const { puzzleid } = useParams(); 
+
+    const { puzzleid } = useParams();
 
     const server_url = process.env.REACT_APP_SERVER_URL;
 
@@ -107,7 +125,7 @@ export default function AdminContestProblemDetails() {
         <div style={{ position: "relative" }}>
             <Navbar />
             <h3 style={{ textAlign: "center", marginTop: "20px" }}>
-                Create Daily Puzzle
+                Modify Daily Puzzle
             </h3>
 
             <div className="container">
@@ -159,7 +177,7 @@ export default function AdminContestProblemDetails() {
                     </div>
                 </div>
             </div>
-            <div style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'}  /></div>
+            <div onChange={handleDateChange} style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'} /></div>
 
 
             <button
