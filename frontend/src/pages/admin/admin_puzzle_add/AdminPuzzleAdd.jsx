@@ -39,7 +39,7 @@ export default function AdminContestProblemDetails() {
         setPuzzle_Code(event.target.value);
     };
 
-    const { puzzleid } = useParams(); // http://localhost:3001/admin/contest/1/problem/3
+    const { puzzleid } = useParams();
 
 
     const navigate = useNavigate();

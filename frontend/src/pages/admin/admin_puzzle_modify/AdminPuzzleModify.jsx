@@ -30,13 +30,13 @@ export default function AdminContestProblemDetails() {
 
 
 
-    const { puzzleid } = useParams(); // http://localhost:3001/admin/puzzles/1
+    const { puzzleid } = useParams(); 
 
     const server_url = process.env.REACT_APP_SERVER_URL;
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/puzzles/${puzzleid}`)
+            .get(`${server_url}/api/puzzles/${puzzleid}`)
             .then((response) => {
                 setPuzzle(response.data);
             });
@@ -51,7 +51,7 @@ export default function AdminContestProblemDetails() {
     const handleDeleteClick = () => {
         axios
             .delete(
-                `http://localhost:3000/api/puzzles/${puzzleid}`
+                `${server_url}/api/puzzles/${puzzleid}`
             )
             .then((response) => {
                 console.log("Problem deleted:", response.data);

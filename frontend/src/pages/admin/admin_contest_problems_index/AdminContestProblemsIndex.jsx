@@ -53,7 +53,7 @@ function AdminContestProblemsIndex() {
     const handleDeleteClick=()=>{
         axios
         .delete(
-            `http://localhost:3000/api/contests/${contestid}`
+            `${server_url}/api/contests/${contestid}`
         )
         .then((response) => {
             console.log("Problem deleted:", response.data);
