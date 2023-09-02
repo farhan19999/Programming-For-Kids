@@ -1,6 +1,8 @@
 //routes/users.route.js
 const controller = require('../controllers/users.controller')
 const router = require('express').Router()
+const { param } = require("express-validator");
+const validationMiddleware = require('../middlewares/validation.middleware')
 
 /**
  * @swagger
@@ -148,7 +150,8 @@ router.post('/', controller.createUser)
  *          description: Some server error
  *        
  */
-router.get('/:id', controller.getUserById)
+
+router.get('/:id',param('id').notEmpty().isInt(),validationMiddleware.validate, controller.getUserById)
 
 
 /** 
@@ -174,7 +177,7 @@ router.get('/:id', controller.getUserById)
  *          description: Some server error      
  */
 
-router.put('/:id', controller.updateUser)
+router.put('/:id',param('id').notEmpty().isInt(),validationMiddleware.validate, controller.updateUser)
 //router.delete('/:id', controller.deleteUser)
 
 
@@ -206,15 +209,15 @@ router.put('/:id', controller.updateUser)
  *       500:
  *          description: Some server error      
  */
-router.get('/:id/registered-contests',controller.getRegisteredContests)
-router.post('/:id/registered-contests',controller.addRegisteredContest)
+router.get('/:id/registered-contests',param('id').notEmpty().isInt(),validationMiddleware.validate, controller.getRegisteredContests)
+router.post('/:id/registered-contests',param('id').notEmpty().isInt(),validationMiddleware.validate,controller.addRegisteredContest)
 
 
 //TODO #1: add contest recommendation feature
 //router.get('/:id/recommended-contests',controller.getRecommendedContests)
 
 
-router.get('/:id/practice-submissions', controller.getAllPracticeSubmissionByUserId)
+router.get('/:id/practice-submissions',param('id').notEmpty().isInt(),validationMiddleware.validate, controller.getAllPracticeSubmissionByUserId)
 
 
 module.exports = router

@@ -8,7 +8,7 @@ const getAllUsers = async () => {
         const client = await pool.connect()
         const result = await client.query('SELECT * FROM pfk.users')
         client.release()
-        return result.rows[0]
+        return result.rows
     } catch (error) {
         console.log(error)
     }

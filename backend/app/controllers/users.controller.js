@@ -1,5 +1,4 @@
 const user_services = require('../services/user.service')
-
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await user_services.getAllUsers()
