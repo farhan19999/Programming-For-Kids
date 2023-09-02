@@ -12,10 +12,10 @@ export default function PracticeProblemIndex() {
     useEffect(() => {
         fetchData();
     }, []);
-
+    const server_url = process.env.REACT_APP_SERVER_URL;
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/problems');
+            const response = await axios.get(`${server_url}/api/problems`);
             setData(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
