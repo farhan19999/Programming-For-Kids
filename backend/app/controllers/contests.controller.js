@@ -1,6 +1,7 @@
 const service = require('../services/contest.service');
 const codeCheckerService  = require('../services/code-checker.service');
 const problemService = require('../services/problem.service');
+const { validationResult } = require('express-validator');
 
 
 exports.getContests = async (req, res) => {
@@ -13,6 +14,10 @@ exports.getContests = async (req, res) => {
 }
 
 exports.getContestById = async (req, res) => {
+    const result = validationResult(req);
+    if(result.errors.length !== 0){
+        return res.status(400).json({ errors: result.errors });
+    }
     try {
         const contest = await service.getContestById(req.params.id);
         res.status(200).json(contest);
@@ -132,9 +137,9 @@ exports.addContestProblemSubmission = async (req, res) => {
         const submission = await service.addContestProblemSubmission(req.params.id, req.params.problemid, req.params.userid, req.body);
         const filename = req.body.submission_filename;
         const time_limit = await problemService.getTimeLimitByProblemId(req.params.problemid);
-        codeCheckerService.cCodeRunner(`/contests/${req.params.id}/submissions/${req.params.userid}`,filename, req.params.problemid, time_limit)
+        codeCheckerService.cCodeRunner(`/contests/${req.params.id}/submissions/${req.params.userid}`,filename, req.params.problemid, time_limit*1000)
         .then((verdict) => {
-            service.updateContestSubmission(req.params.id, req.params.problemid, req.params.userid, verdict);
+            service.updateContestProblemSubmission(submission.submissionid, verdict);
         })
         .catch((err) => {
             console.log(err);

@@ -1,148 +1,179 @@
 // Arif
 
-import React, { useState } from "react";
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-c_cpp";
-import "ace-builds/src-noconflict/theme-monokai";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
-import Timer from "../../../components/time_remaining/Timer";
+import Footer from "../../../components/footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminMPDetails() {
-  const initialCode = `#include <stdio.h>
-#include <stdlib.h>
-using namespace std;
-
-int main() {
-  int a, b;
-  cin >> a >> b;
-  cout << a + b << endl;
-  return 0;
-}`;
-
-  const [isEditing, setIsEditing] = useState(false);
-  const [code, setCode] = useState(initialCode);
-
-  const handleCodeChange = (newCode) => {
-    setCode(newCode);
+  const defaultState = {
   };
 
-  const handleEditButtonClick = () => {
-    setIsEditing(true);
+  const { projectid } = useParams();
+
+  const [project, setProject] = useState('');
+  const [projectDetails, setProjectDetails] = useState('');
+  const [code, setCode] = useState('');
+
+
+  const handleProjectDetailsChange = (event) => {
+    setProjectDetails(event.target.value);
+  };
+  
+  const handleCodeChange = (event) => {
+    setCode(event.target.value);
+  };
+  const server_url =process.env.REACT_APP_SERVER_URL;
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/api/mini-projects/${projectid}`)
+      .then((response) => {
+        setProject(response.data);
+        setCode(response.data.starting_code);
+        setProjectDetails(response.data.project_details);
+        console.log(response.data);
+      });
+  }, [projectid]);
+
+  const navigate = useNavigate();
+  const handleCancelClick = () => {
+    navigate(`/admin/miniprojects`);
   };
 
-  const handleSaveButtonClick = () => {
-    // Implement your save logic here
+  const handleDeleteClick = () => {
+    axios
+      .delete(
+        `http://localhost:3000/api/mini-projects/${projectid}`
+      )
+      .then((response) => {
+        console.log("Problem deleted:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error deleting problem:", error);
+      });
+    navigate(`/admin/miniprojects`);
+  }
+
+  const handleSaveClick = () => {
+    axios
+      .put(`${server_url}/api/mini-projects/${projectid}`, {
+        starting_code: code, // Pass the updated code to the backend
+        title: project.title,
+        project_details: projectDetails,
+        starting_time: project.starting_time,
+      })
+      .then((response) => {
+        console.log("Code saved:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error saving code:", error);
+      });
+
     console.log("Saving code:", code);
-    setIsEditing(false);
+    navigate(`/admin/miniprojects`);
   };
 
   return (
-    <div style={containerStyle}>
+    <div style={{ position: "relative" }}>
       <Navbar />
-      <h2 style={{ marginTop: "35px", position: "relative", marginLeft: "45px", marginTop: "40px" }}>Admin</h2>
-      <h4 style={{ textAlign: "center" }}>Mini Project Contest Title: Make A Calculator</h4>
-      <Timer />
+      <h2
+        style={{
+          marginTop: "95px",
+          position: "relative",
+          marginLeft: "45px",
+        }}
+      >
+        Admin
+      </h2>
+      <h3 style={{ textAlign: "center" }}>Mini Project: {project.title}</h3>
 
-      <div style={projectDetailsStyle}>
-          1. You are given a skeleton code. Modify this code to make a
-          calculator. <br />
-          2. Make sure that the button colors must be blue. <br />
-          <br />
-          <b style={{ fontSize: "20px" }}>Code:</b> <br />
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6" style={{ marginTop: "20px" }}>
+            <div className="form-group">
+              <label htmlFor="problemStatement">
+                <p style={{ fontSize: "18px" }}>Project Details:</p>
+              </label>
+              <textarea
+                style={{ backgroundColor: "#eee", height:"" }}
+                className="form-control"
+                id="problemStatement"
+                rows="15"
+                value={projectDetails}
+                onChange={handleProjectDetailsChange}
+              ></textarea>
+            </div>
+
+          </div>
+          <div className="col-md-6" style={{ marginTop: "18px" }}>
+            <div className="form-group">
+              <label htmlFor="solution">
+                <p style={{ fontSize: "19px" }}>Puzzle Code :</p>
+              </label>
+              <textarea
+                style={{ backgroundColor: "#222", color: "white" }}
+                className="form-control"
+                id="solution"
+                rows="15"
+                value={code}
+                onChange={handleCodeChange}
+              ></textarea>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {isEditing ? (
-        <AceEditor
-          mode="c_cpp"
-          theme="monokai"
-          name="code-editor"
-          fontSize={16}
-          value={code}
-          onChange={handleCodeChange}
-          editorProps={{ $blockScrolling: true }}
-          style={codeBoxStyle}
-        />
-      ) : (
-        <pre style={codeBoxStyle}>{code}</pre>
-      )}
+      <button
+        type="button"
+        className="btn btn-dark"
+        style={{
+          position: "relative",
+          bottom: "0px",
+          right: "0",
+          width: "120px",
+          marginLeft: "07%",
+          marginTop: "50px",
+        }}
+        onClick={handleDeleteClick}
+      >
+        Delete
+      </button>
 
-      {!isEditing && (
-        <button
-          type="button"
-          className="btn btn-dark"
-          style={editButtonStyle}
-          onClick={handleEditButtonClick}
-        >
-          Edit
-        </button>
-      )}
+      <button
+        type="button"
+        className="btn btn-dark"
+        style={{
+          position: "relative",
+          bottom: "0px",
+          right: "0",
+          width: "120px",
+          marginLeft: "930px",
+          marginTop: "50px",
+        }}
+        onClick={handleCancelClick}
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        className="btn btn-dark"
+        style={{
+          position: "relative",
+          bottom: "0px",
+          right: "0",
+          marginRight: "50px",
+          width: "120px",
+          marginLeft: "10px",
+          marginTop: "50px",
+        }}
+        onClick={handleSaveClick}
+      >
+        Save
+      </button>
 
-      {isEditing && (
-        <button
-          type="button"
-          className="btn btn-dark"
-          style={saveButtonStyle}
-          onClick={handleSaveButtonClick}
-        >
-          Save
-        </button>
-      )}
+      <Footer />
     </div>
   );
 }
-
-// Other styles remain the same
-
-const editButtonStyle = {
-  position: "relative",
-  bottom: "0px",
-  left: "50%",
-  marginBottom: "20px",
-  marginLeft: "-32px",
-  width: "120px",
-};
-
-
-const containerStyle = {
-  marginBottom: "60px",
-  display: "flex",
-  flexDirection: "column",
-  position: "relative", // Add position relative to the container
-};
-
-const projectDetailsStyle = {
-  textAlign: "left",
-  marginTop: "20px",
-  marginLeft: "50px",
-  marginRight: "20px",
-  marginBottom: "20px",
-  fontSize: "18px",
-};
-
-const codeBoxStyle = {
-  backgroundColor: "#444",
-  fontSize:"125px",
-  color:"white",
-  padding: "20px",
-  borderRadius: "5px",
-  fontSize: "17px",
-  fontFamily: "monospace",
-  lineHeight: "1.5",
-  display: "block",
-  whiteSpace: "pre-wrap",
-  overflowX: "auto",
-  marginRight: "30px",
-  marginLeft: "50px",
-  width: "800px",
-};
-
-
-const saveButtonStyle = {
-  position: "relative", 
-  bottom: "0px", // Position at the bottom
-  right: "0", // Position at the right
-  marginRight: "50px",
-  width: "120px",
-  marginLeft: "730px",
-  marginTop: "5px",
-};

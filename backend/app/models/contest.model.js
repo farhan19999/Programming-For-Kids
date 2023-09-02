@@ -68,14 +68,15 @@ const addContestProblem = async (id, problem) => {
         const client = await pool.connect()
         const maxProblemId = await client.query('SELECT MAX(problemid) FROM pfk.problem')
         const result = await client.query(
-            'INSERT INTO pfk.problem (problemid, contestid, title, difficulty_level,  problem_statement, topic, sample_input, sample_output, time_limit)VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', 
-                                    [maxProblemId.rows[0].max + 1, id, problem.title, problem.difficulty_level, problem.problem_statement, problem.topic, problem.sample_input, problem.sample_output, problem.time_limit])
+            'INSERT INTO pfk.problem (problemid, contestid, title, difficulty_level,  problem_statement, topic, sample_input, sample_output, time_limit, category ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',  
+                                        [maxProblemId.rows[0].max + 1, id, problem.title, problem.difficulty_level, problem.problem_statement, problem.topic, problem.sample_input, problem.sample_output, problem.time_limit, problem.category])   
         client.release()
         return result.rows[0]
     } catch (error) {
         console.log(error)
     }
 }
+
 
 const updateContestProblem = async (id, problemid, problem) => {
     try {
@@ -134,7 +135,7 @@ const getAllContestSubmissions = async (id) => {
     }
 }
 
-const getContestSubmissionByProblemId = async (id, problemid) => {
+const getContestSubmissionsByProblemId = async (id, problemid) => {
     try {
         const client = await pool.connect()
         const result = await client.query('SELECT * FROM pfk.contest_submission WHERE contestid = $1 AND problemid = $2', [id, problemid])
@@ -148,7 +149,7 @@ const getContestSubmissionByProblemId = async (id, problemid) => {
 const getContestSubmissionByUserId = async (id, userid) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.contest_submission WHERE contestid = $1 AND userid = $2', [id, userid])
+        const result = await client.query('SELECT * FROM pfk.contest_submission as cs inner join pfk.problem as p on (cs.problemid = p.problemid)  WHERE cs.contestid = $1 AND cs.userid = $2', [id, userid])
         client.release()
         return result.rows
     } catch (error) {
@@ -178,7 +179,7 @@ const getContestScores = async (id) => {
                                            where cs.contestid = $1 \
                                            Group by u.userid, u.username, prob.category", [id])
         client.release()
-        console.log(result.rows)
+        //console.log(result.rows)
         return result.rows
     } catch (error) {
         console.log(error)
@@ -186,5 +187,21 @@ const getContestScores = async (id) => {
 
 }
 
+const updateContestProblemSubmission = async (submissionid, status) => {
+    let score = 0;
+    if(status === 'Accepted'){
+        score = 100;
+    }
+    try {
+        const client = await pool.connect()
+        const result = await client.query('UPDATE pfk.contest_submission SET status = $1, score = $2 WHERE submissionid = $3 RETURNING *', 
+                                    [status, score, submissionid])
+        client.release()
+        return result.rows[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores, getContestProblemById, getContestProblemByCategory};
+
+module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionsByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores, getContestProblemById, getContestProblemByCategory, updateContestProblemSubmission};

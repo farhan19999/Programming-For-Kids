@@ -1,6 +1,7 @@
 const router = require('express').Router()
-
+const { param } = require("express-validator");
 const controller = require('../controllers/contests.controller')
+const contestMiddleware = require('../middlewares/contests.middleware')
 /**
  * @swagger
  * tags:
@@ -81,8 +82,8 @@ router.get('/', controller.getContests)
 router.post('/', controller.createContest)
 
 
-router.get('/:id', controller.getContestById)
-router.put('/:id', controller.updateContest)
+router.get('/:id', param('id').notEmpty(), controller.getContestById)
+router.put('/:id',param('id').notEmpty(), controller.updateContest)
 
 
 router.get('/:id/problems', controller.getContestProblems)
@@ -101,9 +102,11 @@ router.put('/:id/problems/:problemid/testcases/:testcaseid', controller.updateCo
 router.delete('/:id/problems/:problemid/testcases/:testcaseid', controller.deleteContestProblemTestCase);
 
 
-router.get('/:id/submissions', controller.getAllContestSubmissions)
-router.get('/:id/submissions/:problemid', controller.getContestSubmissionsByProblemId)
-router.get('/:id/submissions/:userid/', controller.getContestSubmissionByUserId)
+router.get('/:id/submissions', contestMiddleware.getContestSubmissionByProblemId,
+                                contestMiddleware.getContestSubmissionByUserId, 
+                                controller.getAllContestSubmissions)
+//router.get('/:id/submissions/:problemid', controller.getContestSubmissionsByProblemId)
+//router.get('/:id/submissions/:userid', controller.getContestSubmissionByUserId)
 
 
 router.post('/:id/submissions/:problemid/:userid', controller.addContestProblemSubmission)

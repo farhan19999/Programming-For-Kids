@@ -1,11 +1,16 @@
-import React from 'react';
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { NavLink } from 'react-router-dom';
+
 //Author: MAHBUB
 
 function Navbar() {
+    const user = useSelector(state => state.user);
+
     return (
-        <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" >
-            <div className="container-fluid">
-                <a className="navbar-brand" href="#">Programming For Kids</a>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div className="container-fluid" style={{ height: "50px" }}>
+                <NavLink className="navbar-brand" to="/">Programming For Kids</NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -13,32 +18,54 @@ function Navbar() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        {user.loggedIn &&
+                            <li className="nav-item">
+                                <NavLink className="nav-link active" aria-current="page" to="/dashboard">Dashboard</NavLink>
+                            </li>
+                        }
+
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/home">Dashboard</a>
+                            <NavLink className="nav-link active" to={user.loggedIn ? `/user/${user.userid}/contests/` : "/contest"}>Contest</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="/contest">Contest</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link active" href="/input">Practice</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link active" href="/puzzle">Daily-Puzzle</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link active" href="/game">Code-Game</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link active" href="/StudentProfile">Student-Profile</a>
+                            <NavLink className="nav-link active" to="/practice">Practice</NavLink>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href="/signup">Sign-Up</a>
+                            <NavLink className="nav-link active" to="/miniproject">Mini-Project</NavLink>
                         </li>
+
+                        <li className="nav-item">
+                            <NavLink className="nav-link active" to="/daily-puzzle">Daily-Puzzle</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link active" to="/#">Code-Game</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link active" to="/profile">Student-Profile</NavLink>
+                        </li>
+                        {
+                            !user.loggedIn &&
+                            <li className="nav-item">
+                                <NavLink className="nav-link active" to="/signin">Sign-In</NavLink>
+                            </li>
+                        }
+                        {!user.loggedIn &&
+                            <li className="nav-item">
+                                <NavLink className="nav-link active" to="/signup">Sign-Up</NavLink>
+                            </li>
+                        }
+                        {
+                            user.loggedIn &&
+                            <li className="nav-item">
+                                <NavLink className="nav-link active" to="/signout">Sign-Out</NavLink>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
+
     );
 };
 

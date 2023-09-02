@@ -1,24 +1,26 @@
-const { downloadFileFromFirebase } = require('./firebase.service');
-const { getTestCasesByProblemId } = require('../models/problem.model');
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
-const fs = require('fs').promises;
-
+const { downloadFileFromFirebase } = require("./firebase.service");
+const { getTestCasesByProblemId } = require("../models/problem.model");
+const util = require("util");
+const exec = util.promisify(require("child_process").exec);
+const fs = require("fs").promises;
 
 const prepareCodeFile = async (code_file_path, file_name) => {
-    try {
-        const result = await downloadFileFromFirebase(`${code_file_path}/${file_name}`, `./app/files/${file_name}`);
-        return result;
-    } catch (err) {
-        console.log(err);
-        throw err;
-    }
-}
+  try {
+    const result = await downloadFileFromFirebase(
+      `${code_file_path}/${file_name}`,
+      `./app/files/${file_name}`
+    );
+    return result;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
 
 const load_test_cases = async (input_file, output_file, problemid, testcaseid) => {
     try {
-        const result = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${input_file}`, `./app/files/${input_file}`);
-        const result2 = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${output_file}`, `./app/files/${output_file}`);
+        const result = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${testcaseid}/${input_file}`, `./app/files/${input_file}`);
+        const result2 = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${testcaseid}/${output_file}`, `./app/files/${output_file}`);
         //console.log('input and ouput file loaded');
     } catch (err) {
         console.log(err);
@@ -90,6 +92,12 @@ const cCodeRunner = async (code_file_path, file_name, problemid, time_limit) => 
     return verdict;
 }
 
-//cCodeRunner('/contests/1/submissions/1', 'A_1.c', 1, 1000);
+// let verdict = cCodeRunner(
+//   "/contests/1/submissions/1",
+//   "1_1_1692606412058.c",
+//   1,
+//   2000
+// );
+// console.log(verdict);
 
 module.exports = { cCodeRunner };

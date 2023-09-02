@@ -38,6 +38,15 @@ exports.updatePuzzle = async (id, puzzle) => {
 
 }
 
+exports.deletePuzzle = async (id) => {
+    try {
+        const deleted_puzzle = await puzzle_model.deletePuzzle(id)
+        return deleted_puzzle;
+    } catch (error) {
+        throw Error(error)
+    }
+}
+
 exports.getTodaysPuzzle = async (today) => {
     try {
         const puzzle = await puzzle_model.getTodaysPuzzle(today)

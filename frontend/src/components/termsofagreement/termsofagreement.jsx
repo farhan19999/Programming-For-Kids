@@ -1,17 +1,40 @@
-import React from 'react';
 //Author: MAHBUB
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-function ShowTermsOfAgreements() {
+
+function ShowTermsOfAgreements({ userid, contestid }) {
+
+    const navigate = useNavigate(); // Initialize useNavigate
+    userid=1;
+    const server_url = process.env.REACT_APP_SERVER_URL;
+    const handleRegisterButton = () => {
+        axios.post(`${server_url}/api/users/${userid}/registered-contests`,
+            {
+                userid: userid,
+                contestid: contestid,
+            })
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        navigate(`/user/${userid}/contests/`);
+
+    }
     return (
-        <div class="row">
-            <div class="d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+        
+        <div className="row">
+            <div className="d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                 Do not copy
                 <br />
                 Please submit on time
                 <br />
                 Do not search on chatgpt
             </div>
-            <button class="btn btn-dark ml-auto rounded-pill px-2 py-2" type="button">Register Now</button>
+            <button className="btn btn-dark ml-auto rounded-pill px-2 py-2" onClick={() => handleRegisterButton()} type="button">Register Now</button>
         </div>
     );
 };

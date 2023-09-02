@@ -28,7 +28,7 @@ const createNewSubmission = async (id, submission) => {
     try {
         const client = await pool.connect()
         const maxid = await client.query('SELECT MAX(ppsubmissionid) FROM pfk.practice_problem_submission_history')
-        const result = await client.query('INSERT INTO pfk.practice_problem_submission_history (ppsubmissionid, problemid, userid, submiited_time, submitted_code, language, status) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [maxid.rows[0].max + 1, id, submission.userid, submission.submiited_time, submission.submitted_code, submission.language, submission.status])
+        const result = await client.query('INSERT INTO pfk.practice_problem_submission_history (ppsubmissionid, problemid, userid, submitted_time, submitted_code, language, status) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [maxid.rows[0].max + 1, id, submission.userid, submission.submitted_time, submission.submitted_code, submission.language, submission.status])
         client.release()
         return result.rows[0]
     } catch (error) {

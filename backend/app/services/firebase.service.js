@@ -1,6 +1,5 @@
 const { app } = require('../config/firebase.config.js');
-const { getStorage, uploadBytes, ref, getStream, getBytes } = require('firebase/storage');
-const { uploadFile } = require('./dropbox.service.js');
+const { getStorage, uploadBytes, ref, getStream } = require('firebase/storage');
 const fs = require('fs').promises;
 const storage = getStorage(app);
 
@@ -21,6 +20,12 @@ const downloadFileFromFirebase = async (remote_file_path, local_file_path) => {
     try {
         const storageRef = ref(storage, remote_file_path);
         const data =  getStream(storageRef);
+        try{
+            await fs.access(local_file_path)
+        }
+        catch(err){
+            await fs.mkdir(local_file_path.substring(0, local_file_path.lastIndexOf('/')), { recursive: true });
+        }
         const success = await fs.writeFile(local_file_path, data);
         return success;
     } catch (err) {
@@ -29,6 +34,5 @@ const downloadFileFromFirebase = async (remote_file_path, local_file_path) => {
 
     
 }
-
 
 module.exports = { uploadFileToFirebase, downloadFileFromFirebase }

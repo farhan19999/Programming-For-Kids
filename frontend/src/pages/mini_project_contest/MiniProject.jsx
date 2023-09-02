@@ -1,50 +1,49 @@
 // Arif
 
-import React from "react";
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-c_cpp";
+import "ace-builds/src-noconflict/theme-monokai";
 import Navbar from "../../components/navbar/Navbar";
 import Timer from "../../components/time_remaining/Timer";
+import SubNavbar from '../../components/sub_navbar/SubNavbar';
+import axios from 'axios';
 
 export default function MiniProject() {
+  const server_url = process.env.REACT_APP_SERVER_URL;
+  const [code, setCode] = useState('');
+  const { projectid } = useParams();
+
+  const [problem, setProblem] = useState({});
+  useEffect(() => {
+    axios.get(`${server_url}/api/mini-projects/${projectid}`).then((response) => {
+      setProblem(response.data);
+      setCode(response.data.starting_code);
+      console.log(response.data);
+    });
+  }, [server_url,projectid]);
+
+
+
   return (
     <div style={containerStyle}>
       <Navbar />
+      
       <h4 style={{ textAlign: "center", marginTop: "35px" }}>
-        Mini Project Contest Title: Make A Calculator
+        Mini Project Contest Title: {problem.title}
       </h4>
       <Timer />
 
       <div style={projectDetailsStyle}>
         <b style={{ fontSize: "20px" }}>Project Details:</b> <br />
         <p style={{ marginTop: "25px" }}>
-          1. You are given a skeleton code. Modify this code to make a
-          calculator. <br />
-          2. Make sure that the button colors must be blue. <br />
-          <br />
+          {problem.project_details}
+          <br /> <br />
           <b style={{ fontSize: "20px" }}>Code:</b> <br />
           <br />
-          <samp style={codeBoxStyle}>
-            #include &lt;stdio.h&gt; <br />
-            #include &lt;stdlib.h&gt; <br />
-            #include &lt;math.h&gt; <br />
-            #include &lt;string.h&gt; <br />
-            #include &lt;ctype.h&gt; <br />
-            using namespace std; <br />
-            int main() <br />
-            &#123; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;int a, b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; a &gt;&gt; b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; a + b &lt;&lt; endl; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;int a, b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; a &gt;&gt; b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; a + b &lt;&lt; endl; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;int a, b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; a &gt;&gt; b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; a + b &lt;&lt; endl; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;int a, b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; a &gt;&gt; b; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; a + b &lt;&lt; endl; <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;return 0; <br />
-            &#125; <br />
+          <samp style={codeBoxStyle}>  
+            {problem.starting_code}
           </samp>
         </p>
       </div>
