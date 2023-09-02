@@ -4,19 +4,18 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Navbar from '../../../components/navbar/Navbar'
 import Footer from '../../../components/footer/Footer';
-import Timer from '../../../components/time_remaining/Timer';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import DateTimePicker from '../../../components/date_time_picker/DateTimerPicker';
 
 function AdminContestProblemsIndex() {
     
     const default_contestid=1;
-    const { contestid } = useParams();
+    const { contestid,problemid } = useParams();
     if(!contestid)contestid = default_contestid;
     const [problems, setProblems] = useState([]);
     const [contest, setContest] = useState('');
+    const server_url = process.env.REACT_APP_SERVER_URL;
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/contests/${contestid}`)
+        axios.get(`${server_url}/api/contests/${contestid}`)
             .then(response => {
                 const contest = response.data;
                 setContest(contest);
@@ -28,7 +27,7 @@ function AdminContestProblemsIndex() {
     }, [contestid]);
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/contests/${contestid}/problems`)
+        axios.get(`${server_url}/api/contests/${contestid}/problems`)
             .then(response => {
                 const contestProblems = response.data.filter(problem => problem.contestid === parseInt(contestid));
                 setProblems(contestProblems);
@@ -49,7 +48,20 @@ function AdminContestProblemsIndex() {
     }
 
     const handleSaveClick = () => {
-        navigate(`/admin-contest-add`);
+        navigate(`/admin/contests/`);
+    }
+    const handleDeleteClick=()=>{
+        axios
+        .delete(
+            `http://localhost:3000/api/contests/${contestid}`
+        )
+        .then((response) => {
+            console.log("Problem deleted:", response.data);
+        })
+        .catch((error) => {
+            console.error("Error deleting problem:", error);
+        });
+        navigate(`/admin/contests/`);
     }
     return (
         <div>
@@ -94,22 +106,16 @@ function AdminContestProblemsIndex() {
             </table>
 
 
+            <button type="button" className="btn btn-dark" onClick={() => handleDeleteClick()} style={{ position: "absolute", width: "120px", height: "42px", marginTop: "10px", marginLeft: "5%" }}>
+                Delete
+            </button>
+
             <button type="button" className="btn btn-dark" onClick={() => handleAddProblemClick()} style={{ position: "absolute", width: "190px", height: "42px", marginTop: "10px", marginLeft: "73%" }}>
                 Add New Problem
             </button>
             <button type="button" className="btn btn-dark" onClick={() => handleSaveClick()} style={{ position: "absolute", width: "120px", height: "42px", marginTop: "10px", marginLeft: "88%" }}>
                 Save
             </button>
-            {/* <div>
-                <DateTimePicker />
-            </div> */}
-            {/* <div>
-                <input-duration id="bob"></input-duration><br />
-
-                <script type="module">
-                    import id from 'https://cdn.jsdelivr.net/npm/input-duration/+esm'
-                </script>
-            </div> */}
 
             <Footer />
         </div>

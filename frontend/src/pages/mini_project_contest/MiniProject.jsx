@@ -11,43 +11,18 @@ import SubNavbar from '../../components/sub_navbar/SubNavbar';
 import axios from 'axios';
 
 export default function MiniProject() {
-
-  // const defaultState = {
-  //   "projectid": 1,
-  //   "title": "To-Do List Application",
-  //   "project_details": "Create a simple to-do list application that allows users to add, edit, and delete tasks.",
-  //   "starting_code": `
-  //   #include <stdio.h>
-  //   #include <stdlib.h>
-  //   #include <math.h>
-  //   #include <string.h>
-  //   #include <ctype.h>
-  //   using namespace std; 
-  //   int main() 
-  //   {
-  //       int a, b; 
-  //       cin >> a >> b; 
-  //       cout << a + b << endl; 
-  //       cin >> a >> b; 
-  //       cout << a + b << endl;
-  //       // ... rest of the code ...
-  //       return 0; 
-  //   }`,
-  //   "starting_time": "2023-08-05T10:00:00.000Z"
-  // }
-
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   const [code, setCode] = useState('');
   const { projectid } = useParams();
 
   const [problem, setProblem] = useState({});
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/mini-projects/${projectid}`).then((response) => {
+    axios.get(`${server_url}/api/mini-projects/${projectid}`).then((response) => {
       setProblem(response.data);
       setCode(response.data.starting_code);
       console.log(response.data);
     });
-  }, [projectid]);
+  }, [server_url,projectid]);
 
 
 

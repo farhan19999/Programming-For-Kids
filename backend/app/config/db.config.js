@@ -19,8 +19,8 @@ const render_pool_config = {
     password : process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     max: 10,
-    idleTimeoutMillis: 10000,
-    connectionTimeoutMillis: 2000,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 20000,
     maxwaitingclients: 10,
     ssl:true,
 }

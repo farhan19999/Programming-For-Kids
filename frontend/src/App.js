@@ -9,7 +9,6 @@ import Profile from "./pages/studentprofile/StudentProfile";
 import Contest_Registration from "./pages/contest_registration/Contest_Registration";
 import Contest from "./pages/contestshow/ContestShow";
 import Submission_IndividualProblem from "./pages/programming_contest/my_submissions/My_Submissions"
-import Standings_Crogramming_Contest from "./pages/programming_contest/standings/standings";
 import SignUp from "./pages/signup/SignUp";
 import Signin from "./pages/signin/Signin";
 import Standings  from "./pages/standings/Standings";
@@ -22,11 +21,16 @@ import AdminContestAddNew from "./pages/admin/admin_contest_add_new/AdminContest
 import AdminContestProblemAdd from "./pages/admin/admin_contest_problem_add/AdminContestProblemAdd";
 import AdminContestProblemIndex from "./pages/admin/admin_contest_problems_index/AdminContestProblemsIndex";
 import AdminContestProblemDetails from "./pages/admin/admin_contest_problem_details/AdminContestProblemDetails";
+import PracticeProblemIndex from './pages/practice/practice_problem_index/PracticeProblemIndex';
 import MySubmissions from "./pages/my_submissions/MySubmissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
 import MiniProjectList from "./pages/miniproject_list/MiniProjectList";
 import ContestProblems from "./pages/contest_problems/ContestProblems";
-import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzzle";
+import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzle";
+import AdminDailyPuzzle from "./pages/admin/admin_puzzle/AdminPuzzle";
+import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
+import AdminDailyPuzzleModify from "./pages/admin/admin_puzzle_modify/AdminPuzzleModify";
+import SignOut from "./pages/signout/SignOut";import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +66,10 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
+    path: "/signout",
+    element: <SignOut />,
+  },
+  {
     path: "/signin",
     element: <Signin />,
   },
@@ -77,8 +85,10 @@ const router = createBrowserRouter([
     path: "/contest/:contestid/standings",
     element: <Standings />,
   },
+
+  ///////////////////////////// ADMIN CONTESTS /////////////////////////////
   {
-    path: "/admin/contest-add",
+    path: "/admin/contests",
     element: <AdminContestAdd />,
   },
   {
@@ -100,19 +110,39 @@ const router = createBrowserRouter([
     path: "/admin/contest/:contestid/problem/:problemid",
     element: <AdminContestProblemDetails />,
   },
+  ///////////////////////////// ADMIN CONTESTS END /////////////////////////////
+  {
+    path: "/practice",
+    element: <PracticeProblemIndex />,
+  },
+  // {
+  //   path: "/practice/:problemid/submissions",
+  //   element: <PracticeProblemSubmission />,
+  // },
+
+
   {
     path: "/miniproject/:projectid", // Route for detailed page with projectid
     element: <MiniProject />,
   },
+
+  ///////////////////////////// ADMIN MINI PROJECTS /////////////////////////////
   {
-    path: "/admin-miniproject-index",
+    path: "/admin/miniprojects",
     element: <AdminMPindex />,
   },
 
   {
-    path: "/admin-miniproject-details/:projectid", // Route for detailed page with projectid
+    path: "/admin/miniprojects/:projectid", // Route for detailed page with projectid
     element: <AdminMPdetails />,
   },
+
+  {
+    path: "/admin/miniprojects/add", 
+    element: <AdminMPadd />,
+  },
+  ///////////////////////////// ADMIN MINI PROJECTS END /////////////////////////////
+
   {
     path: "/miniproject",
     element: <MiniProjectList />,
@@ -122,13 +152,24 @@ const router = createBrowserRouter([
     element: <ContestProblems />,
   },
   {
-    path: "/admin-miniproject-add", // Route for detailed page with contestid
-    element: <AdminMPadd />,
-  },
-  {
     path: "/daily-puzzle", // Route for detailed page with contestid
     element: <DailyPuzzle />,
   },
+
+  ///////////////////////////// ADMIN DAILY PUZZLE /////////////////////////////
+  {
+    path: "/admin/daily-puzzle", // Route for detailed page with contestid
+    element: <AdminDailyPuzzle />,
+  },
+  {
+    path: "/admin/daily-puzzle/add", // Route for detailed page with contestid
+    element: <AdminDailyPuzzleAdd />,
+  },
+  {
+    path: "/admin/daily-puzzle/:puzzleid/modify", // Route for detailed page with contestid
+    element: <AdminDailyPuzzleModify />,
+  },
+  ///////////////////////////// ADMIN DAILY PUZZLE END /////////////////////////////
 
 ]);
 

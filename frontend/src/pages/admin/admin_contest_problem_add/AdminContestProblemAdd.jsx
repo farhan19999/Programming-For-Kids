@@ -1,10 +1,7 @@
 /*
- *
  *   Author: Arif
- *
  */
-
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
@@ -87,25 +84,27 @@ export default function AdminContestProblemDetails() {
       };
       reader.readAsText(file);
     }
-  };
+  }; 
 
-  const { contestid, problemid } = useParams(); // http://localhost:3001/admin/contest/1/problem/3
+  const server_url = process.env.REACT_APP_SERVER_URL;
 
+  const { contestid, problemid } = useParams(); 
+  
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/problems/${problemid}`)
+      .get(`${server_url}/api/problems/${problemid}`)
       .then((response) => {
         setProblem(response.data);
         setProblemStatement(response.data.problem_statement);
         setSampleInput(response.data.sample_input);
         setSampleOutput(response.data.sample_output);
       });
-  }, [problemid]);
+  }, [server_url,problemid]);
 
-  const [contest, setContest] = useState("");
+  const [contest, setContest] = useState(null);
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/contests/${contestid}`) // For getting contest title
+      .get(`${server_url}/api/contests/${contestid}`) // For getting contest title
       .then((response) => {
         const contest = response.data;
         setContest(contest);
@@ -113,7 +112,7 @@ export default function AdminContestProblemDetails() {
       .catch((error) => {
         console.error("Error fetching contest :", error);
       });
-  }, [contestid]);
+  }, [server_url,contestid]);
 
   const navigate = useNavigate();
   const handleCancel = () => {
@@ -122,7 +121,7 @@ export default function AdminContestProblemDetails() {
 
   const handleSave = () => {
     axios
-      .post(`http://localhost:3000/api/contests/${contestid}/problems`, {
+      .post(`${server_url}/api/contests/${contestid}/problems`, {
         title: document.getElementById("problem_title").value,
         difficulty_level: document.getElementById("difficulty").value,
         problem_statement: sampleProblemStatementFile || problemStatement,

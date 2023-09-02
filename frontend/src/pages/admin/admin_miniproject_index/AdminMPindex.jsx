@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 export default function AdminMPindex() {
   const [project, setProject] = useState([]);
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    axios.get("http://localhost:3000/api/mini-projects").then((response) => {
+    axios.get(`${server_url}/api/mini-projects`).then((response) => {
       setProject(response.data.mini_projects); // Update to access the 'mini_projects' array in response
       console.log(response.data);
     });
@@ -19,12 +19,12 @@ export default function AdminMPindex() {
 
   const handleModifyClick = (projectid) => {
     // Navigate to the specific project details page
-    navigate(`/admin-miniproject-details/${projectid}`);
+    navigate(`/admin/miniprojects/${projectid}`);
   };
 
   const handleAddBtnClick = () => {
     // Navigate to the specific project details page
-    navigate(`/admin-miniproject-add`);
+    navigate(`/admin/miniprojects/add`);
   };
 
   return (
@@ -61,7 +61,7 @@ export default function AdminMPindex() {
         </tbody>
       </table>
 
-      <button type="button" onClick={() => handleAddBtnClick()} className="btn btn-dark" style={{position:"absolute" ,width:"190px", height:"42px",marginTop:"10px" ,marginLeft:"50px"}}>
+      <button type="button" onClick={() => handleAddBtnClick()} className="btn btn-dark" style={{position:"absolute" ,width:"190px", height:"42px",marginTop:"10px" ,marginLeft:"42%"}}>
         Add New Project
       </button>
 

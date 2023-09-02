@@ -14,20 +14,20 @@ function ContestTitle() {
   const { userid } = useParams(); 
 
   const [ac, setAc] = useState({ contests: [] });
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/users/${userid}/registered-contests`).then((response) => {
+    axios.get(`${server_url}/api/users/${userid}/registered-contests`).then((response) => {
       setRc(response.data);
       console.log(response.data);
     })
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/contests").then((response) => {
+    axios.get(`${server_url}/api/contests`).then((response) => {
       setAc(response.data);
       console.log(response.data);
     })
-  }, []);
+  }, [server_url]);
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleRegisterButton=(contestid)=>{

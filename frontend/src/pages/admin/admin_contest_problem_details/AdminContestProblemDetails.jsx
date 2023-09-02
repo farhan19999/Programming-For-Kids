@@ -78,10 +78,10 @@ let inputfilename=null;
   };
 
   const { contestid, problemid } = useParams(); // http://localhost:3001/admin/contest/1/problem/3
-
+  const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/problems/${problemid}`)
+      .get(`${server_url}/api/problems/${problemid}`)
       .then((response) => {
         setProblem(response.data);
         setProblemStatement(response.data.problem_statement);
@@ -93,7 +93,7 @@ let inputfilename=null;
   const [contest, setContest] = useState("");
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/contests/${contestid}`) // For getting contest title
+      .get(`${server_url}/api/contests/${contestid}`) // For getting contest title
       .then((response) => {
         const contest = response.data;
         setContest(contest);
@@ -104,14 +104,17 @@ let inputfilename=null;
   }, [contestid]);
 
   const navigate = useNavigate();
-  const handleCancel = () => {
+  const handleCancelClick = () => {
     navigate(`/admin/contest/${contestid}`);
   };
+  const handleDeleteClick=()=>{
+    navigate(`/admin/contest/${contestid}`);
+  }
 
-  const handleSave = () => {
+  const handleSaveClick = () => {
     axios
       .put(
-        `http://localhost:3000/api/contests/${contestid}/problems/${problemid}`,
+        `${server_url}/api/contests/${contestid}/problems/${problemid}`,
         {
           title: problem.title,
           difficulty_level: problem.difficulty_level,
@@ -131,7 +134,7 @@ let inputfilename=null;
       });
     if (inputfilename && outputfilename) {
       axios.post(
-        `http://localhost:3000/api/contests/${contestid}/problems/${problemid}/testcases`,
+        `${server_url}/api/contests/${contestid}/problems/${problemid}/testcases`,
         {
           input_file: inputfilename,
           output_file: outputfilename,
@@ -286,12 +289,28 @@ let inputfilename=null;
           bottom: "0px",
           right: "0",
           width: "120px",
-          marginLeft: "80%",
+          marginLeft: "50px",
           marginTop: "50px",
         }}
-        onClick={handleSave}
+        onClick={handleDeleteClick}
       >
-        Save
+        Delete
+      </button>
+
+      <button
+        type="button"
+        className="btn btn-dark"
+        style={{
+          position: "relative",
+          bottom: "0px",
+          right: "0",
+          width: "120px",
+          marginLeft: "69%",
+          marginTop: "50px",
+        }}
+        onClick={handleCancelClick}
+      >
+        Cancel
       </button>
       <button
         type="button"
@@ -305,9 +324,9 @@ let inputfilename=null;
           marginLeft: "10px",
           marginTop: "50px",
         }}
-        onClick={handleCancel}
+        onClick={handleSaveClick}
       >
-        Cancel
+        Save
       </button>
 
       <Footer />
