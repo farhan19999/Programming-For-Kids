@@ -66,7 +66,12 @@ const options = {
         })
   );
 
-
+app.use((err,req,res)=>{
+    console.log(err);
+    res.status(500).json({
+        error: err.message
+    })
+})
 
 
 module.exports = app
