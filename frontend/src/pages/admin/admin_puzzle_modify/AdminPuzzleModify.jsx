@@ -9,37 +9,46 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
+import DatePicker from "../../../components/datePicker/DatePicker";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../../components/loading/Loading";
+import moment from "moment";
 
 export default function AdminContestProblemDetails() {
-    const defaultState = {
-        puzzleid: 1,
-        date: "2024-01-01T01:00:00.000Z",
-        problem: "What is the output of the following code?",
-        puzzle_code: "#include <stdio.h>\r\nint main() {\r\n    int x = 5;\r\n    printf(\"%d\\n\", x++);\r\n    printf(\"%d\\n\", x);\r\n    return 0;\r\n}",
-        solution: "5\r\n6",
-        language: "c",
-    };
 
-    const [puzzle, setPuzzle] = useState(defaultState);
-    const [puzzleproblemStatement, setPuzzleProblemStatement] = useState(puzzle.problem);
-    const [solution, setSolution] = useState(puzzle.solution);
-    const [puzzle_code, setPuzzle_Code] = useState(puzzle.puzzle_code);
-
+    const [puzzle, setPuzzle] = useState(null);
 
     const handlePuzzleProblemStatementChange = (event) => {
-        setPuzzleProblemStatement(event.target.value);
+        setPuzzle({
+            ...puzzle,
+            problem: event.target.value,
+        });
     };
+
     const handleSolutionChange = (event) => {
-        setSolution(event.target.value);
+        setPuzzle({
+            ...puzzle,
+            solution: event.target.value,
+        });
     };
+
     const handlePuzzleCodeChange = (event) => {
-        setPuzzle_Code(event.target.value);
+        setPuzzle({
+            ...puzzle,
+            puzzle_code: event.target.value,
+        });
     };
 
+    const handleDateChange = (event) => {
+        setPuzzle({
+            ...puzzle,
+            date: event.target.value,
+        });
+    }
 
 
-    const { puzzleid } = useParams(); 
+
+    const { puzzleid } = useParams();
 
     const server_url = process.env.REACT_APP_SERVER_URL;
 
@@ -48,11 +57,12 @@ export default function AdminContestProblemDetails() {
             .get(`${server_url}/api/puzzles/${puzzleid}`)
             .then((response) => {
                 setPuzzle(response.data);
-                setPuzzleProblemStatement(response.data.problem);
-                setSolution(response.data.solution);
-                setPuzzle_Code(response.data.puzzle_code);
             });
     }, [puzzleid]);
+
+    const formattedDate = puzzle ? moment(puzzle.date).format('YYYY-MM-DD') : '';
+
+
 
     const navigate = useNavigate();
     const handleCancelClick = () => {
@@ -74,23 +84,14 @@ export default function AdminContestProblemDetails() {
     }
 
     const handleSaveClick = () => {
-        const formattedDate = new Date().toLocaleString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            timeZoneName: 'short'
-        });
         axios
             .put(
-                `${server_url}/api/puzzles/1`,
+                `${server_url}/api/puzzles/${puzzle.puzzleid}`,
                 {
-                    problem: puzzleproblemStatement,
-                    puzzle_code: puzzle_code,
-                    solution: solution,
-                    date:formattedDate,
+                    problem: puzzle.problem,
+                    puzzle_code: puzzle.puzzle_code,
+                    solution: puzzle.solution,
+                    date: puzzle.date,
                 }
             )
             .then((response) => {
@@ -103,11 +104,22 @@ export default function AdminContestProblemDetails() {
         navigate(`/admin/daily-puzzle`);
     };
 
+    if (!puzzle) {
+        return (
+            <div>
+                <Navbar />
+                <Loading />
+                <Footer />
+            </div>
+
+        );
+    }
+
     return (
         <div style={{ position: "relative" }}>
             <Navbar />
             <h3 style={{ textAlign: "center", marginTop: "20px" }}>
-                Create Daily Puzzle
+                Modify Daily Puzzle
             </h3>
 
             <div className="container">
@@ -122,7 +134,7 @@ export default function AdminContestProblemDetails() {
                                 className="form-control"
                                 id="problemStatement"
                                 rows="8"
-                                value={puzzleproblemStatement}
+                                value={puzzle.problem}
                                 onChange={handlePuzzleProblemStatementChange}
                             ></textarea>
                         </div>
@@ -134,9 +146,9 @@ export default function AdminContestProblemDetails() {
                             <textarea
                                 style={{ backgroundColor: "#eee" }}
                                 className="form-control"
-                                id="problemStatement"
+                                id="solution"
                                 rows="4"
-                                value={solution}
+                                value={puzzle.solution}
                                 onChange={handleSolutionChange}
                             ></textarea>
                         </div>
@@ -150,15 +162,19 @@ export default function AdminContestProblemDetails() {
                             <textarea
                                 style={{ backgroundColor: "#222", color: "white" }}
                                 className="form-control"
-                                id="solution"
+                                id="puzzle_code"
                                 rows="15"
-                                value={puzzle_code}
+                                value={puzzle.puzzle_code}
                                 onChange={handlePuzzleCodeChange}
                             ></textarea>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            <div onChange={handleDateChange} style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker value={formattedDate} id={'dop'} /></div>
+
 
             <button
                 type="button"

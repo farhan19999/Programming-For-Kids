@@ -15,24 +15,9 @@ import storage from "../../../utils/firebase";
 import { ref, uploadBytes } from "firebase/storage";
 
 export default function AdminContestProblemDetails() {
-  const defaultState = {
-    problemid: 1,
-    contestid: 1,
-    title: "Shopping",
-    difficulty: "Easy",
-    problem_statement: `If the price of a toy is X and you paid taka Y to the shopkeeper,
-    calculate how much money you will get back if you buy three of them.
-    
-    The first line of input is X and the second line is Y. Print the output.`,
-    topic: "Array",
-    sample_input: `15
-50`,
-    sample_output: "5",
-    time_limit: "45",
-  };
-  let outputfilename=null;
-let inputfilename=null;
-  const [problem, setProblem] = useState(defaultState);
+  let outputfilename = null;
+  let inputfilename = null;
+  const [problem, setProblem] = useState(null);
 
   const [problemStatement, setProblemStatement] = useState(
     problem.problem_statement
@@ -77,7 +62,7 @@ let inputfilename=null;
     }
   };
 
-  const { contestid, problemid } = useParams(); 
+  const { contestid, problemid } = useParams();
   const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
     axios
@@ -107,7 +92,7 @@ let inputfilename=null;
   const handleCancelClick = () => {
     navigate(`/admin/contest/${contestid}`);
   };
-  const handleDeleteClick=()=>{
+  const handleDeleteClick = () => {
     navigate(`/admin/contest/${contestid}`);
   }
 
