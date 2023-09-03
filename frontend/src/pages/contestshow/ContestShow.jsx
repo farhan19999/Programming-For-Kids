@@ -1,21 +1,28 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import ContestTitle from '../../components/contesttitle/ContestTitle';
+import ContestTable from '../../components/contest_table/ContestTable';
 import Footer from '../../components/footer/Footer';
+import { useSelector } from 'react-redux';
 //Author: MAHBUB
 
 function Contest() {
+  const { loggedIn } = useSelector((state) => state.user);
+
   return (
     <div>
-    <Navbar/>
-      <div style={{ fontSize: '24px', fontWeight: 'bold', padding: '20px' }}>
-        {/* Registered Contests: */}
+      <Navbar />
+      {loggedIn ? 
+        <ContestTitle /> :
+        <div className='d-flex justify-content-center'>
+          <div className='p-2'>Contest</div>
+          <ContestTable/>
         </div>
-      <ContestTitle/>
-      
+        }
       <Footer />
     </div>
   );
 }
+
 
 export default Contest;

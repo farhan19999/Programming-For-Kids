@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 //Author: MAHBUB
 
 function Navbar() {
-    const user = useSelector(state => state.user);
+    const { loggedIn } = useSelector(state => state.user);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -18,14 +18,13 @@ function Navbar() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        {user.loggedIn &&
+                        {loggedIn &&
                             <li className="nav-item">
                                 <NavLink className="nav-link active" aria-current="page" to="/dashboard">Dashboard</NavLink>
                             </li>
                         }
-
                         <li className="nav-item">
-                            <NavLink className="nav-link active" to={user.loggedIn ? `/user/${user.userid}/contests/` : "/contest"}>Contest</NavLink>
+                            <NavLink className="nav-link active" to={"/contest"}>Contest</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link active" to="/practice">Practice</NavLink>
@@ -41,25 +40,25 @@ function Navbar() {
                         <li className="nav-item">
                             <NavLink className="nav-link active" to="/#">Code-Game</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link active" to="/profile">Student-Profile</NavLink>
-                        </li>
                         {
-                            !user.loggedIn &&
-                            <li className="nav-item">
-                                <NavLink className="nav-link active" to="/signin">Sign-In</NavLink>
-                            </li>
-                        }
-                        {!user.loggedIn &&
-                            <li className="nav-item">
-                                <NavLink className="nav-link active" to="/signup">Sign-Up</NavLink>
-                            </li>
-                        }
-                        {
-                            user.loggedIn &&
-                            <li className="nav-item">
-                                <NavLink className="nav-link active" to="/signout">Sign-Out</NavLink>
-                            </li>
+                            loggedIn ?
+                                <>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link active" to="/profile">Student-Profile</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link active" to="/signout">Sign-Out</NavLink>
+                                    </li>
+                                </>
+                                :
+                                <>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link active" to="/signin">Sign-In</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link active" to="/signup">Sign-Up</NavLink>
+                                    </li>
+                                </>
                         }
                     </ul>
                 </div>
