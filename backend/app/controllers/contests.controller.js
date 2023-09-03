@@ -6,7 +6,16 @@ const { validationResult } = require('express-validator');
 
 exports.getContests = async (req, res) => {
     try {
-        const contests = await service.getContests();
+        let contests;
+        if(!req.query.time){
+            contests = await service.getAllContests();
+        }
+        else if(req.query.time === 'past'){
+            contests = await service.getPastContests();
+        }
+        else if(req.query.time === 'upcoming'){
+            contests = await service.getUpcomingContests();
+        }
         res.status(200).json(contests);
     } catch (error) {
         res.status(500).json(error);

@@ -37,6 +37,15 @@ exports.updateMiniProject = async (req, res) => {
     }
 }
 
+exports.deleteMiniProject = async (req, res) => {
+    try {
+        const mini_project = await service.deleteMiniProject(req.params.id);
+        res.status(200).json(mini_project);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
 
 exports.getAllMiniProjectSubmissions = async (req, res) => {
     try {

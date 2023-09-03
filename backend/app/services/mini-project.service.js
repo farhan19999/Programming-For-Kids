@@ -36,6 +36,15 @@ exports.updateMiniProject = async (id, mini_project) => {
     }
 }
 
+exports.deleteMiniProject = async (id) => {
+    try {
+        const deleted_mini_project = await miniprojectModel.deleteMiniProject(id);
+        return deleted_mini_project;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 exports.getAllMiniProjectSubmissions = async (id) => {
     try {
         const mini_project_submissions = await miniprojectModel.getAllMiniProjectSubmissions(id);

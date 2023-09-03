@@ -15,6 +15,24 @@ const getAllContests = async () => {
     }
 };
 
+const getPastContests = async () => {
+    try {
+        const result = await pool.query('SELECT * FROM pfk.contest WHERE start_time < now()')
+        return {'contests':result.rows}
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getUpcomingContests = async () => {
+    try {
+        const result = await pool.query('SELECT * FROM pfk.contest WHERE start_time > now()')
+        return {'contests':result.rows}
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const getContestById = async (id) =>{
     try {
         const client = await pool.connect()
@@ -204,4 +222,4 @@ const updateContestProblemSubmission = async (submissionid, status) => {
 }
 
 
-module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionsByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores, getContestProblemById, getContestProblemByCategory, updateContestProblemSubmission};
+module.exports = {getAllContests, getPastContests, getUpcomingContests ,getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionsByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores, getContestProblemById, getContestProblemByCategory, updateContestProblemSubmission};

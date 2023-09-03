@@ -1,9 +1,27 @@
 const contestModel = require('../models/contest.model');
 const testcaseModel = require('../models/testcase.model');
 
-exports.getContests = async () => {
+exports.getAllContests = async () => {
     try {
         const contests = await contestModel.getAllContests();
+        return contests;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.getPastContests = async () => {
+    try {
+        const contests = await contestModel.getPastContests();
+        return contests;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.getUpcomingContests = async () => {
+    try {
+        const contests = await contestModel.getUpcomingContests();
         return contests;
     } catch (error) {
         throw error;

@@ -146,6 +146,7 @@ router.post('/', controller.createMiniProject);
 
 router.get('/:id', controller.getMiniProjectById);
 router.put('/:id', controller.updateMiniProject);
+router.delete('/:id', controller.deleteMiniProject);
 
 
 router.get('/:id/submissions', controller.getAllMiniProjectSubmissions)
