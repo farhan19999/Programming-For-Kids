@@ -6,100 +6,36 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
+import Loading from "../../../components/loading/Loading";
 import { useNavigate } from "react-router-dom";
 import storage from "../../../utils/firebase";
 import { ref, uploadBytes } from "firebase/storage";
 
 export default function AdminContestProblemDetails() {
-  const defaultState = {
-    problemid: 1,
-    contestid: 1,
-    title: "Shopping",
-    difficulty: "Easy",
-    problem_statement: `If the price of a toy is X and you paid taka Y to the shopkeeper,
-    calculate how much money you will get back if you buy three of them.
-    
-    The first line of input is X and the second line is Y. Print the output.`,
-    topic: "Array",
-    sample_input: `15
-50`,
-    sample_output: "5",
-    time_limit: "45",
-  };
 
-  const [problem, setProblem] = useState(defaultState);
-
-  const [problemStatement, setProblemStatement] = useState(
-    problem.problem_statement
-  );
-  const [sampleInput, setSampleInput] = useState(problem.sample_input);
-  const [sampleOutput, setSampleOutput] = useState(problem.sample_output);
-
-  const handleProblemStatementChange = (event) => {
-    setProblemStatement(event.target.value);
-  };
-  const handleSampleInputChange = (event) => {
-    setSampleInput(event.target.value);
-  };
-
-  const handleSampleOutputChange = (event) => {
-    setSampleOutput(event.target.value);
-  };
-
-  // const handleInputFileChange = (event) => {         ///// path : /problems/problemid/testcases/input_timestamp.txt
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     // create new file in path ./src/files/input.txt and copy the inputContent into it
-  //     // get current timestamp and append it to the filename
-  //     const timestamp = Date.now();
-  //     const filename = `input_${timestamp}.txt`;
-  //     const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
-  //     uploadBytes(storageRef, file).then(() => {
-  //       console.log('Uploaded the input test cases file!');
-  //     });
-  //   }
-  // };
-
-  // const handleOutputFileChange = (event) => {         ///// path : /problems/problemid/testcases/output_timestamp.txt
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const timestamp = Date.now();
-  //     const filename = `output_${timestamp}.txt`;
-  //     const storageRef = ref(storage, `problems/${problemid}/testcases/${filename}`);
-  //     uploadBytes(storageRef, file).then(() => {
-  //       console.log('Uploaded the output test cases file!');
-  //     });
-  //   }
-  // };
-
-  const [sampleProblemStatementFile, setSampleProblemStatementFile] =
-    useState(null);
   const handleProblemStatementFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
         const psContent = event.target.result;
-        setSampleProblemStatementFile(psContent);
+  
+        // Set the content of the textarea with id "problemStatement"
+        const problemStatementTextarea = document.getElementById("problemStatement");
+        if (problemStatementTextarea) {
+          problemStatementTextarea.value = psContent;
+        }
       };
       reader.readAsText(file);
     }
-  }; 
+  };
+  
 
   const server_url = process.env.REACT_APP_SERVER_URL;
 
-  const { contestid, problemid } = useParams(); 
-  
-  useEffect(() => {
-    axios
-      .get(`${server_url}/api/problems/${problemid}`)
-      .then((response) => {
-        setProblem(response.data);
-        setProblemStatement(response.data.problem_statement);
-        setSampleInput(response.data.sample_input);
-        setSampleOutput(response.data.sample_output);
-      });
-  }, [server_url,problemid]);
+  const { contestid} = useParams();
+
+
 
   const [contest, setContest] = useState(null);
   useEffect(() => {
@@ -112,7 +48,7 @@ export default function AdminContestProblemDetails() {
       .catch((error) => {
         console.error("Error fetching contest :", error);
       });
-  }, [server_url,contestid]);
+  }, [server_url, contestid]);
 
   const navigate = useNavigate();
   const handleCancel = () => {
@@ -124,10 +60,10 @@ export default function AdminContestProblemDetails() {
       .post(`${server_url}/api/contests/${contestid}/problems`, {
         title: document.getElementById("problem_title").value,
         difficulty_level: document.getElementById("difficulty").value,
-        problem_statement: sampleProblemStatementFile || problemStatement,
+        problem_statement: document.getElementById("problemStatement").value,
         topic: document.getElementById("topic").value,
-        sample_input: sampleInput,
-        sample_output: sampleOutput,
+        sample_input: document.getElementById("sampleInput").value,
+        sample_output: document.getElementById("sampleOutput").value,
         time_limit: document.getElementById("time_limit").value,
         category: document.getElementById("category").value,
       })
@@ -140,6 +76,15 @@ export default function AdminContestProblemDetails() {
 
     navigate(`/admin/contest/${contestid}`);
   };
+  if (!contest) {
+    return (
+      <div>
+        <Navbar />
+        <Loading />
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div style={{ position: "relative" }}>
@@ -167,7 +112,7 @@ export default function AdminContestProblemDetails() {
             id="problem_title"
             rows="1"
             placeholder="Enter Problem Title here"
-            //   onChange={handleSampleInputChange}
+          //   onChange={handleSampleInputChange}
           ></textarea>
         </div>
 
@@ -189,7 +134,7 @@ export default function AdminContestProblemDetails() {
               id="topic"
               rows="1"
               placeholder="Enter topic here"
-              //   onChange={handleSampleOutputChange}
+            //   onChange={handleSampleOutputChange}
             ></textarea>
           </div>
           <div className="form-group" style={{ width: "49%" }}>
@@ -202,7 +147,7 @@ export default function AdminContestProblemDetails() {
               id="difficulty"
               rows="1"
               placeholder="Enter difficulty level here"
-              //   onChange={handleSampleOutputChange}
+            //   onChange={handleSampleOutputChange}
             ></textarea>
           </div>
         </div>
@@ -224,7 +169,7 @@ export default function AdminContestProblemDetails() {
               id="category"
               rows="1"
               placeholder="Enter category here"
-              //   onChange={handleSampleOutputChange}
+            //   onChange={handleSampleOutputChange}
             ></textarea>
           </div>
           <div className="form-group" style={{ width: "49%" }}>
@@ -237,7 +182,7 @@ export default function AdminContestProblemDetails() {
               id="time_limit"
               rows="1"
               placeholder="Enter time limit here"
-              //   onChange={handleSampleOutputChange}
+            //   onChange={handleSampleOutputChange}
             ></textarea>
           </div>
         </div>
@@ -258,7 +203,6 @@ export default function AdminContestProblemDetails() {
             id="problemStatement"
             rows="6"
             placeholder="Enter problem statement here"
-            onChange={handleProblemStatementChange}
           ></textarea>
         </div>
         <div
@@ -298,7 +242,7 @@ export default function AdminContestProblemDetails() {
               id="sampleInput"
               rows="3"
               placeholder="Enter sample input here"
-              onChange={handleSampleInputChange}
+              // onChange={handleSampleInputChange}
             ></textarea>
           </div>
 
@@ -312,7 +256,7 @@ export default function AdminContestProblemDetails() {
               id="sampleOutput"
               rows="3"
               placeholder="Enter sample output here"
-              onChange={handleSampleOutputChange}
+              // onChange={handleSampleOutputChange}
             ></textarea>
           </div>
         </div>

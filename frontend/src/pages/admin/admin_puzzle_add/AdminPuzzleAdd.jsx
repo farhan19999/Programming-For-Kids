@@ -10,8 +10,9 @@ import axios from "axios";
 import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
 // import {DateField} from ""
-import DatePicker from "../../../components/datePicker/DatePicker";
+import { Form } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import DatePicker from "../../../components/datePicker/DatePicker";
 export default function AdminContestProblemDetails() {
 
     const server_url = process.env.REACT_APP_SERVER_URL;
@@ -138,6 +139,15 @@ export default function AdminContestProblemDetails() {
                     </div>
                 </div>
             </div>
+
+            {/* <div className='row'>
+                <div className='col-md-4'>
+                    <Form.Group controlId={'dop'}>
+                        <Form.Label>Select Date</Form.Label>
+                        <Form.Control type='date' name='date' value={date}/>
+                    </Form.Group>
+                </div>
+            </div> */}
 
             <div onChange={handleDateChange} style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'} /></div>
             {/* <DateField
