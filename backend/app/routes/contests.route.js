@@ -91,13 +91,13 @@ router.delete('/:id',param('id').notEmpty().isInt(), validator.validate, control
 router.get('/:id/problems',param('id').notEmpty().isInt(), validator.validate, controller.getContestProblems)
 router.post('/:id/problems',param('id').notEmpty().isInt(), validator.validate, controller.addContestProblem)
 
-router.get('/:id/problems/:problemid',param('id').notEmpty().isInt(), validator.validate, param('problemid').notEmpty().isInt(), validator.validate, controller.getContestProblemById)
-router.get('/:id/problems/categories/:category',param('id').notEmpty().isInt(), validator.validate,param('category').notEmpty(), validator.validate, controller.getContestProblemByCategory)
-router.put('/:id/problems/:problemid',param('id').notEmpty().isInt(), validator.validate, param('problemid').notEmpty().isInt(), validator.validate,controller.updateContestProblem)
-router.delete('/:id/problems/:problemid',param('id').notEmpty().isInt(), validator.validate, param('problemid').notEmpty().isInt(), validator.validate, controller.deleteContestProblem)
+router.get('/:id/problems/:problemid',param('id').notEmpty().isInt(), param('problemid').notEmpty().isInt(), validator.validate, controller.getContestProblemById)
+router.get('/:id/problems/categories/:category',param('id').notEmpty().isInt(),param('category').notEmpty(), validator.validate, controller.getContestProblemByCategory)
+router.put('/:id/problems/:problemid',param('id').notEmpty().isInt(), param('problemid').notEmpty().isInt(), validator.validate,controller.updateContestProblem)
+router.delete('/:id/problems/:problemid',param('id').notEmpty().isInt(), param('problemid').notEmpty().isInt(), validator.validate, controller.deleteContestProblem)
 
-router.get('/:id/problems/:problemid/testcases',param('id').notEmpty().isInt(), validator.validate, param('problemid').notEmpty().isInt(), validator.validate, controller.getContestProblemTestCases);
-router.post('/:id/problems/:problemid/testcases',param('id').notEmpty().isInt(), validator.validate, param('problemid').notEmpty().isInt(), validator.validate, controller.addContestProblemTestCase);
+router.get('/:id/problems/:problemid/testcases',param('id').notEmpty().isInt(), param('problemid').notEmpty().isInt(), validator.validate, controller.getContestProblemTestCases);
+router.post('/:id/problems/:problemid/testcases',param('id').notEmpty().isInt(), param('problemid').notEmpty().isInt(), validator.validate, controller.addContestProblemTestCase);
 
 router.get('/:id/problems/:problemid/testcases/:testcaseid',param('id').notEmpty().isInt(), param('problemid').notEmpty().isInt(), param('testcaseid').notEmpty().isInt(),validator.validate, controller.getContestProblemTestCaseById);
 router.put('/:id/problems/:problemid/testcases/:testcaseid', param('id').notEmpty().isInt(), param('problemid').notEmpty().isInt(), param('testcaseid').notEmpty().isInt(), validator.validate, controller.updateContestProblemTestCase);

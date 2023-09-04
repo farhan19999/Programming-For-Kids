@@ -20,22 +20,22 @@ export default function AdminContestProblemDetails() {
   let inputfilename = null;
   const [problem, setProblem] = useState(null);
 
-  const [problemStatement, setProblemStatement] = useState(
-    problem.problem_statement
-  );
-  const [sampleInput, setSampleInput] = useState(problem.sample_input);
-  const [sampleOutput, setSampleOutput] = useState(problem.sample_output);
+  // const [problemStatement, setProblemStatement] = useState(
+  //   null
+  // );
+  // const [sampleInput, setSampleInput] = useState(null);
+  // const [sampleOutput, setSampleOutput] = useState(n);
 
-  const handleProblemStatementChange = (event) => {
-    setProblemStatement(event.target.value);
-  };
-  const handleSampleInputChange = (event) => {
-    setSampleInput(event.target.value);
-  };
+  // const handleProblemStatementChange = (event) => {
+  //   setProblemStatement(event.target.value);
+  // };
+  // const handleSampleInputChange = (event) => {
+  //   setSampleInput(event.target.value);
+  // };
 
-  const handleSampleOutputChange = (event) => {
-    setSampleOutput(event.target.value);
-  };
+  // const handleSampleOutputChange = (event) => {
+  //   setSampleOutput(event.target.value);
+  // };
 
   const handleInputFileChange = (event) => {         ///// path : /problems/problemid/testcases/input_timestamp.txt
     const file = event.target.files[0];
@@ -70,13 +70,14 @@ export default function AdminContestProblemDetails() {
       .get(`${server_url}/api/problems/${problemid}`)
       .then((response) => {
         setProblem(response.data);
-        setProblemStatement(response.data.problem_statement);
-        setSampleInput(response.data.sample_input);
-        setSampleOutput(response.data.sample_output);
+        console.log('here problem is : ',problem);
+        // setProblemStatement(response.data.problem_statement);
+        // setSampleInput(response.data.sample_input);
+        // setSampleOutput(response.data.sample_output);
       });
   }, [problemid]);
 
-  const [contest, setContest] = useState("");
+  const [contest, setContest] = useState(null);
   useEffect(() => {
     axios
       .get(`${server_url}/api/contests/${contestid}`) // For getting contest title
@@ -104,10 +105,10 @@ export default function AdminContestProblemDetails() {
         {
           title: problem.title,
           difficulty_level: problem.difficulty_level,
-          problem_statement: problemStatement,
+          problem_statement: problem.problemStatement,
           topic: problem.topic,
-          sample_input: sampleInput,
-          sample_output: sampleOutput,
+          sample_input: problem.sampleInput,
+          sample_output: problem.sampleOutput,
           time_limit: problem.time_limit,
           category: problem.category,
         }
@@ -138,6 +139,10 @@ export default function AdminContestProblemDetails() {
 
     navigate(`/admin/contest/${contestid}`);
   };
+
+  if (!problem || !contest) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div style={{ position: "relative" }}>
@@ -177,8 +182,8 @@ export default function AdminContestProblemDetails() {
             className="form-control"
             id="problemStatement"
             rows="6"
-            value={problemStatement}
-            onChange={handleProblemStatementChange}
+            value={problem.problem_statement}
+            onChange={(e) => problem.problemStatement = e.target.value}
           ></textarea>
         </div>
 
@@ -199,8 +204,8 @@ export default function AdminContestProblemDetails() {
               className="form-control"
               id="sampleInput"
               rows="3"
-              value={sampleInput}
-              onChange={handleSampleInputChange}
+              value={problem.sample_input}
+              onChange={(e) => problem.sampleInput = e.target.value}
             ></textarea>
           </div>
 
@@ -213,8 +218,8 @@ export default function AdminContestProblemDetails() {
               className="form-control"
               id="sampleOutput"
               rows="3"
-              value={sampleOutput}
-              onChange={handleSampleOutputChange}
+              value={problem.sample_output}
+              onChange={(e) => problem.sampleOutput = e.target.value}
             ></textarea>
           </div>
         </div>
