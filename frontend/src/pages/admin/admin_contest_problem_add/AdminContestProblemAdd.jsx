@@ -10,6 +10,7 @@ import Loading from "../../../components/loading/Loading";
 import { useNavigate } from "react-router-dom";
 import storage from "../../../utils/firebase";
 import { ref, uploadBytes } from "firebase/storage";
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 export default function AdminContestProblemDetails() {
 
@@ -88,7 +89,7 @@ export default function AdminContestProblemDetails() {
 
   return (
     <div style={{ position: "relative" }}>
-      <Navbar />
+      <AdminNavbar />
 
       <h3 style={{ textAlign: "center", marginTop: "60px" }}>
         Contest Title: {contest.title} (Rated for Div.{contest.div})

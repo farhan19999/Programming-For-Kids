@@ -1,11 +1,11 @@
 import React from 'react'
-import Navbar from '../../../components/navbar/Navbar'
 import Footer from '../../../components/footer/Footer'
+import AdminNavbar from '../../../components/admin_navbar/AdminNavbar'
 
 export default function AdminHome() {
   return (
     <div>
-        <Navbar />
+        <AdminNavbar />
         
         <Footer /> 
     </div>

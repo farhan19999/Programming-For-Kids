@@ -35,6 +35,14 @@ exports.updateUser = async (req, res) => {
         res.status(500).json(error)
     }
 }
+exports.deleteUser = async (req, res) => {
+    try {
+        const user = await user_services.deleteUser(req.params.id)
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
 
 exports.getRegisteredContests = async (req, res) => {
     try {

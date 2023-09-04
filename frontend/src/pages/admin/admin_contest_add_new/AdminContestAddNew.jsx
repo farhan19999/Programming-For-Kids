@@ -6,6 +6,7 @@ import axios from "axios";
 import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
 import DatePicker from "../../../components/datePicker/DatePicker";
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 
 function AdminContestAddNew() {
@@ -41,7 +42,7 @@ const handleDateChange = (event) => {
 
   return (
     <div>
-      <Navbar />
+      <AdminNavbar />
       <div>
         <section className="vh-100" style={{ backgroundcolor: "#eee" }}>
           <div className="container h-100">

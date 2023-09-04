@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import Loading from '../../../components/loading/Loading';
+import AdminNavbar from '../../../components/admin_navbar/AdminNavbar';
 
 function AdminPuzzle() {
     const [puzzlesData, setPuzzlesData] = useState({ puzzles: [] }); // Initialize with an object containing an empty array
@@ -37,21 +38,21 @@ function AdminPuzzle() {
     if (!puzzlesData)
         return (
             <div>
-                <Navbar />
-                <Loading />
-                <Footer />
+                <AdminNavbar />
+                <Loading /> 
+                <Footer /> 
             </div>
         )
 
     return (
         <div>
-            <Navbar />
+            <AdminNavbar />
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '20px' }}>
-                <h3>Created Puzzles:</h3>
-            </div>
-
-            <h2 style={{ margin: "25px", marginLeft: "50px", fontWeight: "bold" }}>Admin</h2>
+                <h3>Created Puzzles:</h3> 
+            </div> 
+ 
+            <h2 style={{ margin: "25px", marginLeft: "50px", fontWeight: "bold" }}>Admin</h2> 
             <table
                 className="table table-hover"
                 style={{ margin: "25px", fontSize: "18px" }}

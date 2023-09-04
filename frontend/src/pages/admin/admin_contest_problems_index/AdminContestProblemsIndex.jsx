@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../../../components/navbar/Navbar'
 import Footer from '../../../components/footer/Footer';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import AdminNavbar from '../../../components/admin_navbar/AdminNavbar';
 
 function AdminContestProblemsIndex() {
     
@@ -65,7 +66,7 @@ function AdminContestProblemsIndex() {
     }
     return (
         <div>
-            <Navbar />
+            <AdminNavbar />
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '20px' }}>
                 <h3>Contest Title: {contest.title} (Rated for Div.{contest.div})</h3>

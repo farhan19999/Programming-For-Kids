@@ -128,7 +128,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/admin/home", // Route for detailed page with projectid
+    path: "/admin", // Route for detailed page with projectid
     element: <AdminHome />,
   },
 

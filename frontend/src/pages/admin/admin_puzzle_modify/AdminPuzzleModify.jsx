@@ -14,6 +14,7 @@ import DatePicker from "../../../components/datePicker/DatePicker";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/loading/Loading";
 import moment from "moment";
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 export default function AdminContestProblemDetails() {
 
@@ -108,7 +109,7 @@ export default function AdminContestProblemDetails() {
     if (!puzzle) {
         return (
             <div>
-                <Navbar />
+                <AdminNavbar />
                 <Loading />
                 <Footer />
             </div>
@@ -118,7 +119,7 @@ export default function AdminContestProblemDetails() {
 
     return (
         <div style={{ position: "relative" }}>
-            <Navbar />
+            <AdminNavbar />
             <h3 style={{ textAlign: "center", marginTop: "20px" }}>
                 Modify Daily Puzzle
             </h3>
