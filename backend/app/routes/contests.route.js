@@ -1,7 +1,8 @@
 const router = require('express').Router()
-const { param } = require("express-validator");
+const { param, notEmpty, isInt } = require("express-validator");
 const controller = require('../controllers/contests.controller')
 const contestMiddleware = require('../middlewares/contests.middleware')
+const validator = require('../middlewares/validation.middleware')
 /**
  * @swagger
  * tags:
@@ -82,35 +83,39 @@ router.get('/', controller.getContests)
 router.post('/', controller.createContest)
 
 
-router.get('/:id', param('id').notEmpty(), controller.getContestById)
-router.put('/:id',param('id').notEmpty(), controller.updateContest)
+router.get('/:id', param('id').notEmpty().isInt(), validator.validate,controller.getContestById)
+router.put('/:id',param('id').notEmpty().isInt(), validator.validate, controller.updateContest)
+router.delete('/:id',param('id').notEmpty().isInt(), validator.validate, controller.deleteContest)
 
 
-router.get('/:id/problems', controller.getContestProblems)
-router.post('/:id/problems', controller.addContestProblem)
+router.get('/:id/problems',param('id').notEmpty().isInt(), validator.validate, controller.getContestProblems)
+router.post('/:id/problems',param('id').notEmpty().isInt(), validator.validate, controller.addContestProblem)
 
-router.get('/:id/problems/:problemid', controller.getContestProblemById)
-router.get('/:id/problems/categories/:category', controller.getContestProblemByCategory)
-router.put('/:id/problems/:problemid', controller.updateContestProblem)
-router.delete('/:id/problems/:problemid', controller.deleteContestProblem)
+router.get('/:id/problems/:problemid',param('id').notEmpty().isInt(), validator.validate, param('problemid').notEmpty().isInt(), validator.validate, controller.getContestProblemById)
+router.get('/:id/problems/categories/:category',param('id').notEmpty().isInt(), validator.validate,param('category').notEmpty(), validator.validate, controller.getContestProblemByCategory)
+router.put('/:id/problems/:problemid',param('id').notEmpty().isInt(), validator.validate, param('problemid').notEmpty().isInt(), validator.validate,controller.updateContestProblem)
+router.delete('/:id/problems/:problemid',param('id').notEmpty().isInt(), validator.validate, param('problemid').notEmpty().isInt(), validator.validate, controller.deleteContestProblem)
 
-router.get('/:id/problems/:problemid/testcases', controller.getContestProblemTestCases);
-router.post('/:id/problems/:problemid/testcases', controller.addContestProblemTestCase);
+router.get('/:id/problems/:problemid/testcases',param('id').notEmpty().isInt(), validator.validate, param('problemid').notEmpty().isInt(), validator.validate, controller.getContestProblemTestCases);
+router.post('/:id/problems/:problemid/testcases',param('id').notEmpty().isInt(), validator.validate, param('problemid').notEmpty().isInt(), validator.validate, controller.addContestProblemTestCase);
 
-router.get('/:id/problems/:problemid/testcases/:testcaseid', controller.getContestProblemTestCaseById);
-router.put('/:id/problems/:problemid/testcases/:testcaseid', controller.updateContestProblemTestCase);
-router.delete('/:id/problems/:problemid/testcases/:testcaseid', controller.deleteContestProblemTestCase);
+router.get('/:id/problems/:problemid/testcases/:testcaseid',param('id').notEmpty().isInt(), param('problemid').notEmpty().isInt(), param('testcaseid').notEmpty().isInt(),validator.validate, controller.getContestProblemTestCaseById);
+router.put('/:id/problems/:problemid/testcases/:testcaseid', param('id').notEmpty().isInt(), param('problemid').notEmpty().isInt(), param('testcaseid').notEmpty().isInt(), validator.validate, controller.updateContestProblemTestCase);
+router.delete('/:id/problems/:problemid/testcases/:testcaseid', param('id').notEmpty().isInt(), param('problemid').notEmpty().isInt(), param('testcaseid').notEmpty().isInt(), validator.validate,controller.deleteContestProblemTestCase);
 
 
-router.get('/:id/submissions', contestMiddleware.getContestSubmissionByProblemId,
+router.get('/:id/submissions',param('id').notEmpty().isInt(),validator.validate,
+                                 contestMiddleware.getContestSubmissionByProblemId,
                                 contestMiddleware.getContestSubmissionByUserId, 
                                 controller.getAllContestSubmissions)
 //router.get('/:id/submissions/:problemid', controller.getContestSubmissionsByProblemId)
 //router.get('/:id/submissions/:userid', controller.getContestSubmissionByUserId)
 
 
-router.post('/:id/submissions/:problemid/:userid', controller.addContestProblemSubmission)
-
+router.post('/:id/submissions/:problemid/:userid',
+            param('id').notEmpty().isInt(),
+            param('problemid').notEmpty().isInt(), param('testcaseid').notEmpty().isInt(),
+            validator.validate, controller.addContestProblemSubmission)
 router.get('/:id/standings', controller.getContestStanding)
 
 

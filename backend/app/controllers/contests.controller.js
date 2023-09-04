@@ -23,10 +23,6 @@ exports.getContests = async (req, res) => {
 }
 
 exports.getContestById = async (req, res) => {
-    const result = validationResult(req);
-    if(result.errors.length !== 0){
-        return res.status(400).json({ errors: result.errors });
-    }
     try {
         const contest = await service.getContestById(req.params.id);
         res.status(200).json(contest);
@@ -47,6 +43,15 @@ exports.createContest = async (req, res) => {
 exports.updateContest = async (req, res) => {
     try {
         const contest = await service.updateContest(req.params.id, req.body);
+        res.status(200).json(contest);
+    } catch (error) {
+        res.status(500).json(error);
+    }    
+}
+
+exports.deleteContest = async (req, res) => {
+    try {
+        const contest = await service.deleteContest(req.params.id);
         res.status(200).json(contest);
     } catch (error) {
         res.status(500).json(error);
