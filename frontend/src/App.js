@@ -31,6 +31,7 @@ import AdminDailyPuzzle from "./pages/admin/admin_puzzle/AdminPuzzle";
 import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
 import AdminDailyPuzzleModify from "./pages/admin/admin_puzzle_modify/AdminPuzzleModify";
 import SignOut from "./pages/signout/SignOut";import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
+import AdminHome from "./pages/admin/admin_home/AdminHome";
 
 const router = createBrowserRouter([
   {
@@ -124,6 +125,11 @@ const router = createBrowserRouter([
   {
     path: "/miniproject/:projectid", // Route for detailed page with projectid
     element: <MiniProject />,
+  },
+
+  {
+    path: "/admin/home", // Route for detailed page with projectid
+    element: <AdminHome />,
   },
 
   ///////////////////////////// ADMIN MINI PROJECTS /////////////////////////////
