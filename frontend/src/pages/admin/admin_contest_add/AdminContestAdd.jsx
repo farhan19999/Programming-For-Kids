@@ -5,6 +5,7 @@ import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 function AdminContestAdd() {
   const [contestData, setContestData] = useState({ contests: [] }); // Initialize with an object containing an empty array
@@ -48,7 +49,7 @@ function AdminContestAdd() {
 
   return (
     <div>
-      <Navbar />
+      <AdminNavbar />
 
       <div
         style={{

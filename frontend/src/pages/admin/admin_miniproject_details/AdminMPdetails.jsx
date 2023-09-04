@@ -7,6 +7,7 @@ import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
 import DatePicker from "../../../components/datePicker/DatePicker";
 import { useNavigate } from "react-router-dom";
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 export default function AdminMPDetails() {
   const { projectid } = useParams();
@@ -91,7 +92,7 @@ export default function AdminMPDetails() {
 
   return (
     <div>
-      <Navbar />
+      <AdminNavbar />
       <h3 style={{ textAlign: "center" }}>Mini Project: {project.title}</h3>
 
       <h3

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../../../components/navbar/Navbar";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 export default function AdminMPindex() {
   const [project, setProject] = useState([]);
@@ -29,7 +30,7 @@ export default function AdminMPindex() {
 
   return (
     <div>
-      <Navbar />
+      <AdminNavbar />
       <h2 style={{ margin: "25px", marginLeft:"50px", fontWeight: "bold" }}>Admin</h2>
       <table
         className="table table-hover"

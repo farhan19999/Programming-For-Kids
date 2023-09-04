@@ -12,6 +12,7 @@ import Footer from "../../../components/footer/Footer";
 // import {DateField} from ""
 import DatePicker from "../../../components/datePicker/DatePicker";
 import { useNavigate } from "react-router-dom";
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 export default function AdminContestProblemDetails() {
 
     const server_url = process.env.REACT_APP_SERVER_URL;
@@ -84,7 +85,7 @@ export default function AdminContestProblemDetails() {
 
     return (
         <div style={{ position: "relative" }}>
-            <Navbar />
+            <AdminNavbar />
 
             <h3 style={{ textAlign: "center", marginTop: "20px" }}>
                 Create Daily Puzzle

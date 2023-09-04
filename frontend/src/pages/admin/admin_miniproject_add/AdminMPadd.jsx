@@ -5,6 +5,7 @@ import DatePicker from "../../../components/datePicker/DatePicker";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AceEditor from "react-ace";
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 export default function AdminMPadd() {
   const [projectTitle, setProjectTitle] = useState("");
@@ -49,7 +50,7 @@ export default function AdminMPadd() {
 
   return (
     <div style={{ position: "relative" }}>
-      <Navbar />
+      <AdminNavbar />
 
       <h3 style={{ textAlign: "center", marginTop: "20px" }}>
         Add Mini Project
