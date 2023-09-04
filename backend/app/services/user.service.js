@@ -35,6 +35,14 @@ exports.updateUser = async (id, user)=>{
         console.log(error)
     }
 }
+exports.deleteUser = async (id)=>{
+    try {
+        const deletedUser = await userModel.deleteUser(id)
+        return deletedUser
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 exports.getRegisteredContests = async (id)=>{
     try {

@@ -178,6 +178,7 @@ router.get('/:id',param('id').notEmpty().isInt(),validationMiddleware.validate, 
  */
 
 router.put('/:id',param('id').notEmpty().isInt(),validationMiddleware.validate, controller.updateUser)
+router.delete('/:id',param('id').notEmpty().isInt(),validationMiddleware.validate, controller.deleteUser)   
 //router.delete('/:id', controller.deleteUser)
 
 

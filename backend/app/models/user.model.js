@@ -39,6 +39,15 @@ const updateUser = async (id, user) => {
         console.log(error)
     }
 }
+const deleteUser = async (id) => {
+    try {
+        const result = await pool.query('DELETE FROM pfk.users WHERE userid = $1 RETURNING *', [id])
+        return result.rows[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 const getRegisteredContests = async (id) => {
     try {
@@ -82,4 +91,4 @@ const findUser = async (email_address, password) => {
 
 
 
-module.exports = {getAllUsers, getUserById, createUser, updateUser, getRegisteredContests, getAllPracticeSubmissionByUserId,addRegisteredContest, findUser}
+module.exports = {getAllUsers, getUserById, createUser, updateUser, deleteUser, getRegisteredContests, getAllPracticeSubmissionByUserId,addRegisteredContest, findUser}
