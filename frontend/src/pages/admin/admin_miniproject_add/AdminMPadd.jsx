@@ -10,7 +10,7 @@ export default function AdminMPadd() {
   const [projectTitle, setProjectTitle] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [startingCode, setStartingCode] = useState("");
-  const [startingTime, setStartingTime] = useState(""); // Add startingTime state
+  const [startingTime, setStartingTime] = useState(new Date());
 
   const navigate = useNavigate();
   const handleCodeChange = (newCode) => {
@@ -27,9 +27,9 @@ export default function AdminMPadd() {
     axios
       .post(`${server_url}/api/mini-projects`, {
         title: projectTitle,
-        project_description: projectDescription,
+        project_details: projectDescription,
         starting_code: startingCode,
-        starting_time: startingTime, // Use startingTime from state
+        starting_time: startingTime.toISOString(), // Use startingTime from state
       })
       .then((response) => {
         console.log("Mini Project added:", response.data);

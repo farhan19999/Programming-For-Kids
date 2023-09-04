@@ -50,7 +50,7 @@ const router = createBrowserRouter([
     element: <Contest_Registration />,
   },
   {
-    path: "/user/:userid/contests/",
+    path: "/contest",
     element: <Contest />,
   },
   {

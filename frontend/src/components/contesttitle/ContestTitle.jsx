@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import { useParams } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 
 function ContestTitle() {
@@ -11,7 +11,7 @@ function ContestTitle() {
 
   const [rc, setRc] = useState(default_rc);
 
-  const { userid } = useParams(); 
+  const { userid } = useSelector((state) => state.user);
 
   const [ac, setAc] = useState({ contests: [] });
   const server_url = process.env.REACT_APP_SERVER_URL;
