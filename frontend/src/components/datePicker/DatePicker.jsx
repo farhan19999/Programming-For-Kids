@@ -7,7 +7,7 @@ export default function DatePicker({date,id}){
             <div className='row'>
                 <div className='col-md-4'>
                     <Form.Group controlId={id}>
-                        <Form.Label>Select Puzzle Date</Form.Label>
+                        <Form.Label>Select Date</Form.Label>
                         <Form.Control type='date' name='date' value={date}/>
                     </Form.Group>
                 </div>

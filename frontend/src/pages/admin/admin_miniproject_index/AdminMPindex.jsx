@@ -39,6 +39,7 @@ export default function AdminMPindex() {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Title</th>
+            <th scope="col"></th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -47,13 +48,14 @@ export default function AdminMPindex() {
             <tr key={item.projectid}>
               <th scope="row">{index + 1}</th>
               <td>{item.title}</td>
+              <td></td>
               <td>
                 <button
                   type="button"
                   className="btn btn-dark"
                   onClick={() => handleModifyClick(item.projectid)}
                 >
-                  + Modify
+                  Modify
                 </button>
               </td>
             </tr>

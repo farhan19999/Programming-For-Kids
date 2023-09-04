@@ -9,6 +9,7 @@ import axios from "axios";
 // import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
+// import {DateField} from ""
 import DatePicker from "../../../components/datePicker/DatePicker";
 import { useNavigate } from "react-router-dom";
 export default function AdminContestProblemDetails() {
@@ -139,7 +140,11 @@ export default function AdminContestProblemDetails() {
             </div>
 
             <div onChange={handleDateChange} style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'} /></div>
-
+            {/* <DateField
+                label="Controlled field"
+                value={puzzle.date}
+                onChange={(handleDateChange)}
+            /> */}
             <button
                 type="button"
                 className="btn btn-dark"

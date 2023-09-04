@@ -5,12 +5,10 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
+import DatePicker from "../../../components/datePicker/DatePicker";
 import { useNavigate } from "react-router-dom";
 
 export default function AdminMPDetails() {
-  const defaultState = {
-  };
-
   const { projectid } = useParams();
 
   const [project, setProject] = useState('');
@@ -21,10 +19,16 @@ export default function AdminMPDetails() {
   const handleProjectDetailsChange = (event) => {
     setProjectDetails(event.target.value);
   };
-  
+
   const handleCodeChange = (event) => {
     setCode(event.target.value);
   };
+  const handleDateChange = (event) => {
+    setProject({
+      ...project,
+      starting_time: event.target.value, // Update the starting_time field
+    });
+  }
   useEffect(() => {
     axios
       .get(`${server_url}/api/mini-projects/${projectid}`)
@@ -83,21 +87,22 @@ export default function AdminMPDetails() {
         setCode(response.data.starting_code);
         console.log(response.data);
       });
-  }, [server_url,projectid]);
+  }, [server_url, projectid]);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div>
       <Navbar />
-      <h2
+      <h3 style={{ textAlign: "center" }}>Mini Project: {project.title}</h3>
+
+      <h3
         style={{
-          marginTop: "95px",
+          marginTop: "20px",
           position: "relative",
           marginLeft: "45px",
         }}
       >
         Admin
-      </h2>
-      <h3 style={{ textAlign: "center" }}>Mini Project: {project.title}</h3>
+      </h3>
 
       <div className="container">
         <div className="row">
@@ -107,20 +112,26 @@ export default function AdminMPDetails() {
                 <p style={{ fontSize: "18px" }}>Project Details:</p>
               </label>
               <textarea
-                style={{ backgroundColor: "#eee", height:"" }}
+                style={{ backgroundColor: "#fff", height: "" }}
                 className="form-control"
                 id="problemStatement"
-                rows="15"
+                rows="10"
                 value={projectDetails}
                 onChange={handleProjectDetailsChange}
               ></textarea>
+
+
+              <div onChange={handleDateChange} style={{ marginTop: '20px', marginLeft: '0px', fontSize: "18px" }}><DatePicker id={'dop'} /></div>
+
+
+
             </div>
 
           </div>
           <div className="col-md-6" style={{ marginTop: "18px" }}>
             <div className="form-group">
               <label htmlFor="solution">
-                <p style={{ fontSize: "19px" }}>Puzzle Code :</p>
+                <p style={{ fontSize: "19px" }}>Code Template</p>
               </label>
               <textarea
                 style={{ backgroundColor: "#222", color: "white" }}
