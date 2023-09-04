@@ -57,6 +57,15 @@ exports.updateContest = async (id, contest) => {
     }
 }
 
+exports.deleteContest = async (id) => {
+    try {
+        const result = await contestModel.deleteContest(id);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
 exports.getContestProblems = async (id) => {
     try {
         const problems = await contestModel.getContestProblems(id);
