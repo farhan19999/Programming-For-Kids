@@ -1,6 +1,7 @@
 const { downloadFileFromFirebase } = require("./firebase.service");
 const { getTestCasesByProblemId } = require("../models/problem.model");
 const util = require("util");
+const { versions } = require("process");
 const exec = util.promisify(require("child_process").exec);
 const fs = require("fs").promises;
 
@@ -19,8 +20,8 @@ const prepareCodeFile = async (code_file_path, file_name) => {
 
 const load_test_cases = async (input_file, output_file, problemid, testcaseid) => {
     try {
-        const result = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${testcaseid}/${input_file}`, `./app/files/${input_file}`);
-        const result2 = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${testcaseid}/${output_file}`, `./app/files/${output_file}`);
+        const result = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${input_file}`, `./app/files/${input_file}`);
+        const result2 = await downloadFileFromFirebase(`/problems/${problemid}/testcases/${output_file}`, `./app/files/${output_file}`);
         //console.log('input and ouput file loaded');
     } catch (err) {
         console.log(err);
@@ -36,16 +37,21 @@ const load_test_cases = async (input_file, output_file, problemid, testcaseid) =
  * @returns 
  */
 const cCodeRunner = async (code_file_path, file_name, problemid, time_limit) => {
+    let submission_result = {
+        verdict: '',
+        details: '',
+    };
     try {
         const result = await prepareCodeFile(code_file_path, file_name);
         const testcases = await getTestCasesByProblemId(problemid);
         //console.log(testcases)
-        const sample_testcases = [{ testcaseid: 1, input_file: 'input-1.txt', output_file: 'output-1.txt' }]
+        //const sample_testcases = [{ testcaseid: 1, input_file: 'input-1.txt', output_file: 'output-1.txt' }]
         const { stdout, stderr } = await exec(`gcc -o ./app/files/a ./app/files/${file_name}`);
 
-        let verdict = '';
-
-        for (let testcase of sample_testcases) {
+        
+        console.log(testcases.length)
+        for (let i = 0 ; i<testcases.length; i++) {
+            let testcase = testcases[i];
             //console.log(testcase);
             const result2 = await load_test_cases(testcase.input_file, testcase.output_file, problemid, testcase.testcaseid);
             try {
@@ -54,34 +60,44 @@ const cCodeRunner = async (code_file_path, file_name, problemid, time_limit) => 
                 const data = await fs.readFile(`./app/files/${testcase.output_file}`, 'utf8');
                 if (data === stdout) {
                     console.log(`Passed on ${testcase.input_file}`);
-                    verdict ='ACCEPTED';
+                    if(submission_result.verdict == 'ACCEPTED' || submission_result.verdict == '')submission_result.verdict ='ACCEPTED';
+                    submission_result.details += `Testcase ${i+1} passed\n`;
+                    submission_result.details += `Expected output : ${data}\n`
+                    submission_result.details += `Output : ${stdout}\n`
                 } else {
                     console.log(`testcase: ${testcase.input_file} -> Expected: ${data} \n Got: ${stdout}`);
-                    verdict = 'WA';
+                    submission_result.verdict = 'WA';
+                    submission_result.details += `Testcase ${i+1} failed : Wrong Answer\n`;
+                    submission_result.details += `Expected output : ${data}\n`
+                    submission_result.details += `Output : ${stdout}\n`
                 }
                 await fs.unlink(`./app/files/${testcase.input_file}`);
                 await fs.unlink(`./app/files/${testcase.output_file}`);
-                if(verdict === 'WA'){
-                    break;
-                }
             } catch (err) {
                 if (err.killed === true) {
                     //console.log('TLE');
                     process.killDeep(pid);
-                    verdict = 'TLE';
+                    submission_result.verdict = 'TLE';
+                    submission_result.details += `Testcase ${i+1} failed : Time limit Exceeded\n`;
+                    submission_result.details += `Expected output : ${stdout}\n`
+                    submission_result.details += `Output : \n`
                 }
                 else {
                     //console.log('RTE')
-                    verdict = 'RTE';
+                    submission_result.verdict = 'RTE';
+                    submission_result.details += `Testcase ${i+1} failed : RunTime Error\n`;
+                    submission_result.details += `Expected output : ${stdout}\n`
+                    submission_result.details += `Output : \n`
                 }
                 console.log(err);
                 await fs.unlink(`./app/files/${testcase.input_file}`);
                 await fs.unlink(`./app/files/${testcase.output_file}`);
-                break;
             }
         }
 
     } catch (err) {
+        submission_result.verdict = 'CE';
+        submission_result.details += `Compilation Error\n`;
         console.log(err);
         await fs.unlink(`./app/files/${file_name}`);
         await fs.unlink(`./app/files/a.exe`);
@@ -89,15 +105,9 @@ const cCodeRunner = async (code_file_path, file_name, problemid, time_limit) => 
     }
     await fs.unlink(`./app/files/${file_name}`);
     await fs.unlink(`./app/files/a.exe`);
-    return verdict;
+    console.log(submission_result)
+    return submission_result;
 }
 
-// let verdict = cCodeRunner(
-//   "/contests/1/submissions/1",
-//   "1_1_1692606412058.c",
-//   1,
-//   2000
-// );
-// console.log(verdict);
 
 module.exports = { cCodeRunner };

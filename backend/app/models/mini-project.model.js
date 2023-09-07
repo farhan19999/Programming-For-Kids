@@ -9,7 +9,7 @@ const getAllMiniProjects = async () => {
         
         return {'mini_projects':mini_projects.rows};
     } catch (error) {
-        throw new Error(error);
+        throw error;
     }
 }
 
@@ -19,7 +19,7 @@ const createMiniProject = async (mini_project) => {
         const new_mini_project = await pool.query('INSERT INTO pfk.mini_project (projectid, title, project_details, starting_code, starting_time) VALUES ($1, $2, $3, $4, $5) RETURNING *', [maxid.rows[0].max+1, mini_project.title, mini_project.project_details, mini_project.starting_code, mini_project.starting_time]);
         return new_mini_project.rows[0];
     }catch (error) {
-        throw new Error(error);
+        throw error;
     }
 }
 
@@ -66,7 +66,7 @@ const createMiniProjectSubmission = async (id, mini_project_submission) => {
         const new_mini_project_submission = await pool.query('INSERT INTO pfk.project_submission_history (projsubmissionid, projectid, userid, submitted_time, submitted_code) VALUES ($1, $2, $3, $4, $5) RETURNING *', [maxid.rows[0].max+1, id, mini_project_submission.userid, mini_project_submission.submitted_time, mini_project_submission.submitted_code]);
         return new_mini_project_submission.rows[0];
     }catch (error) {
-        throw new Error(error);
+        throw error;
     }
 }
 
@@ -75,7 +75,7 @@ const getMiniProjectSubmissionByUserId = async (id, userid) => {
         const mini_project_submission = await pool.query('SELECT * FROM pfk.project_submission_history WHERE projectid = $1 AND userid = $2', [id, userid]);
         return mini_project_submission.rows[0];
     } catch (error) {
-        throw new Error(error);
+        throw error;
     }
 }
 
@@ -84,7 +84,7 @@ const getMiniProjectStanding = async (id) => {
         const mini_project_standing = await pool.query('SELECT u.username, psh.score FROM pfk.project_submission_history as psh inner join pfk.users as u WHERE psh.projectid = $1 ORDER BY score ASC', [id]);
         return mini_project_standing.rows;
     } catch (error) {
-        throw new Error(error);
+        throw error;
     }
 }
 

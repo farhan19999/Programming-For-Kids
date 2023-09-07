@@ -184,14 +184,15 @@ const getContestScores = async (id) => {
 
 }
 
-const updateContestProblemSubmission = async (submissionid, status) => {
+const updateContestProblemSubmission = async (submissionid, status, details) => {
     let score = 0;
-    if(status === 'Accepted'){
+    if(status === 'ACCEPTED'){
         score = 100;
     }
+    console.log(submissionid, status, score, details)
     try {
-        const result = await pool.query('UPDATE pfk.contest_submission SET status = $1, score = $2 WHERE submissionid = $3 RETURNING *', 
-                                    [status, score, submissionid])
+        const result = await pool.query('UPDATE pfk.contest_submission SET status = $1, score = $2, details =$3 WHERE submissionid = $4 RETURNING *', 
+                                    [status, score, details, submissionid])
         return result.rows[0]
     } catch (error) {
         console.log(error)

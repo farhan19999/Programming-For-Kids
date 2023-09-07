@@ -143,6 +143,7 @@ exports.getContestSubmissionByUserId = async (req, res) => {
 
 exports.addContestProblemSubmission = async (req, res) => {
     try {
+        console.log(req.body)
         //first get the submission file path name from the request body
         //then download the file from the path and save it to a temp folder
         //then get all testcase files from the problem folder and save them to a temp folder
@@ -152,13 +153,14 @@ exports.addContestProblemSubmission = async (req, res) => {
         const filename = req.body.submission_filename;
         const time_limit = await problemService.getTimeLimitByProblemId(req.params.problemid);
         codeCheckerService.cCodeRunner(`/contests/${req.params.id}/submissions/${req.params.userid}`,filename, req.params.problemid, time_limit*1000)
-        .then((verdict) => {
-            service.updateContestProblemSubmission(submission.submissionid, verdict);
+        .then((submission_result) => {
+            service.updateContestProblemSubmission(submission.submissionid, submission_result.verdict, submission_result.details);
         })
         .catch((err) => {
             console.log(err);
         });
         //now have to store the verdict in the database
+        console.log(submission);
         res.status(200).json(submission);
     } catch (error) {
         res.status(500).json(error);

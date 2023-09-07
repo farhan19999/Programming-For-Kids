@@ -108,13 +108,12 @@ router.get('/:id/submissions',param('id').notEmpty().isInt(),validator.validate,
                                  contestMiddleware.getContestSubmissionByProblemId,
                                 contestMiddleware.getContestSubmissionByUserId, 
                                 controller.getAllContestSubmissions)
-//router.get('/:id/submissions/:problemid', controller.getContestSubmissionsByProblemId)
-//router.get('/:id/submissions/:userid', controller.getContestSubmissionByUserId)
+
 
 
 router.post('/:id/submissions/:problemid/:userid',
             param('id').notEmpty().isInt(),
-            param('problemid').notEmpty().isInt(), param('testcaseid').notEmpty().isInt(),
+            param('problemid').notEmpty().isInt(), param('userid').notEmpty().isInt(),
             validator.validate, controller.addContestProblemSubmission)
 router.get('/:id/standings', controller.getContestStanding)
 
