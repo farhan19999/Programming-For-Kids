@@ -67,7 +67,7 @@ const options = {
   );
 
 app.use((err,req,res,next)=>{
-    console.log(err);
+    console.log("Final error handler : ",err);
     res.status(500).json({
         error: err.message
     })

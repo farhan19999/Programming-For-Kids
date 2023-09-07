@@ -37,6 +37,15 @@ exports.getProblemSubmissionByUserId = async (id, userid) => {
     }
 }
 
+exports.updateProblemSubmission = async (id, verdict, details) => {
+    try {
+        const result = await problemModel.updateProblemSubmission(id, verdict, details);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
 exports.getProblemDiscussion = async (id) => {
     try {
         const discussion = await problemModel.getProblemDiscussion(id);

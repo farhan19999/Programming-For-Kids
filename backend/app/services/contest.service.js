@@ -156,9 +156,9 @@ exports.addContestProblemSubmission = async (id, problemid, userid, submission) 
     }
 }
 
-exports.updateContestProblemSubmission = async (submissionid, verdict) => {
+exports.updateContestProblemSubmission = async (submissionid, verdict, details) => {
     try {
-        const result = await contestModel.updateContestProblemSubmission(submissionid, verdict);
+        const result = await contestModel.updateContestProblemSubmission(submissionid, verdict, details);
         return result;
     } catch (error) {
         throw error;

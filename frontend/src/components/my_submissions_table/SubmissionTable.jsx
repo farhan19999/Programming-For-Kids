@@ -17,6 +17,7 @@ const header = [
   { title: 'Submitted Time', prop: 'submitted_time' },
   { title: 'Language', prop: 'language' },
   { title: 'Status', prop: 'status' },
+  { title: 'Details', prop: 'details' }
 ];
 
 

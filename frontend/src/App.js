@@ -30,7 +30,8 @@ import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzle";
 import AdminDailyPuzzle from "./pages/admin/admin_puzzle/AdminPuzzle";
 import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
 import AdminDailyPuzzleModify from "./pages/admin/admin_puzzle_modify/AdminPuzzleModify";
-import SignOut from "./pages/signout/SignOut";import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
+import SignOut from "./pages/signout/SignOut";
+import ProblemPage from "./pages/practice/problem_page/ProblemPage";
 
 const router = createBrowserRouter([
   {
@@ -57,10 +58,7 @@ const router = createBrowserRouter([
     path:"/contest/my-submissions",
     element:<Submission_IndividualProblem/>
   },
-  // {
-  //   path:"/contest/standings",
-  //   element:<Standings_Crogramming_Contest/>
-  // },
+
   {
     path: "/signup",
     element: <SignUp />,
@@ -115,6 +113,11 @@ const router = createBrowserRouter([
     path: "/practice",
     element: <PracticeProblemIndex />,
   },
+  {
+    path: "/practice/problems/:problemid", // Route for detailed page with problemid
+    element: <ProblemPage />,
+  },
+
   // {
   //   path: "/practice/:problemid/submissions",
   //   element: <PracticeProblemSubmission />,

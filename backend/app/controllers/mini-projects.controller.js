@@ -37,6 +37,15 @@ exports.updateMiniProject = async (req, res) => {
     }
 }
 
+exports.updateMiniProjectSubmission = async (req, res) => {
+    try {
+        const mini_project_submission = await service.updateMiniProjectSubmission(req.params.id, req.params.userid, req.body);
+        res.status(200).json(mini_project_submission);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
 exports.deleteMiniProject = async (req, res) => {
     try {
         const mini_project = await service.deleteMiniProject(req.params.id);
@@ -78,6 +87,33 @@ exports.getMiniProjectStanding = async (req, res) => {
     try {
         const mini_project_standing = await service.getMiniProjectStanding(req.params.id);
         res.status(200).json(mini_project_standing);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+exports.insertUserScore = async (req, res) => {
+    try {
+        const user_score = await service.insertUserScore(req.params.id, req.params.userid, req.body);
+        res.status(200).json(user_score);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+exports.getUserScore = async (req, res) => {
+    try {
+        const user_score = await service.getUserScore(req.params.id, req.params.userid);
+        res.status(200).json(user_score);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+exports.updateUserScore = async (req, res) => {
+    try {
+        const user_score = await service.updateUserScore(req.params.id, req.params.userid, req.body);
+        res.status(200).json(user_score);
     } catch (error) {
         res.status(500).json(error);
     }
