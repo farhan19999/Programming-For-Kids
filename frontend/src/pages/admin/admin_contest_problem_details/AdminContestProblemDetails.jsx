@@ -95,6 +95,7 @@ export default function AdminContestProblemDetails() {
     navigate(`/admin/contest/${contestid}`);
   };
   const handleDeleteClick = () => {
+    axios.delete(`${server_url}/api/contests/${contestid}/problems/${problemid}`);
     navigate(`/admin/contest/${contestid}`);
   }
 
