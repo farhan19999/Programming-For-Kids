@@ -70,6 +70,10 @@ const CodeEditor = () => {
     }
 
     navigate(`/contest/${contestid}/my-submissions`);
+
+    // navigate(`/contest/${contestid}/problem/${problemid}/submission-status`);
+    // navigate(`/online`);
+
   };
 
   return (

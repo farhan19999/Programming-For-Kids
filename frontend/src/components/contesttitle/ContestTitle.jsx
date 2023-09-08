@@ -30,49 +30,51 @@ function ContestTitle() {
   }, [server_url]);
   const navigate = useNavigate(); // Initialize useNavigate
 
-  const handleRegisterButton=(contestid)=>{
-    navigate(`/contest/${contestid}/Registration`); 
+  const handleRegisterButton = (contestid) => {
+    navigate(`/contest/${contestid}/Registration`);
 
   }
-  const handleTitleClick=(contestid)=>{
+  const handleTitleClick = (contestid) => {
     navigate(`/contest/${contestid}`);
 
   }
 
   return (
-    <div className="row" style={{marginLeft:"30px"}} >
-      <h4>Registered Contests:</h4>
-      {rc['registered-contests'] ? (
-        rc['registered-contests'].map((item) => (
-          <div className='d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded' style={{ width: '51%' }} key={item.id}>
-            <button onClick={()=>handleTitleClick(item.contestid)} style={{ fontSize: '20px', width: '80%', color: 'black' }}>Contest Title: {item.title} div-{item.div} </button>
-          </div>
-        ))
-      ) : (
-        <div className='d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
-          No registered Contests.
-        </div>
-      )}
-      <div />
-
-      <div className='row'>
-        <h4>All Contests:</h4>
-        {ac['contests'] ? (
-          ac['contests'].map((item) => (
-            <div className='d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded' style={{ width: '51%' }} key={item.id}>
-              <a href='/contest/1' style={{ fontSize: '20px', width: '80%', color: 'black' }}>Contest Title: {item.title} div-{item.div} </a>
-              <div className="card-footer text-end">
-                <button type="button" onClick={()=>handleRegisterButton(item.contestid)} className="btn btn-dark">Register</button>
+    <div className="container">
+      <div className="row">
+        <div className="col" style={{ margin: "20px" }}>
+          <h4>Registered Contests:</h4>
+          {rc['registered-contests'] ? (
+            rc['registered-contests'].map((item) => (
+              <div className='d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded' style={{ width: '100%' }} key={item.id}>
+                <button onClick={() => handleTitleClick(item.contestid)} style={{ fontSize: '20px', width: '80%', color: 'black' }}>Contest Title: {item.title} div-{item.div} </button>
               </div>
+            ))
+          ) : (
+            <div className='d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+              No registered Contests.
             </div>
-          ))
-        ) : (
-          <div className='d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
-            No Contests.
-          </div>
-        )}
-      </div>
+          )}
+        </div>
 
+        <div className="col" style={{ margin: "20px" }}>
+          <h4>Upcoming Contests:</h4>
+          {ac['contests'] ? (
+            ac['contests'].map((item) => (
+              <div className='d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded' style={{ width: '100%' }} key={item.id}>
+                <div style={{ fontSize: '20px', width: '80%', color: 'black' }}> Contest Title: {item.title} div-{item.div}</div>
+                <div className="card-footer text-end">
+                  <button type="button" onClick={() => handleRegisterButton(item.contestid)} className="btn btn-dark">Register</button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className='d-flex justify-content-center align-items-center shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+              No Contests.
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

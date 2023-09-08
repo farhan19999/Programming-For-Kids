@@ -30,8 +30,10 @@ import DailyPuzzle from "./pages/daily_puzzle/DailyPuzzle";
 import AdminDailyPuzzle from "./pages/admin/admin_puzzle/AdminPuzzle";
 import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
 import AdminDailyPuzzleModify from "./pages/admin/admin_puzzle_modify/AdminPuzzleModify";
-import SignOut from "./pages/signout/SignOut";import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
+import SignOut from "./pages/signout/SignOut";
+import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
 import AdminHome from "./pages/admin/admin_home/AdminHome";
+import SubmissionStatus from "./pages/online/Online";
 
 const router = createBrowserRouter([
   {
@@ -176,6 +178,14 @@ const router = createBrowserRouter([
     element: <AdminDailyPuzzleModify />,
   },
   ///////////////////////////// ADMIN DAILY PUZZLE END /////////////////////////////
+
+
+
+  //online
+  {
+    path: "/contest/:contestid/problem/:problemid/submission-status", // Route need to change
+    element: <SubmissionStatus />,
+  },
 
 ]);
 

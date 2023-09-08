@@ -27,9 +27,9 @@ function ShowContestRegistration() {
   return (
     <div>
       <Navbar />
-      <div style={{margin:'30px'}}>
+      <div style={{margin:'20px'}}>
 
-        <p>{contest.title}</p>
+        <div style={{fontSize:'22px',marginLeft:'47%'}}>{contest.title}</div>
         <TermsOfAgreements contestid={contest.contestid} userid={1}/>
       </div>
 
