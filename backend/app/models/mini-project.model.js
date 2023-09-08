@@ -16,7 +16,7 @@ const getAllMiniProjects = async () => {
 const createMiniProject = async (mini_project) => {
     try {
         const maxid = await pool.query('SELECT MAX(projectid) FROM pfk.mini_project');
-        const new_mini_project = await pool.query('INSERT INTO pfk.mini_project (projectid, title, project_details, starting_code, starting_time) VALUES ($1, $2, $3, $4, $5) RETURNING *', [maxid.rows[0].max+1, mini_project.title, mini_project.project_details, mini_project.starting_code, mini_project.starting_time]);
+        const new_mini_project = await pool.query('INSERT INTO pfk.mini_project (projectid, title, project_details, starting_code, starting_time, duration, test_code, max_score) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *', [maxid.rows[0].max+1, mini_project.title, mini_project.project_details, mini_project.starting_code, mini_project.starting_time, mini_project.duration, mini_project.test_code, mini_project.max_score]);
         return new_mini_project.rows[0];
     }catch (error) {
         throw error;
@@ -34,7 +34,7 @@ const getMiniProjectById = async (id) => {
 
 const updateMiniProject = async (id, mini_project) => {
     try {
-        const updated_mini_project = await pool.query('UPDATE pfk.mini_project SET title = $1, project_details = $2, starting_code = $3, starting_time = $4 WHERE projectid = $5 RETURNING *', [mini_project.title, mini_project.project_details, mini_project.starting_code, mini_project.starting_time, id]);
+        const updated_mini_project = await pool.query('UPDATE pfk.mini_project SET title = $1, project_details = $2, starting_code = $3, starting_time = $4, duration = $5, test_code = $6, max_score = $7 WHERE projectid = $8 RETURNING *', [mini_project.title, mini_project.project_details, mini_project.starting_code, mini_project.starting_time, mini_project.duration, mini_project.test_code, mini_project.max_score, id]);
         return updated_mini_project.rows[0];
     } catch (error) {
         throw error;

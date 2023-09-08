@@ -8,8 +8,7 @@ import Footer from "../../../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
 
 export default function AdminMPDetails() {
-  const defaultState = {
-  };
+
 
   const { projectid } = useParams();
 
