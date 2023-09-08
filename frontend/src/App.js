@@ -34,6 +34,7 @@ import SignOut from "./pages/signout/SignOut";
 import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
 import AdminHome from "./pages/admin/admin_home/AdminHome";
 import SubmissionStatus from "./pages/online/Online";
+import PracticeProblemDetails from "./pages/practice/practice_problem_details/Practice_problem_Details";
 
 const router = createBrowserRouter([
   {
@@ -118,10 +119,10 @@ const router = createBrowserRouter([
     path: "/practice",
     element: <PracticeProblemIndex />,
   },
-  // {
-  //   path: "/practice/:problemid/submissions",
-  //   element: <PracticeProblemSubmission />,
-  // },
+  {
+    path: "/practice/problem/:problemid",
+    element: <PracticeProblemDetails />,
+  },
 
 
   {
