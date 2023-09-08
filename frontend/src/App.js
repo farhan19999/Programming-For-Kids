@@ -35,7 +35,8 @@ import PracticeProblemSubmission from "./pages/practice/practice_problem_submiss
 import AdminHome from "./pages/admin/admin_home/AdminHome";
 import SubmissionStatus from "./pages/online/Online";
 import PracticeProblemDetails from "./pages/practice/practice_problem_details/Practice_problem_Details";
-import Discussion from "./pages/discussion/Discussion";
+import PracticeProblemDiscussion from "./pages/discussion/Discussion";
+import PracticeProblemSolution from "./pages/practice/practice_problem_solution/PracticeProblemSolution";
 
 const router = createBrowserRouter([
   {
@@ -130,7 +131,11 @@ const router = createBrowserRouter([
   
   {
     path: "/practice/problem/:problemid/discussion",
-    element: <Discussion />,
+    element: <PracticeProblemDiscussion />,
+  },
+  {
+    path: "/practice/problem/:problemid/solution",
+    element: <PracticeProblemSolution />,
   },
 
 

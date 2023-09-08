@@ -13,12 +13,18 @@ import {
 import './style.css'; // Import your custom CSS file
 import Navbar from '../../components/navbar/Navbar';
 import SubNavbarPracticeProblem from '../../components/sub_navbar_practice_problem/SubNavbarPracticeProblem';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export default function Discussion() {
+export default function PracticeProblemDiscussion() {
+  const {problemid} = useParams();
+  const Navigate = useNavigate();
+  const handleGoBackClick = () => {
+    Navigate(`/practice/problem/${problemid}`);
+  }
   return (
     <div>
-      <Navbar/>
-      <SubNavbarPracticeProblem/>
+      <Navbar />
+      <SubNavbarPracticeProblem />
       <div className="container bootdey">
         <div className="col-md-12 bootstrap snippets">
           <div className="panel">
@@ -54,6 +60,14 @@ export default function Discussion() {
               {/*===================================================*/}
             </div>
           </div>
+
+          <div style={{ marginLeft: '15%' }} >
+            <button onClick={handleGoBackClick} type="button" className="btn btn-dark btn-me" style={{ width: '150px' }}>
+              Go Back
+            </button>
+          </div>
+
+
           {/* Add more panel content here */}
         </div>
       </div>
