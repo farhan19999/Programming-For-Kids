@@ -10,6 +10,9 @@ import {
 } from 'react-bs-datatable';
 import { Col, Row, Table } from 'react-bootstrap';
 import Loading from '../loading/Loading';
+import Navbar from '../navbar/Navbar';
+import Footer from '../footer/Footer';
+import SubNavbarPracticeProblem from '../sub_navbar_practice_problem/SubNavbarPracticeProblem';
 
 
 const header = [
@@ -32,7 +35,16 @@ export default function SubmissionTable({ contestid, userid }) {
     });
   }, [server_url, contestid, userid]);
 
-  if (!submissions) return (<Loading/>);
+  if (!submissions) {
+    return (
+      <>
+        <Navbar />
+        <SubNavbarPracticeProblem />
+        <Loading />
+        <Footer />
+      </>
+    );
+  };
 
   return (
     <DatatableWrapper body={submissions} headers={header}>

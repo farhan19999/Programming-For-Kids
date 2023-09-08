@@ -5,6 +5,7 @@ import axios from 'axios';
 import Navbar from '../../../components/navbar/Navbar';
 
 import './PracticeProblemIndex.css';
+import SubNavbarPracticeProblem from '../../../components/sub_navbar_practice_problem/SubNavbarPracticeProblem';
 
 export default function PracticeProblemIndex() {
     const [data, setData] = useState([]);
@@ -27,9 +28,11 @@ export default function PracticeProblemIndex() {
     return (
         <div>
             <Navbar />
+            <SubNavbarPracticeProblem />
+            <div style={{ fontSize: '24px', marginLeft: '45%' }}><b>Practice Problems</b></div>
             <MDBContainer className='mt-5'>
-                <input type="text" id="myInput" onKeyUp={myFunction} placeholder="Search By Topic.." />
 
+                <input type="text" id="myInput" style={{ marginLeft: '85%', marginBottom: '5px', borderRadius: '5px', height: '35px' }} onKeyUp={myFunction} placeholder="Search By Topic.." />
                 <MDBTable id="myTable" className="table-bordered">
                     <thead>
                         <tr className="header">

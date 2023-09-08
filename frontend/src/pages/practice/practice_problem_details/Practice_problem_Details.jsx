@@ -6,6 +6,8 @@ import ProblemDetails from "../../../components/problem_details/ProblemDetails";
 import CodeEditor from "../../../components/code_editor/CodeEditor";
 import Footer from "../../../components/footer/Footer";
 import Loading from "../../../components/loading/Loading";
+import SubNavbar from "../../../components/sub_navbar/SubNavbar";
+import SubNavbarPracticeProblem from "../../../components/sub_navbar_practice_problem/SubNavbarPracticeProblem";
 
 export default function PracticeProblemDetails() {
 
@@ -36,6 +38,9 @@ export default function PracticeProblemDetails() {
     return (
         <div style={{ position: "relative" }}>
             <Navbar />
+            <SubNavbarPracticeProblem/>
+            {/* <SubNavbar userid={userid}/> */}
+
             {/* <SubNavbar contestid={contestid} /> */}
 
             <h4 style={{ textAlign: "center", marginTop: "20px" }}>
