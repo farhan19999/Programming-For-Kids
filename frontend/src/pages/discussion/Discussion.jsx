@@ -10,12 +10,15 @@ import {
   faGlobe,
   faMobile,
 } from '@fortawesome/free-solid-svg-icons';
-
 import './style.css'; // Import your custom CSS file
+import Navbar from '../../components/navbar/Navbar';
+import SubNavbarPracticeProblem from '../../components/sub_navbar_practice_problem/SubNavbarPracticeProblem';
 
 export default function Discussion() {
   return (
     <div>
+      <Navbar/>
+      <SubNavbarPracticeProblem/>
       <div className="container bootdey">
         <div className="col-md-12 bootstrap snippets">
           <div className="panel">

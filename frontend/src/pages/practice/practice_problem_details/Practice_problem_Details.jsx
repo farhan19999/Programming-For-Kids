@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../../components/navbar/Navbar";
 import ProblemDetails from "../../../components/problem_details/ProblemDetails";
 import CodeEditor from "../../../components/code_editor/CodeEditor";
 import Footer from "../../../components/footer/Footer";
 import Loading from "../../../components/loading/Loading";
-import SubNavbar from "../../../components/sub_navbar/SubNavbar";
 import SubNavbarPracticeProblem from "../../../components/sub_navbar_practice_problem/SubNavbarPracticeProblem";
 
 export default function PracticeProblemDetails() {
@@ -14,6 +13,7 @@ export default function PracticeProblemDetails() {
     const { problemid } = useParams();
     const [problem, setProblem] = useState(null);
     const server_url = process.env.REACT_APP_SERVER_URL;
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -34,14 +34,21 @@ export default function PracticeProblemDetails() {
         );
     }
 
+    const handleDiscussionClick = () => {
+        navigate(`/practice/problem/${problemid}/discussion`);
+
+    }
+
+    const handleSolutionClick = () => {
+        navigate(`/practice/problem/${problemid}/solution`);
+    }
+
 
     return (
         <div style={{ position: "relative" }}>
             <Navbar />
-            <SubNavbarPracticeProblem/>
+            <SubNavbarPracticeProblem />
             {/* <SubNavbar userid={userid}/> */}
-
-            {/* <SubNavbar contestid={contestid} /> */}
 
             <h4 style={{ textAlign: "center", marginTop: "20px" }}>
                 Practice Problem
@@ -52,6 +59,17 @@ export default function PracticeProblemDetails() {
                 <div style={{ marginLeft: "22px", marginTop: "26px", flex: "1" }}>
                     <CodeEditor />
                 </div>
+            </div>
+            <div style={{ marginLeft: '15%' }} >
+                <button onClick={handleDiscussionClick} type="button" className="btn btn-dark btn-me" style={{ width: '150px' }}>
+                    Discussion
+                </button>
+
+                <button onClick={handleSolutionClick} type="button" className="btn btn-dark btn-me" style={{ width: '150px', marginLeft: '20px' }}>
+                    Solution
+                </button>
+
+
             </div>
             <Footer />
         </div>

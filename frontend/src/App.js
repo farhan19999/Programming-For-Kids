@@ -35,6 +35,7 @@ import PracticeProblemSubmission from "./pages/practice/practice_problem_submiss
 import AdminHome from "./pages/admin/admin_home/AdminHome";
 import SubmissionStatus from "./pages/online/Online";
 import PracticeProblemDetails from "./pages/practice/practice_problem_details/Practice_problem_Details";
+import Discussion from "./pages/discussion/Discussion";
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,9 @@ const router = createBrowserRouter([
     element: <AdminContestProblemDetails />,
   },
   ///////////////////////////// ADMIN CONTESTS END /////////////////////////////
+
+  ///////////////////////////// PRACTICE PROBLEM START /////////////////////////
+
   {
     path: "/practice",
     element: <PracticeProblemIndex />,
@@ -123,6 +127,15 @@ const router = createBrowserRouter([
     path: "/practice/problem/:problemid",
     element: <PracticeProblemDetails />,
   },
+  
+  {
+    path: "/practice/problem/:problemid/discussion",
+    element: <Discussion />,
+  },
+
+
+
+  ///////////////////////////// PRACTICE PROBLEM END /////////////////////////
 
 
   {
