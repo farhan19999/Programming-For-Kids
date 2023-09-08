@@ -11,6 +11,15 @@ const getAllProblems = async () => {
         throw error;
     }
 }
+const getProblemsFromPastContests = async () => {
+    try {
+        const result = await pool.query('SELECT * FROM pfk.problem WHERE contestid in (SELECT contestid  FROM pfk.contest WHERE start_time +  interval \'1 hour\'*duration  < now())')
+        return result.rows
+    } catch (error) {
+        console.log(error)
+        throw error;
+    }
+}
 
 const getProblemById = async (id) => {
     try {
@@ -148,7 +157,8 @@ const getTimeLimitByProblemId = async (id) => {
     }
 }
 
-module.exports = { getAllProblems, 
+module.exports = { getAllProblems,
+                   getProblemsFromPastContests,  
                    getProblemById,
                    createNewSubmission, 
                    getProblemSubmissionByUserId, 

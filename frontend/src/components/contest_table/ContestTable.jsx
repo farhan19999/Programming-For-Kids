@@ -9,6 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loading from '../loading/Loading';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 
 const columns = [
@@ -29,6 +31,7 @@ const columns = [
         label: 'Start Time',
         minWidth: 170,
         align: 'center',
+        format: (value) => moment(value).format('MMMM Do YYYY, h:mm:ss a'),
     },
     {
         id: 'duration',
@@ -90,12 +93,12 @@ export default function ContestTable() {
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.contestid} component={Link} to={`/contest/${row.contestid}`}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number'
+                                                    {column.format && typeof value === 'string'
                                                         ? column.format(value)
                                                         : value}
                                                 </TableCell>

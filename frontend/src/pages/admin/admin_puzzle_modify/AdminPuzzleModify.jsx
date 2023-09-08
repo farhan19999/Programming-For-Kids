@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/loading/Loading";
 import moment from "moment";
 
-export default function AdminContestProblemDetails() {
+export default function AdminPuzzleModify() {
 
     const [puzzle, setPuzzle] = useState(null);
 
@@ -173,7 +173,7 @@ export default function AdminContestProblemDetails() {
             </div>
 
 
-            <div onChange={handleDateChange} style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker value={formattedDate} id={'dop'} /></div>
+            <div onChange={handleDateChange} style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker label={"Select Puzzle Date"} date={puzzle.date} id={'dop'} /></div>
 
 
             <button

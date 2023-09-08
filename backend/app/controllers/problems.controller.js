@@ -2,7 +2,12 @@ const problemService = require('../services/problem.service');
 
 exports.getAllProblems = async (req, res) => {
     try {
-        const problems = await problemService.getAllProblems();
+        let problems = null;
+        if(req.query.practice === 'true') {
+            
+            problems = await problemService.getProblemsFromPastContests();
+        }
+        else problems = await problemService.getAllProblems();
         res.status(200).json(problems);
     } catch (error) {
         res.status(500).json(error);

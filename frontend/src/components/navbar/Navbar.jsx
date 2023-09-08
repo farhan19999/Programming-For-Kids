@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 //Author: MAHBUB
 
 function Navbar() {
-    const { loggedIn } = useSelector(state => state.user);
+    const { loggedIn, role } = useSelector(state => state.user);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -18,24 +18,24 @@ function Navbar() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        {loggedIn &&
+                        {loggedIn && 
                             <li className="nav-item">
-                                <NavLink className="nav-link active" aria-current="page" to="/dashboard">Dashboard</NavLink>
+                                <NavLink className="nav-link active" aria-current="page" to={ (role === "user")? "/dashboard" : "/admin"}>Dashboard</NavLink>
                             </li>
                         }
                         <li className="nav-item">
-                            <NavLink className="nav-link active" to={"/contest"}>Contest</NavLink>
+                            <NavLink className="nav-link active" to={(loggedIn && role === "admin")? "/admin/contest" : "/contest"}>Contest</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link active" to="/practice">Practice</NavLink>
-                        </li>
-
-                        <li className="nav-item">
-                            <NavLink className="nav-link active" to="/miniproject">Mini-Project</NavLink>
+                            <NavLink className="nav-link active" to={(loggedIn && role === "admin")? "/admin" : "/practice"}>Practice</NavLink>
                         </li>
 
                         <li className="nav-item">
-                            <NavLink className="nav-link active" to="/daily-puzzle">Daily-Puzzle</NavLink>
+                            <NavLink className="nav-link active" to={(loggedIn && role === "admin")? "/admin/miniprojects" : "/miniprojects"}>Mini-Project</NavLink>
+                        </li>
+
+                        <li className="nav-item">
+                            <NavLink className="nav-link active" to={(loggedIn && role === "admin")? "/admin/daily-puzzle" : "/daily-puzzle"}>Daily-Puzzle</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link active" to="/#">Code-Game</NavLink>
@@ -43,9 +43,11 @@ function Navbar() {
                         {
                             loggedIn ?
                                 <>
+                                    {role === "user" && 
                                     <li className="nav-item">
                                         <NavLink className="nav-link active" to="/profile">Student-Profile</NavLink>
                                     </li>
+                                    }
                                     <li className="nav-item">
                                         <NavLink className="nav-link active" to="/signout">Sign-Out</NavLink>
                                     </li>

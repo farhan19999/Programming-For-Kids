@@ -44,6 +44,9 @@ const CodeEditor = ({contestid, problemid}) => {
   };
 
   const handleSubmit = async () => {
+    if(!loggedIn){
+      navigate("/login");
+    }
     // Simulate submission logic here
     const isCorrect = false;
     // Replace with actual submission logic

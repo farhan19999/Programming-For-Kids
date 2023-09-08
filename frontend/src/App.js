@@ -32,11 +32,19 @@ import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
 import AdminDailyPuzzleModify from "./pages/admin/admin_puzzle_modify/AdminPuzzleModify";
 import SignOut from "./pages/signout/SignOut";
 import ProblemPage from "./pages/practice/problem_page/ProblemPage";
+import AdminAuth from "./components/auth/AdminAuth";
+import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
+import AdminLogin from "./pages/admin/login/AdminLogin";
+
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "admin-login",
+    element: <AdminLogin />,
   },
   {
     path: "/dashboard",
@@ -86,29 +94,65 @@ const router = createBrowserRouter([
 
   ///////////////////////////// ADMIN CONTESTS /////////////////////////////
   {
-    path: "/admin/contests",
-    element: <AdminContestAdd />,
-  },
-  {
-    path: "/admin/contest-add-new",
-    element: <AdminContestAddNew />,
-  },
-  {
+    path: "/admin",
+    element: <AdminAuth />,
+    children: [
+      {
+        path: "",
+        element: <AdminDashboard />,
+      },
+      {
+        path: "contest",
+        element: <AdminContestAdd />,
+      },
+      {
+        path: "contest-add-new",
+        element: <AdminContestAddNew />,
+      },
+      {
+        
+        path: "contest/:contestid/problem-add",  //admin-contest-problem-add
+        element: <AdminContestProblemAdd />,
+        
+      },
+      {
+        path: "contest/:contestid",  // admin-contest-problems-index
+        element: <AdminContestProblemIndex />,
+      },
+      
+      {
+        path: "contest/:contestid/problem/:problemid",
+        element: <AdminContestProblemDetails />,
+      },
+      {
+        path: "/admin/daily-puzzle", // Route for detailed page with contestid
+        element: <AdminDailyPuzzle />,
+      },
+      {
+        path: "/admin/daily-puzzle/add", // Route for detailed page with contestid
+        element: <AdminDailyPuzzleAdd />,
+      },
+      {
+        path: "/admin/daily-puzzle/:puzzleid/modify", // Route for detailed page with contestid
+        element: <AdminDailyPuzzleModify />,
+      },
+      {
+        path: "/admin/miniprojects",
+        element: <AdminMPindex />,
+      },
     
-    path: "/admin/contest/:contestid/problem-add",  //admin-contest-problem-add
-    element: <AdminContestProblemAdd />,
+      {
+        path: "/admin/miniprojects/:projectid", // Route for detailed page with projectid
+        element: <AdminMPdetails />,
+      },
     
+      {
+        path: "/admin/miniprojects/add", 
+        element: <AdminMPadd />,
+      }
+    ]
   },
-  {
-    path: "/admin/contest/:contestid",  // admin-contest-problems-index
-    element: <AdminContestProblemIndex />,
-  },
-  
-  {
-    path: "/admin/contest/:contestid/problem/:problemid",
-    element: <AdminContestProblemDetails />,
-  },
-  ///////////////////////////// ADMIN CONTESTS END /////////////////////////////
+
   {
     path: "/practice",
     element: <PracticeProblemIndex />,
@@ -129,23 +173,6 @@ const router = createBrowserRouter([
     element: <MiniProject />,
   },
 
-  ///////////////////////////// ADMIN MINI PROJECTS /////////////////////////////
-  {
-    path: "/admin/miniprojects",
-    element: <AdminMPindex />,
-  },
-
-  {
-    path: "/admin/miniprojects/:projectid", // Route for detailed page with projectid
-    element: <AdminMPdetails />,
-  },
-
-  {
-    path: "/admin/miniprojects/add", 
-    element: <AdminMPadd />,
-  },
-  ///////////////////////////// ADMIN MINI PROJECTS END /////////////////////////////
-
   {
     path: "/miniproject",
     element: <MiniProjectList />,
@@ -159,20 +186,6 @@ const router = createBrowserRouter([
     element: <DailyPuzzle />,
   },
 
-  ///////////////////////////// ADMIN DAILY PUZZLE /////////////////////////////
-  {
-    path: "/admin/daily-puzzle", // Route for detailed page with contestid
-    element: <AdminDailyPuzzle />,
-  },
-  {
-    path: "/admin/daily-puzzle/add", // Route for detailed page with contestid
-    element: <AdminDailyPuzzleAdd />,
-  },
-  {
-    path: "/admin/daily-puzzle/:puzzleid/modify", // Route for detailed page with contestid
-    element: <AdminDailyPuzzleModify />,
-  },
-  ///////////////////////////// ADMIN DAILY PUZZLE END /////////////////////////////
 
 ]);
 

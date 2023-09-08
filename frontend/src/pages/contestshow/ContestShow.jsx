@@ -14,9 +14,11 @@ function Contest() {
       <Navbar />
       {loggedIn ? 
         <ContestTitle /> :
-        <div className='d-flex justify-content-center'>
-          <div className='p-2'>Contest</div>
-          <ContestTable/>
+        <div className='container'>
+          <div className='row justify-content-lg-center'>
+            <div className='col justify-content-lg-center text-center'>Contest</div>
+          </div>
+          <div className='row'><ContestTable/></div>
         </div>
         }
       <Footer />

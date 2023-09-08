@@ -2,12 +2,22 @@ const problemModel = require('../models/problem.model');
 const testcaseModel = require('../models/testcase.model');
 
 exports.getAllProblems = async () => {
+    
     try {
         const problems = await problemModel.getAllProblems();
         return problems;
     } catch (error) {
         throw error;
     }    
+}
+
+exports.getProblemsFromPastContests = async () => {
+    try {
+        const problems = await problemModel.getProblemsFromPastContests();
+        return problems;
+    } catch (error) {
+        throw error;
+    }
 }
 
 exports.getProblemById = async (id) => {

@@ -1,4 +1,5 @@
 const initialState = {
+    role : null,
     loading: false,
     loggedIn: false,
     userid: null,
@@ -28,9 +29,15 @@ export default function userReducer(state = initialState, action) {
                 userid: null,
                 error: action.payload
             }
+        case 'CHANGE_ROLE':
+            return {
+                ...state,
+                role: action.payload
+            }
         case 'LOGOUT_USER':
             return {
                 ...state,
+                role: null,
                 loading: false,
                 loggedIn: false,
                 userid: null,
