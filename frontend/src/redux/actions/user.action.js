@@ -1,4 +1,4 @@
-import  {FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, LOGOUT_USER} from '../types/user.type';
+import  {FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, LOGOUT_USER, CHANGE_ROLE} from '../types/user.type';
 import axios from 'axios';
 
 
@@ -31,7 +31,7 @@ export const logoutUser = () => {
 
 export const changeRole = (role) => {
     return {
-        type: 'CHANGE_ROLE',
+        type: CHANGE_ROLE,
         payload: role
     }
 }

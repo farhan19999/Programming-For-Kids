@@ -174,7 +174,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/miniproject",
+    path: "/miniprojects",
     element: <MiniProjectList />,
   },
   {

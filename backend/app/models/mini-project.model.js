@@ -62,7 +62,7 @@ const getAllMiniProjectSubmissions = async (id) => {
 
 const createMiniProjectSubmission = async (id, mini_project_submission) => {
     try{
-        const maxid = await pool.query('SELECT MAX(id) FROM pfk.mini_project_submission');
+        const maxid = await pool.query('SELECT MAX(projsubmissionid) FROM pfk.project_submission_history');
         const new_mini_project_submission = await pool.query('INSERT INTO pfk.project_submission_history (projsubmissionid, projectid, userid, submitted_time, submitted_code) VALUES ($1, $2, $3, $4, $5) RETURNING *', [maxid.rows[0].max+1, id, mini_project_submission.userid, mini_project_submission.submitted_time, mini_project_submission.submitted_code]);
         return new_mini_project_submission.rows[0];
     }catch (error) {
