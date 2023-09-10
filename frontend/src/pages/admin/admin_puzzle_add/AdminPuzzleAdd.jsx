@@ -40,13 +40,6 @@ export default function AdminContestProblemDetails() {
         });
     };
 
-    const handleDateChange = (event) => {
-        setPuzzle({
-            ...puzzle,
-            date: event.target.value,
-        });
-    }
-
     // const { puzzleid } = useParams();
     const navigate = useNavigate();
 
@@ -57,7 +50,7 @@ export default function AdminContestProblemDetails() {
     const handleSaveClick = () => {
         const dateElement = document.getElementById("dop");
         if (dateElement) {
-            const date = dateElement.value;
+            const date = dateElement.value.format("YYYY-MM-DD");
             axios
                 .get(`${server_url}/api/puzzles/date/${date}`)
                 .then((response) => {
@@ -141,21 +134,14 @@ export default function AdminContestProblemDetails() {
                 </div>
             </div>
 
-            {/* <div className='row'>
-                <div className='col-md-4'>
-                    <Form.Group controlId={'dop'}>
-                        <Form.Label>Select Date</Form.Label>
-                        <Form.Control type='date' name='date' value={date}/>
-                    </Form.Group>
-                </div>
-            </div> */}
-
-            <div onChange={handleDateChange} style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'} /></div>
+            <div style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'} /></div>
             {/* <DateField
                 label="Controlled field"
                 value={puzzle.date}
                 onChange={(handleDateChange)}
             /> */}
+            <div style={{ marginTop: '20px', marginLeft: '110px', fontSize: "18px" }}><DatePicker id={'dop'} /></div>
+
             <button
                 type="button"
                 className="btn btn-dark"

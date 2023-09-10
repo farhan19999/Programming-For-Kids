@@ -46,7 +46,7 @@ export default function PracticeProblemIndex() {
                             <tr key={index}>
                                 <td>{row.problemid}</td>
                                 <td>
-                                    <Link to={`/practice/problem/${row.problemid}`}>
+                                    <Link to={`/practice/problems/${row.problemid}`}>
                                         {row.title}
                                     </Link>
                                 </td>

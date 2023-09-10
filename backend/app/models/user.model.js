@@ -9,6 +9,7 @@ const getAllUsers = async () => {
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -18,6 +19,7 @@ const getUserById = async (id) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -28,6 +30,7 @@ const createUser = async (user) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -37,6 +40,7 @@ const updateUser = async (id, user) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 const deleteUser = async (id) => {
@@ -55,6 +59,7 @@ const getRegisteredContests = async (id) => {
         return {'registered-contests': result.rows}
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -65,6 +70,7 @@ const addRegisteredContest = async (id, contestid) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -74,6 +80,7 @@ const getAllPracticeSubmissionByUserId = async (id) => {
         return {'submissions':result.rows}
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 

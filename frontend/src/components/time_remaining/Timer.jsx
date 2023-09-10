@@ -1,9 +1,10 @@
 // Arif
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-const Timer = () => {
-  const [remainingTime, setRemainingTime] = useState(2931); // Initial remaining time in seconds
+const Timer = ({start_time}) => {
+  const remainingTimeInSeconds = Math.max(start_time, 0);
+  const [remainingTime, setRemainingTime] = useState(remainingTimeInSeconds); // Initial remaining time in seconds
 
   useEffect(() => {
     const interval = setInterval(() => {
