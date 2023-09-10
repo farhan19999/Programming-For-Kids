@@ -161,6 +161,8 @@ router.put('/:id/scoreboard/:userid', controller.updateUserScore)
 router.get('/:id/submissions/:userid', controller.getMiniProjectSubmissionByUserId)
 router.get('/:id/standings', controller.getMiniProjectStanding)
 
+router.get('/submissions/:userid', controller.getAllMiniProjectSubmissionByUserId)
+
 
 
 

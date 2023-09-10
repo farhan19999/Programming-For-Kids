@@ -13,6 +13,7 @@ const problems_route = require('./routes/problems.route')
 const puzzles_route = require('./routes/puzzles.route')
 const auth_route = require('./routes/auth.route')
 const admin_route = require('./routes/admin.route')
+const gaming_route = require('./routes/gaming.route')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -25,6 +26,7 @@ app.use('/api/problems', problems_route)
 app.use('/api/puzzles', puzzles_route)
 app.use('/api/auth', auth_route)
 app.use('/api/admins', admin_route)
+app.use('/api/gaming', gaming_route)
 
 app.get('/',(req,res)=>{
     res.send("Welcome")

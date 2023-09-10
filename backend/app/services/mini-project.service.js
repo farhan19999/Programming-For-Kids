@@ -56,6 +56,11 @@ exports.getAllMiniProjectSubmissions = async (id) => {
 
 exports.createMiniProjectSubmission = async (id, mini_project_submission) => {
     try {
+        const prevSubmission = await miniprojectModel.getMiniProjectSubmissionByUserId(id, mini_project_submission.userid);
+        if(prevSubmission){
+            let updatedSubmission = await miniprojectModel.updateMiniProjectSubmission(id, mini_project_submission.userid, mini_project_submission);
+            return updatedSubmission;
+        }
         const new_mini_project_submission = await miniprojectModel.createMiniProjectSubmission(id, mini_project_submission);
         return new_mini_project_submission;
     } catch (error) {
@@ -112,6 +117,15 @@ exports.updateUserScore = async (id, userid, score) => {
     try {
         const user_score = await miniprojectModel.insertUserScore(id, userid, score);
         return user_score;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.getAllMiniProjectSubmissionByUserId = async (userid) => {
+    try {
+        const mini_project_submissions = await miniprojectModel.getAllMiniProjectSubmissionByUserId(userid);
+        return mini_project_submissions;
     } catch (error) {
         throw error;
     }

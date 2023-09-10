@@ -90,7 +90,7 @@ const updateMiniProjectSubmission = async (id, userid, mini_project_submission) 
 
 const getMiniProjectStanding = async (id) => {
     try {
-        const mini_project_standing = await pool.query('SELECT u.username, psh.score FROM pfk.project_submission_history as psh inner join pfk.users as u WHERE psh.projectid = $1 ORDER BY score ASC', [id]);
+        const mini_project_standing = await pool.query('SELECT u.username, psh.score, psh.submitted_time FROM pfk.project_submission_history as psh inner join pfk.users as u on(psh.userid=u.userid) WHERE psh.projectid = $1 ORDER BY score ASC', [id]);
         return mini_project_standing.rows;
     } catch (error) {
         throw error;
@@ -99,6 +99,7 @@ const getMiniProjectStanding = async (id) => {
 
 const insertUserScore = async (id, userid, score) => {
     try {
+        console.log(id, userid, score);
         const result = await pool.query('Update pfk.project_submission_history SET score = $1 WHERE projectid = $2 AND userid = $3 RETURNING *', [score, id, userid]);
         return result.rows[0];
     } catch (error) {
@@ -115,5 +116,15 @@ const getUserScore = async (id, userid) => {
     }
 }
 
+const getAllMiniProjectSubmissionByUserId = async (userid) => {
+    try {
+        const result = await pool.query('SELECT * FROM pfk.project_submission_history as h inner join pfk.mini_project mp on(h.projectid = mp.projectid) WHERE h.userid = $1', [userid]);
+        return result.rows;
+    } catch (error) {
+        throw error;
+    }
+}
 
-module.exports = {getAllMiniProjects, createMiniProject, getMiniProjectById, updateMiniProject, deleteMiniProject,getAllMiniProjectSubmissions, createMiniProjectSubmission, getMiniProjectSubmissionByUserId, updateMiniProjectSubmission,getMiniProjectStanding, insertUserScore, getUserScore  }
+
+
+module.exports = {getAllMiniProjects, createMiniProject, getMiniProjectById, updateMiniProject, deleteMiniProject,getAllMiniProjectSubmissions, createMiniProjectSubmission, getMiniProjectSubmissionByUserId, updateMiniProjectSubmission,getMiniProjectStanding, insertUserScore, getUserScore, getAllMiniProjectSubmissionByUserId  }

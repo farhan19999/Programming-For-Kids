@@ -25,8 +25,7 @@ export default function AdminMPDetails() {
   const [tsFile, setTsFile] = useState(null); // To store testing code file
   const [stChanged, setStChanged] = useState(false); // To check if starting code has changed
   const [tsChanged, setTsChanged] = useState(false); // To check if testing code has changed
-  const [startCodeUrl, setStartCodeUrl] = useState(null);
-  const [testCodeUrl, setTestCodeUrl] = useState(null);
+
 
   const server_url = process.env.REACT_APP_SERVER_URL;
 
@@ -70,11 +69,11 @@ export default function AdminMPDetails() {
       )
       .then((response) => {
         console.log("Problem deleted:", response.data);
-        let ref = storage.ref(`/projects/templates/${startCode}`);
-        deleteObject(ref)
+        let r = ref(storage,`/projects/templates/${startCode}`);
+        deleteObject(r)
           .then(() => {
-            ref = storage.ref(`/projects/tester/${testCode}`);
-            deleteObject(ref)
+            r = ref(storage,`/projects/tester/${testCode}`);
+            deleteObject(r)
               .then(() => {
                 console.log("Files deleted");
               }
@@ -91,20 +90,16 @@ export default function AdminMPDetails() {
   }
 
   const handleSaveClick = () => {
-    if (stChanged) {
-      let ref = storage.ref(`/projects/templates/${startCode}`);
-      uploadBytes(ref, stFile)
-        .then(() => {
-          console.log("File uploaded");
-          if (tsChanged) {
-            ref = storage.ref(`/projects/tester/${testCode}`);
-            uploadBytes(ref, tsFile)
-              .then(() => {
-                console.log("File uploaded");
-              }
-              ).catch((error) => { throw error; });
-          }
-        }
+    if (stChanged === true) {
+ 
+      let r = ref(storage,`/projects/templates/${startCode}`);
+      uploadBytes(r, stFile)
+        .then(() => {}).catch((error) => { console.error("Error uploading file:", error); });
+    }
+    if(tsChanged === true) {
+      let r = ref(storage,`/projects/tester/${testCode}`);
+      uploadBytes(r, tsFile)
+        .then(() => {}
         ).catch((error) => { console.error("Error uploading file:", error); });
     }
     axios
@@ -252,17 +247,18 @@ export default function AdminMPDetails() {
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DateTimePicker
                 label="Starting Time"
-                value={moment(project.starting_time)}
+                defaultValue={moment(project.starting_time)}
                 onChange={(newValue) => {
-                  this.value = newValue;
                   setProject({ ...project, starting_time: moment(newValue).format() });
                 }}
               />
             </LocalizationProvider>
             <label htmlFor="duration">Project Contest Duration</label>
-            <input type="number" min={"1"} max={"7"} id="duration" placeholder="Duration in days(1-7)" />
+            <input type="number" min={"1"} max={"7"} id="duration" defaultValue={project.duration}
+             placeholder="Duration in days(1-7)" onChange={(event)=>{setProject({...project, duration : event.target.value})}}/>
             <label htmlFor="max_score">Maximum Score</label>
-            <input type="number" min={"50"} max={"100"} id="max_score" placeholder="Maximum Score(50-100)" />
+            <input type="number" min={"50"} max={"100"} id="max_score" defaultValue={project.max_score}
+             placeholder="Maximum Score(50-100)" onChange={(event)=>{setProject({...project, max_score : event.target.value})}}/>
           </div>
         </div>
 
@@ -284,7 +280,7 @@ export default function AdminMPDetails() {
         <Button
           variant={"contained"}
           color={"primary"}
-          onClick={handleSaveClick}
+          onClick={()=>{handleSaveClick()}}
         >
           Save
         </Button>

@@ -16,6 +16,7 @@ import { getBytes, ref, uploadBytes } from 'firebase/storage';
 import Loading from '../../components/loading/Loading';
 import Footer from '../../components/footer/Footer';
 import { useSelector } from 'react-redux';
+import MiniProjectNavbar from '../../components/mini_project_navbar/MiniProjectNavbar';
 
 
 const removeExtension = (filename) => {
@@ -77,14 +78,15 @@ export default function MiniProject() {
     
     axios.get(`${server_url}/api/mini-projects/${projectid}/submissions/${userid}`)
       .then((response) => {
-        console.log(response.data)
-        if (response.data.length > 0) {
+        console.log("previous submission :",response.data)
+        if (response.data.projsubmissionid) {
+          console.log("Already submitted :",response.data.submitted_code)
           const storageRef = ref(storage, `/projects/submissions/${projectid}/${response.data.submitted_code}`);
           uploadBytes(storageRef, file)
             .then((snapshot) => {
-              axios.put(`${server_url}/api/mini-projects/${projectid}/submissions/${response.data.projsubmissionid}`, {
+              axios.put(`${server_url}/api/mini-projects/${projectid}/submissions/${userid}`, {
                 ...response.data,
-                submitted_time: dayjs().format(),
+                submitted_time: dayjs().toISOString(),
               })
                 .then((response) => {
                   console.log(response);
@@ -99,6 +101,7 @@ export default function MiniProject() {
         }
         else {
           const storageRef = ref(storage, `/projects/submissions/${projectid}/${sub_file_name}`);
+          console.log("New submission :",sub_file_name)
           uploadBytes(storageRef, file)
             .then((snapshot) => {
               axios.post(`${server_url}/api/mini-projects/${projectid}/submissions`, {
@@ -128,7 +131,7 @@ export default function MiniProject() {
   return (
     <div style={containerStyle}>
       <Navbar />
-
+      <MiniProjectNavbar projectid={projectid}/>
       <h4 style={{ textAlign: "center", marginTop: "35px" }}>
         Mini Project Contest Title: {project.title}
       </h4>

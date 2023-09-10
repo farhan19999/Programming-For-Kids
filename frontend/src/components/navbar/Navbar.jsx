@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+
 import { useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ function Navbar() {
             <div className="container-fluid" style={{ height: "50px" }}>
                 <NavLink className="navbar-brand" to="/">Programming For Kids</NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true"
                     aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -38,7 +38,7 @@ function Navbar() {
                             <NavLink className="nav-link active" to={(loggedIn && role === "admin")? "/admin/daily-puzzle" : "/daily-puzzle"}>Daily-Puzzle</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link active" to="/#">Code-Game</NavLink>
+                            <NavLink className="nav-link active" to="/code-gaming">Code-Game</NavLink>
                         </li>
                         {
                             loggedIn ?

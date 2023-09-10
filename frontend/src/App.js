@@ -35,6 +35,10 @@ import ProblemPage from "./pages/practice/problem_page/ProblemPage";
 import AdminAuth from "./components/auth/AdminAuth";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
 import AdminLogin from "./pages/admin/login/AdminLogin";
+import MiniProjectSubmissionTable from "./pages/mini_project_submission_table/MiniProjectSubmissionTable";
+import MiniProjectStandings from "./pages/minproject_standing/MiniProjectStanding";
+import CodeGamingProblem from "./pages/code_gaming/code_gaming_problem/CodeGamingProblem";
+import CodeGamingList from "./pages/code_gaming/code_gaming_list/CodeGamingList";
 
 
 const router = createBrowserRouter([
@@ -174,6 +178,15 @@ const router = createBrowserRouter([
   },
 
   {
+    path: "/miniproject/:projectid/my-submissions",
+    element: <MiniProjectSubmissionTable />,
+  },
+  {
+    path: "/miniproject/:projectid/standings",
+    element: <MiniProjectStandings />,
+  },
+
+  {
     path: "/miniprojects",
     element: <MiniProjectList />,
   },
@@ -185,6 +198,14 @@ const router = createBrowserRouter([
     path: "/daily-puzzle", // Route for detailed page with contestid
     element: <DailyPuzzle />,
   },
+  {
+    path: "/code-gaming",
+    element: <CodeGamingList />,
+  },
+  {
+    path: "/code-gaming/:codegameid",
+    element: <CodeGamingProblem />,
+  }
 
 
 ]);
