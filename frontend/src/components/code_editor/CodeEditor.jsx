@@ -19,7 +19,7 @@ const CodeEditor = ({contestid, problemid}) => {
   const [submissionStatus, setSubmissionStatus] = useState("Pending"); // Submission status
   const [codeContent, setCodeContent] = useState(""); // Store the code content
   const server_url = process.env.REACT_APP_SERVER_URL;
-  const { loggedIn, userid } = useSelector();
+  const { loggedIn, userid } = useSelector((state)=>state.user);
 
   const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ const CodeEditor = ({contestid, problemid}) => {
 
   const handleSubmit = async () => {
     if(!loggedIn){
-      navigate("/login");
+      navigate("/signin");
     }
     // Simulate submission logic here
     const isCorrect = false;
@@ -94,9 +94,6 @@ const CodeEditor = ({contestid, problemid}) => {
     }
 
     navigate(`/contest/${contestid}/my-submissions`);
-
-    // navigate(`/contest/${contestid}/problem/${problemid}/submission-status`);
-    // navigate(`/online`);
 
   };
 

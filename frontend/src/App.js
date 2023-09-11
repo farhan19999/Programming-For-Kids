@@ -40,12 +40,12 @@ import MiniProjectSubmissionTable from "./pages/mini_project_submission_table/Mi
 import MiniProjectStandings from "./pages/minproject_standing/MiniProjectStanding";
 import CodeGamingProblem from "./pages/code_gaming/code_gaming_problem/CodeGamingProblem";
 import CodeGamingList from "./pages/code_gaming/code_gaming_list/CodeGamingList";
-
 import AdminHome from "./pages/admin/admin_home/AdminHome";
-import SubmissionStatus from "./pages/online/Online";
 import PracticeProblemDetails from "./pages/practice/practice_problem_details/Practice_problem_Details";
 import PracticeProblemDiscussion from "./pages/discussion/Discussion";
 import PracticeProblemSolution from "./pages/practice/practice_problem_solution/PracticeProblemSolution";
+import PracticeSubmissionTable from "./components/practice_submission_table/PracticeSubmissionTable";
+import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
 
 const router = createBrowserRouter([
   {
@@ -109,7 +109,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <AdminDashboard />,
+        element: <AdminHome />,
       },
       {
         path: "contest",
@@ -171,25 +171,24 @@ const router = createBrowserRouter([
     path: "/practice",
     element: <PracticeProblemIndex />,
   },
-  {
-    path: "/practice/problems/:problemid", // Route for detailed page with problemid
-    element: <ProblemPage />,
-  },
 
   {
-    path: "/practice/problem/:problemid",
+    path: "/practice/problems/:problemid",
     element: <PracticeProblemDetails />,
   },
   
   {
-    path: "/practice/problem/:problemid/discussion",
+    path: "/practice/problems/:problemid/discussion",
     element: <PracticeProblemDiscussion />,
   },
   {
-    path: "/practice/problem/:problemid/solution",
+    path: "/practice/problems/:problemid/solution",
     element: <PracticeProblemSolution />,
   },
-
+  {
+    path: "/practice/problems/user/my-submissions",
+    element: <PracticeProblemSubmission />,
+  },
 
 
   ///////////////////////////// PRACTICE PROBLEM END /////////////////////////
@@ -200,15 +199,15 @@ const router = createBrowserRouter([
     element: <MiniProject />,
   },
 
-  {
-    path: "/admin", // Route for detailed page with projectid
-    element: <AdminHome />,
-  },
+  // {
+  //   path: "/admin", // Route for detailed page with projectid
+  //   element: <AdminHome />,
+  // },
 
-  {
-    path: "/admin", // Route for detailed page with projectid
-    element: <AdminHome />,
-  },
+  // {
+  //   path: "/admin", // Route for detailed page with projectid
+  //   element: <AdminHome />,
+  // },
   {
     path: "/miniproject/:projectid/my-submissions",
     element: <MiniProjectSubmissionTable />,

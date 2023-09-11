@@ -1,9 +1,12 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom'; // Import NavLink and useLocation
+import { useSelector } from 'react-redux';
+import { NavLink,  useLocation, useNavigate } from 'react-router-dom'; // Import NavLink and useLocation
 
-function SubNavbarPracticeProblem({ userid }) {
+function SubNavbarPracticeProblem() {
+    const navigate = useNavigate(); // Get navigate function from useNavigate hook
     const location = useLocation(); // Get the current location
-
+    const {userid, loggedIn} = useSelector((state) => state.user); // Get userid and loggedIn from redux store
+    if(!loggedIn) navigate("/signin");
     return (
         <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#e3f2fd", marginTop: "0px" }}>
             <div className="container-fluid">
@@ -14,11 +17,11 @@ function SubNavbarPracticeProblem({ userid }) {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mx-auto d-flex gap-5">
-                        <li className={`nav-item ${location.pathname === '/contest/1' ? 'active' : ''}`}>
+                        <li className={`nav-item ${location.pathname === '/practice' ? 'active' : ''}`}>
                             <NavLink className="nav-link" to={`/practice`}>Problems</NavLink>
                         </li>
-                        <li className={`nav-item ${location.pathname === '/my-submissions' ? 'active' : ''}`}>
-                            <NavLink className="nav-link" to={`/practice/user/${userid}/my-submissions`}>My Submissions</NavLink>
+                        <li className={`nav-item ${location.pathname === '/practice/problems/user/my-submissions' ? 'active' : ''}`}>
+                            <NavLink className="nav-link" to={`/practice/problems/user/my-submissions`}>My Submissions</NavLink>
                         </li>
                     </ul>
                 </div>

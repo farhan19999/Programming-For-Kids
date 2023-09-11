@@ -76,7 +76,7 @@ const addRegisteredContest = async (id, contestid) => {
 
 const getAllPracticeSubmissionByUserId = async (id) => {
     try {
-        const result = await pool.query('SELECT * FROM pfk.practice_problem_submission_history WHERE userid = $1', [id])
+        const result = await pool.query('SELECT * FROM pfk.practice_problem_submission_history pp inner join pfk.problem p on(pp.problemid = p.problemid) WHERE userid = $1', [id])
         return {'submissions':result.rows}
     } catch (error) {
         console.log(error)

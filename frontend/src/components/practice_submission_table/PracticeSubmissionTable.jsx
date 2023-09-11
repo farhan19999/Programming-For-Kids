@@ -12,7 +12,8 @@ import { Col, Row, Table } from 'react-bootstrap';
 import Loading from '../loading/Loading';
 import Navbar from '../navbar/Navbar';
 import Footer from '../footer/Footer';
-import SubNavbarPracticeProblem from '../sub_navbar_practice_problem/SubNavbarPracticeProblem';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 const header = [
@@ -20,28 +21,41 @@ const header = [
   { title: 'Submitted Time', prop: 'submitted_time' },
   { title: 'Language', prop: 'language' },
   { title: 'Status', prop: 'status' },
-  { title: 'Details', prop: 'details' }
+//   { title: 'Details', prop: 'details' }
 ];
 
 
 
 // Then, use it in a component.
-export default function SubmissionTable({ contestid, userid }) {
-
-  const [submissions, setSubmissions] = useState(null);
+export default function PracticeSubmissionTable() {
+  const {userid,loggedIn, role} = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const [submissions, setSubmissions] = useState([]);
   const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    axios.get(`${server_url}/api/contests/${contestid}/submissions/?userid=${userid}`).then((res) => {
-      setSubmissions(res.data);
+    if(!loggedIn || !userid || role !== "user") return;
+    axios.get(`${server_url}/api/users/${userid}/practice-submissions`)
+    .then((res) => {
+        console.log(res.data);
+        const s = res.data.submissions;
+        s.forEach((submission) => {
+            submission.submitted_time = new Date(submission.submitted_time).toLocaleString();
+        });
+        setSubmissions(s);
+    })
+    .catch((err) => {
+        console.error(err);
     });
-  }, [server_url, contestid, userid]);
+  }, [server_url,loggedIn,userid,role]);
+
+  if(!loggedIn || !userid || role !== "user") {
+        navigate("/signin");
+  }
 
   if (!submissions) {
     return (
       <>
-        <Navbar />
         <Loading />
-        <Footer />
       </>
     );
   };

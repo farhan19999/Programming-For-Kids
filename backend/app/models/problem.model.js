@@ -64,7 +64,7 @@ const updateProblemSubmission = async (id, verdict, details) => {
 
 const getProblemDiscussion = async (id) => {
     try {
-        const result = await pool.query('SELECT * FROM pfk.comment WHERE problemid = $1', [id])
+        const result = await pool.query('SELECT * FROM pfk.comment c inner join  pfk.users u on(c.userid=u.userid) WHERE problemid = $1', [id])
         return {'comments':result.rows}
     } catch (error) {
         console.log(error)
