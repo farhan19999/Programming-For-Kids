@@ -32,21 +32,17 @@ import AdminDailyPuzzle from "./pages/admin/admin_puzzle/AdminPuzzle";
 import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
 import AdminDailyPuzzleModify from "./pages/admin/admin_puzzle_modify/AdminPuzzleModify";
 import SignOut from "./pages/signout/SignOut";
-
-import ProblemPage from "./pages/practice/problem_page/ProblemPage";
-import AdminAuth from "./components/auth/AdminAuth";
-import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
-import AdminLogin from "./pages/admin/login/AdminLogin";
-import MiniProjectSubmissionTable from "./pages/mini_project_submission_table/MiniProjectSubmissionTable";
-import MiniProjectStandings from "./pages/minproject_standing/MiniProjectStanding";
-import CodeGamingProblem from "./pages/code_gaming/code_gaming_problem/CodeGamingProblem";
-import CodeGamingList from "./pages/code_gaming/code_gaming_list/CodeGamingList";
+import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
 import AdminHome from "./pages/admin/admin_home/AdminHome";
 import PracticeProblemDetails from "./pages/practice/practice_problem_details/Practice_problem_Details";
 import PracticeProblemDiscussion from "./pages/discussion/Discussion";
 import PracticeProblemSolution from "./pages/practice/practice_problem_solution/PracticeProblemSolution";
-import PracticeSubmissionTable from "./components/practice_submission_table/PracticeSubmissionTable";
-import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
+import AdminModifySolution from "./pages/admin/Admin_modify_solution/AdminModifySolution";
+import AdminLogin from "./pages/admin/login/AdminLogin";
+import AdminAuth from "./components/auth/AdminAuth";
+import ProblemPage from "./pages/practice/problem_page/ProblemPage";
+import CodeGamingList from "./pages/code_gaming/code_gaming_list/CodeGamingList";
+import CodeGamingProblem from "./pages/code_gaming/code_gaming_problem/CodeGamingProblem";
 
 const router = createBrowserRouter([
   {
@@ -163,6 +159,24 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: "/admin/contest/:contestid",  // admin-contest-problems-index
+    element: <AdminContestProblemIndex />,
+  },
+  
+  {
+    path: "/admin/contest/:contestid/problem/:problemid",
+    element: <AdminContestProblemDetails />,
+  },
+
+  {
+    path: "/admin/contest/:contestid/problem/:problemid/add-solution",
+    element: <AdminAddSolution />,
+  },
+  {
+    path: "/admin/contest/:contestid/problem/:problemid/modify-solution",
+    element: <AdminModifySolution />,
+  },
   ///////////////////////////// ADMIN CONTESTS END /////////////////////////////
 
   ///////////////////////////// PRACTICE PROBLEM START /////////////////////////
@@ -173,25 +187,14 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/practice/problems/:problemid",
-    element: <PracticeProblemDetails />,
-  },
-  
-  {
-    path: "/practice/problems/:problemid/discussion",
-    element: <PracticeProblemDiscussion />,
-  },
-  {
-    path: "/practice/problems/:problemid/solution",
-    element: <PracticeProblemSolution />,
-  },
-  {
-    path: "/practice/problems/user/my-submissions",
-    element: <PracticeProblemSubmission />,
+    path: "/practice/problems/:problemid", // Route for detailed page with problemid
+    element: <ProblemPage />,
   },
 
-
-  ///////////////////////////// PRACTICE PROBLEM END /////////////////////////
+  // {
+  //   path: "/practice/:problemid/submissions",
+  //   element: <PracticeProblemSubmission />,
+  // },
 
 
   {
@@ -199,26 +202,8 @@ const router = createBrowserRouter([
     element: <MiniProject />,
   },
 
-  // {
-  //   path: "/admin", // Route for detailed page with projectid
-  //   element: <AdminHome />,
-  // },
-
-  // {
-  //   path: "/admin", // Route for detailed page with projectid
-  //   element: <AdminHome />,
-  // },
   {
-    path: "/miniproject/:projectid/my-submissions",
-    element: <MiniProjectSubmissionTable />,
-  },
-  {
-    path: "/miniproject/:projectid/standings",
-    element: <MiniProjectStandings />,
-  },
-
-  {
-    path: "/miniprojects",
+    path: "/miniproject",
     element: <MiniProjectList />,
   },
   {

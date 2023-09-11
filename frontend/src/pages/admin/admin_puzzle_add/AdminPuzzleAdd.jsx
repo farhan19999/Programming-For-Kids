@@ -40,6 +40,13 @@ export default function AdminContestProblemDetails() {
         });
     };
 
+    const handleDateChange = (event) => {
+        setPuzzle({
+            ...puzzle,
+            date: event.target.value,
+        });
+    }
+
     // const { puzzleid } = useParams();
     const navigate = useNavigate();
 
@@ -50,7 +57,7 @@ export default function AdminContestProblemDetails() {
     const handleSaveClick = () => {
         const dateElement = document.getElementById("dop");
         if (dateElement) {
-            const date = dateElement.value.format("YYYY-MM-DD");
+            const date = dateElement.value;
             axios
                 .get(`${server_url}/api/puzzles/date/${date}`)
                 .then((response) => {

@@ -17,6 +17,8 @@ import storage from "../../../utils/firebase";
 import { ref, getDownloadURL, deleteObject, uploadBytes, getBytes } from "firebase/storage";
 
 export default function AdminMPDetails() {
+
+
   const { projectid } = useParams();
 
   const [project, setProject] = useState(null);
