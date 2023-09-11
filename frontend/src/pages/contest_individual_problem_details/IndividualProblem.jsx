@@ -1,13 +1,3 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import Navbar from "../../components/navbar/Navbar";
-import SubNavbar from "../../components/sub_navbar/SubNavbar";
-import TimeRemaining from "../../components/time_remaining/Timer";
-import ProblemDetails from "../../components/problem_details/ProblemDetails";
-import CodeEditor from "../../components/code_editor/CodeEditor";
-import Footer from "../../components/footer/Footer";
-import Loading from "../../components/loading/Loading";
 
 import React, { useState, useEffect } from "react"; 
 import axios from "axios"; 

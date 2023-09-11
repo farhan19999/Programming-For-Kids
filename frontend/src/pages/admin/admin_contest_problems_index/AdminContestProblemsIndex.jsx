@@ -57,12 +57,12 @@ function AdminContestProblemsIndex() {
             `${server_url}/api/contests/${contestid}`
         )
         .then((response) => {
-            console.log("Problem deleted:", response.data);
+            console.log("Contest deleted:", response.data);
         })
         .catch((error) => {
-            console.error("Error deleting problem:", error);
+            console.error("Error deleting Contest:", error);
         });
-        navigate(`/admin/contests/`);
+        navigate(`/admin/contest/`);
     }
     return (
         <div>

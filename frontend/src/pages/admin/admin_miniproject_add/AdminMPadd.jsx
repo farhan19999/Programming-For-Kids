@@ -10,7 +10,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
 import { ref, uploadBytes } from "firebase/storage";
 import storage from "../../../utils/firebase";
-import AdminNavbar from "../../../components/navbar/AdminNavbar";
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 export default function AdminMPadd() {
   const [projectTitle, setProjectTitle] = useState("");
