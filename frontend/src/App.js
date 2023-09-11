@@ -21,6 +21,7 @@ import AdminContestAddNew from "./pages/admin/admin_contest_add_new/AdminContest
 import AdminContestProblemAdd from "./pages/admin/admin_contest_problem_add/AdminContestProblemAdd";
 import AdminContestProblemIndex from "./pages/admin/admin_contest_problems_index/AdminContestProblemsIndex";
 import AdminContestProblemDetails from "./pages/admin/admin_contest_problem_details/AdminContestProblemDetails";
+import AdminAddSolution from "./pages/admin/admin_add_solution/AdminAddSolution";
 import PracticeProblemIndex from './pages/practice/practice_problem_index/PracticeProblemIndex';
 import MySubmissions from "./pages/my_submissions/MySubmissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
@@ -31,11 +32,13 @@ import AdminDailyPuzzle from "./pages/admin/admin_puzzle/AdminPuzzle";
 import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
 import AdminDailyPuzzleModify from "./pages/admin/admin_puzzle_modify/AdminPuzzleModify";
 import SignOut from "./pages/signout/SignOut";
-import ProblemPage from "./pages/practice/problem_page/ProblemPage";
-import AdminAuth from "./components/auth/AdminAuth";
-import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
-import AdminLogin from "./pages/admin/login/AdminLogin";
-
+import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
+import AdminHome from "./pages/admin/admin_home/AdminHome";
+import SubmissionStatus from "./pages/online/Online";
+import PracticeProblemDetails from "./pages/practice/practice_problem_details/Practice_problem_Details";
+import PracticeProblemDiscussion from "./pages/discussion/Discussion";
+import PracticeProblemSolution from "./pages/practice/practice_problem_solution/PracticeProblemSolution";
+import AdminModifySolution from "./pages/admin/Admin_modify_solution/AdminModifySolution";
 
 const router = createBrowserRouter([
   {
@@ -152,6 +155,27 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: "/admin/contest/:contestid",  // admin-contest-problems-index
+    element: <AdminContestProblemIndex />,
+  },
+  
+  {
+    path: "/admin/contest/:contestid/problem/:problemid",
+    element: <AdminContestProblemDetails />,
+  },
+
+  {
+    path: "/admin/contest/:contestid/problem/:problemid/add-solution",
+    element: <AdminAddSolution />,
+  },
+  {
+    path: "/admin/contest/:contestid/problem/:problemid/modify-solution",
+    element: <AdminModifySolution />,
+  },
+  ///////////////////////////// ADMIN CONTESTS END /////////////////////////////
+
+  ///////////////////////////// PRACTICE PROBLEM START /////////////////////////
 
   {
     path: "/practice",

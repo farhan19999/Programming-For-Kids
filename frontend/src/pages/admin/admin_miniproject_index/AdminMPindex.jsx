@@ -5,6 +5,7 @@ import axios from "axios";
 import Navbar from "../../../components/navbar/Navbar";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
+import Footer from "../../../components/footer/Footer";
 
 export default function AdminMPindex() {
   const [project, setProject] = useState([]);
@@ -68,7 +69,7 @@ export default function AdminMPindex() {
         Add New Project
       </button>
 
-
+            <Footer />
     </div>
   );
 }
