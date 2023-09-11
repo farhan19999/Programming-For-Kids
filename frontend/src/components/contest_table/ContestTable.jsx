@@ -69,7 +69,7 @@ export default function ContestTable() {
 
     if(!contests) return (<Loading />);
     return (
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <Paper sx={{ width: '112%', overflow: 'hidden',fontSize:'18px',marginLeft:'-80px' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>

@@ -3,7 +3,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className="bg-dark text-center text-lg-start" style={{marginTop:"500px"}}>
+    <footer className="bg-dark text-center text-lg-start" style={{marginTop:"100px"}}>
       <div className="container p-4">
         <div className="row">
           <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
