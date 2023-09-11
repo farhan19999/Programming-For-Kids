@@ -18,6 +18,7 @@ export default function ProblemPage() {
   const { problemid } = useParams();
   const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
+    if(!problemid) return;
     axios.get(`${server_url}/api/problems/${problemid}`)
     .then((response) => {
       setProblem(response.data);
@@ -48,10 +49,6 @@ export default function ProblemPage() {
       <h4 style={{ textAlign: "center", marginTop: "20px" }}>
         Contest Title: {contest.title} (Rated for Div. {contest.div})
       </h4>
-      <div style={{  }}>
-        <TimeRemaining />
-      </div>
-
       <div style={{ display: "flex" }}>
         <ProblemDetails problem={problem} />
         <div style={{ marginLeft: "22px", marginTop: "26px", flex: "1" }}>

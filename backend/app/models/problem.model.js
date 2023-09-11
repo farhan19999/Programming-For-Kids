@@ -64,7 +64,7 @@ const updateProblemSubmission = async (id, verdict, details) => {
 
 const getProblemDiscussion = async (id) => {
     try {
-        const result = await pool.query('SELECT * FROM pfk.comment WHERE problemid = $1', [id])
+        const result = await pool.query('SELECT * FROM pfk.comment c inner join  pfk.users u on(c.userid=u.userid) WHERE problemid = $1', [id])
         return {'comments':result.rows}
     } catch (error) {
         console.log(error)
@@ -135,7 +135,14 @@ const updateProblemSolution = async (id, solutionid, solution) => {
         throw error;
     } 
 }
-
+const deleteProblemSolution = async (id, solutionid) => {
+    try {
+        const result = await pool.query('DELETE FROM pfk.solution WHERE problemid = $1 AND solutionid = $2', [id, solutionid])
+        return result.rows[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 const getTestCasesByProblemId = async (id) => {
     try {
@@ -170,6 +177,7 @@ module.exports = { getAllProblems,
                    getProblemSolution, 
                    createProblemSolution, 
                    updateProblemSolution,
+                   deleteProblemSolution,
                    getTestCasesByProblemId,
                    getTimeLimitByProblemId 
                 }

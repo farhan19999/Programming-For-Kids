@@ -4,14 +4,15 @@ import AdminNavbar from '../../../components/admin_navbar/AdminNavbar';
 
 export default function AdminHome() {
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <AdminNavbar />
       <div
         style={{
-          margin: '20px auto', // Auto margins horizontally center the content
+          flex: '1', // This makes the content area expand to fill the available space
+          margin: '20px auto',
           marginTop: '100px',
-          width: '80%', // You can adjust the width as needed
-          textAlign: 'center', // Center-align the text
+          width: '80%',
+          textAlign: 'center',
         }}
         className="admin-content"
       >

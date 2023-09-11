@@ -384,6 +384,7 @@ router.delete('/:id/discussions/:commentid', problemsController.deleteComment)
 
 router.get('/:id/solutions', problemsController.getProblemSolution)
 router.post('/:id/solutions', problemsController.createproblemSolution)
+router.delete('/:id/solutions/:solutionid', problemsController.deleteSolution)  
 
 /**
  * @swagger

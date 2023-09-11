@@ -10,6 +10,7 @@ import SubNavbarPracticeProblem from "../../../components/sub_navbar_practice_pr
 
 export default function PracticeProblemDetails() {
 
+
     const { problemid } = useParams();
     const [problem, setProblem] = useState(null);
     const server_url = process.env.REACT_APP_SERVER_URL;
@@ -22,32 +23,33 @@ export default function PracticeProblemDetails() {
                 setProblem(response.data);
                 console.log(response.data);
             });
-    }, [problemid]);
+    }, [server_url,problemid]);
 
     if (!problem) {
         return (
-            <div>
-                <Navbar />
-                <Loading />
-                <Footer />
-            </div>
-        );
+            <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                <div style={{ flex: '1' }}>
+                    <Navbar />
+                    <Loading />
+                    <Footer />
+                </div>
+            </div>)
     }
 
     const handleDiscussionClick = () => {
-        navigate(`/practice/problem/${problemid}/discussion`);
+        navigate(`/practice/problems/${problemid}/discussion`);
 
     }
 
     const handleSolutionClick = () => {
-        navigate(`/practice/problem/${problemid}/solution`);
+        navigate(`/practice/problems/${problemid}/solution`);
     }
 
 
     return (
         <div style={{ position: "relative" }}>
             <Navbar />
-            <SubNavbarPracticeProblem />
+            <SubNavbarPracticeProblem/>
             {/* <SubNavbar userid={userid}/> */}
 
             <h4 style={{ textAlign: "center", marginTop: "20px" }}>
@@ -61,9 +63,9 @@ export default function PracticeProblemDetails() {
                 </div>
             </div>
             <div style={{ marginLeft: '15%' }} >
-                <button onClick={handleDiscussionClick} type="button" className="btn btn-dark btn-me" style={{ width: '150px' }}>
+                {/* <button onClick={handleDiscussionClick} type="button" className="btn btn-dark btn-me" style={{ width: '150px' }}>
                     Discussion
-                </button>
+                </button> */}
 
                 <button onClick={handleSolutionClick} type="button" className="btn btn-dark btn-me" style={{ width: '150px', marginLeft: '20px' }}>
                     Solution
