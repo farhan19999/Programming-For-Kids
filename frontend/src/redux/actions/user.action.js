@@ -28,6 +28,14 @@ export const logoutUser = () => {
     }
 }
 
+
+export const changeRole = (role) => {
+    return {
+        type: 'CHANGE_ROLE',
+        payload: role
+    }
+}
+
 export const loginUser = (email_address, password) => {
     return (dispatch, getState) => {
         dispatch(fetchUserRequest())
@@ -37,6 +45,28 @@ export const loginUser = (email_address, password) => {
                 const user = response.data
                 if(user.success === true) {
                     dispatch(fetchUserSuccess(user.userid))
+                    dispatch(changeRole('user'))
+                } else {
+                    dispatch(fetchUserFailure(user.message))
+                }
+            })
+            .catch(error => {
+                const errorMsg = error.message
+                dispatch(fetchUserFailure(errorMsg))
+            })
+    }
+}
+
+export const loginAdmin = (email_address, password) => {
+    return (dispatch, getState) => {
+        dispatch(fetchUserRequest())
+        const server_url = process.env.REACT_APP_SERVER_URL;
+        axios.post(`${server_url}/api/auth/admin/login/`, { email_address : email_address, password : password})
+            .then(response => {
+                const user = response.data
+                if(user.success === true) {
+                    dispatch(fetchUserSuccess(user.userid))
+                    dispatch(changeRole('admin'))
                 } else {
                     dispatch(fetchUserFailure(user.message))
                 }

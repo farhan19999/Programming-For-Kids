@@ -31,17 +31,20 @@ import AdminDailyPuzzle from "./pages/admin/admin_puzzle/AdminPuzzle";
 import AdminDailyPuzzleAdd from "./pages/admin/admin_puzzle_add/AdminPuzzleAdd";
 import AdminDailyPuzzleModify from "./pages/admin/admin_puzzle_modify/AdminPuzzleModify";
 import SignOut from "./pages/signout/SignOut";
-import PracticeProblemSubmission from "./pages/practice/practice_problem_submission/PracticeProblemSubmission";
-import AdminHome from "./pages/admin/admin_home/AdminHome";
-import SubmissionStatus from "./pages/online/Online";
-import PracticeProblemDetails from "./pages/practice/practice_problem_details/Practice_problem_Details";
-import PracticeProblemDiscussion from "./pages/discussion/Discussion";
-import PracticeProblemSolution from "./pages/practice/practice_problem_solution/PracticeProblemSolution";
+import ProblemPage from "./pages/practice/problem_page/ProblemPage";
+import AdminAuth from "./components/auth/AdminAuth";
+import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
+import AdminLogin from "./pages/admin/login/AdminLogin";
+
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "admin-login",
+    element: <AdminLogin />,
   },
   {
     path: "/dashboard",
@@ -63,10 +66,7 @@ const router = createBrowserRouter([
     path:"/contest/my-submissions",
     element:<Submission_IndividualProblem/>
   },
-  // {
-  //   path:"/contest/standings",
-  //   element:<Standings_Crogramming_Contest/>
-  // },
+
   {
     path: "/signup",
     element: <SignUp />,
@@ -94,81 +94,84 @@ const router = createBrowserRouter([
 
   ///////////////////////////// ADMIN CONTESTS /////////////////////////////
   {
-    path: "/admin/contests",
-    element: <AdminContestAdd />,
-  },
-  {
-    path: "/admin/contest-add-new",
-    element: <AdminContestAddNew />,
-  },
-  {
+    path: "/admin",
+    element: <AdminAuth />,
+    children: [
+      {
+        path: "",
+        element: <AdminDashboard />,
+      },
+      {
+        path: "contest",
+        element: <AdminContestAdd />,
+      },
+      {
+        path: "contest-add-new",
+        element: <AdminContestAddNew />,
+      },
+      {
+        
+        path: "contest/:contestid/problem-add",  //admin-contest-problem-add
+        element: <AdminContestProblemAdd />,
+        
+      },
+      {
+        path: "contest/:contestid",  // admin-contest-problems-index
+        element: <AdminContestProblemIndex />,
+      },
+      
+      {
+        path: "contest/:contestid/problem/:problemid",
+        element: <AdminContestProblemDetails />,
+      },
+      {
+        path: "/admin/daily-puzzle", // Route for detailed page with contestid
+        element: <AdminDailyPuzzle />,
+      },
+      {
+        path: "/admin/daily-puzzle/add", // Route for detailed page with contestid
+        element: <AdminDailyPuzzleAdd />,
+      },
+      {
+        path: "/admin/daily-puzzle/:puzzleid/modify", // Route for detailed page with contestid
+        element: <AdminDailyPuzzleModify />,
+      },
+      {
+        path: "/admin/miniprojects",
+        element: <AdminMPindex />,
+      },
     
-    path: "/admin/contest/:contestid/problem-add",  //admin-contest-problem-add
-    element: <AdminContestProblemAdd />,
+      {
+        path: "/admin/miniprojects/:projectid", // Route for detailed page with projectid
+        element: <AdminMPdetails />,
+      },
     
+      {
+        path: "/admin/miniprojects/add", 
+        element: <AdminMPadd />,
+      }
+    ]
   },
-  {
-    path: "/admin/contest/:contestid",  // admin-contest-problems-index
-    element: <AdminContestProblemIndex />,
-  },
-  
-  {
-    path: "/admin/contest/:contestid/problem/:problemid",
-    element: <AdminContestProblemDetails />,
-  },
-  ///////////////////////////// ADMIN CONTESTS END /////////////////////////////
-
-  ///////////////////////////// PRACTICE PROBLEM START /////////////////////////
 
   {
     path: "/practice",
     element: <PracticeProblemIndex />,
   },
   {
-    path: "/practice/problem/:problemid",
-    element: <PracticeProblemDetails />,
-  },
-  
-  {
-    path: "/practice/problem/:problemid/discussion",
-    element: <PracticeProblemDiscussion />,
-  },
-  {
-    path: "/practice/problem/:problemid/solution",
-    element: <PracticeProblemSolution />,
+    path: "/practice/problems/:problemid", // Route for detailed page with problemid
+    element: <ProblemPage />,
   },
 
-
-
-  ///////////////////////////// PRACTICE PROBLEM END /////////////////////////
+  // {
+  //   path: "/practice/:problemid/submissions",
+  //   element: <PracticeProblemSubmission />,
+  // },
 
 
   {
     path: "/miniproject/:projectid", // Route for detailed page with projectid
     element: <MiniProject />,
   },
-
-  {
-    path: "/admin", // Route for detailed page with projectid
-    element: <AdminHome />,
-  },
-
-  ///////////////////////////// ADMIN MINI PROJECTS /////////////////////////////
-  {
-    path: "/admin/miniprojects",
-    element: <AdminMPindex />,
-  },
-
-  {
-    path: "/admin/miniprojects/:projectid", // Route for detailed page with projectid
-    element: <AdminMPdetails />,
-  },
-
-  {
-    path: "/admin/miniprojects/add", 
-    element: <AdminMPadd />,
-  },
-  ///////////////////////////// ADMIN MINI PROJECTS END /////////////////////////////
 
   {
     path: "/miniproject",
@@ -183,28 +186,14 @@ const router = createBrowserRouter([
     element: <DailyPuzzle />,
   },
 
-  ///////////////////////////// ADMIN DAILY PUZZLE /////////////////////////////
-  {
-    path: "/admin/daily-puzzle", // Route for detailed page with contestid
-    element: <AdminDailyPuzzle />,
-  },
-  {
-    path: "/admin/daily-puzzle/add", // Route for detailed page with contestid
-    element: <AdminDailyPuzzleAdd />,
-  },
-  {
-    path: "/admin/daily-puzzle/:puzzleid/modify", // Route for detailed page with contestid
-    element: <AdminDailyPuzzleModify />,
-  },
-  ///////////////////////////// ADMIN DAILY PUZZLE END /////////////////////////////
 
 
 
-  //online
-  {
-    path: "/contest/:contestid/problem/:problemid/submission-status", // Route need to change
-    element: <SubmissionStatus />,
-  },
+  // //online
+  // {
+  //   path: "/contest/:contestid/problem/:problemid/submission-status", // Route need to change
+  //   element: <SubmissionStatus />,
+  // },
 
 ]);
 

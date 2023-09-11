@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 export default function AdminMPDetails() {
+
+
   const { projectid } = useParams();
 
   const [project, setProject] = useState('');

@@ -7,6 +7,7 @@ const getAllProblemTestCases= async (problemid) => {
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -17,6 +18,7 @@ const addProblemTestCase = async (problemid, testcase) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -26,6 +28,7 @@ const getProblemTestCaseById = async (testcaseid) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -35,6 +38,7 @@ const updateProblemTestCase = async (testcaseid, testcase) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -44,6 +48,7 @@ const updateProblemTestCaseInputFile = async (testcaseid, testcase) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -53,6 +58,7 @@ const updateProblemTestCaseOutputFile = async (testcaseid, testcase) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -62,6 +68,7 @@ const deleteProblemTestCase = async (testcaseid) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
