@@ -211,14 +211,6 @@ const router = createBrowserRouter([
   },
 
 
-
-
-  // //online
-  // {
-  //   path: "/contest/:contestid/problem/:problemid/submission-status", // Route need to change
-  //   element: <SubmissionStatus />,
-  // },
-
 ]);
 
 function App() {

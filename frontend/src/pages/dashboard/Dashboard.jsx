@@ -16,7 +16,7 @@ function Dashboard() {
     <div>
       <Navbar />
       <div className='row' >
-        <div className='col'>
+        <div className='col' style={{margin:'30px'}}>
           <UserDetails />
         </div>
         <div className='col'>
