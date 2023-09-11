@@ -8,8 +8,9 @@ import Loading from '../../../components/loading/Loading'
 import { Paper } from '@mui/material'
 
 export default function PracticeProblemSolution() {
-    const {problemid} = useParams();
+    const { problemid } = useParams();
     const Navigate = useNavigate();
+
     const handleGoBackClick = () => {
       Navigate(`/practice/problems/${problemid}`);
     }
@@ -30,7 +31,7 @@ export default function PracticeProblemSolution() {
     if(!solutions) return (<><Navbar/><Loading></Loading><Footer></Footer></>);
 
     return (
-        <div>
+        <>
             <Navbar />
             <SubNavbarPracticeProblem />
 
@@ -44,13 +45,25 @@ export default function PracticeProblemSolution() {
             ))}
             
 
+            {/* <MDBContainer>
+                <video
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    ref={videoRef}
+                    src="https://mdbcdn.b-cdn.net/img/video/forest.mp4"
+                    type="video/mp4"
+                    loop
+                    className="w-100"
+                ></video>
+            </MDBContainer> */}
 
             <div style={{ marginLeft: '15%' }} >
                 <button onClick={handleGoBackClick} type="button" className="btn btn-dark btn-me" style={{ width: '150px' }}>
                     Go Back
                 </button>
             </div>
+
             <Footer />
-        </div>
+        </>
     )
 }

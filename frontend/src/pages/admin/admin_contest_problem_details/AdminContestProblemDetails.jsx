@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import storage from "../../../utils/firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
+import Loading from "../../../components/loading/Loading";
 
 export default function AdminContestProblemDetails() {
   let outputfilename = null;
@@ -65,15 +66,26 @@ export default function AdminContestProblemDetails() {
 
   const { contestid, problemid } = useParams();
   const server_url = process.env.REACT_APP_SERVER_URL;
+  const [problemSolution, setProblemSolution] = useState(null);
   useEffect(() => {
     axios
       .get(`${server_url}/api/problems/${problemid}`)
       .then((response) => {
         setProblem(response.data);
-        console.log('here problem is : ',problem);
+        console.log('here problem is : ', problem);
         // setProblemStatement(response.data.problem_statement);
         // setSampleInput(response.data.sample_input);
         // setSampleOutput(response.data.sample_output);
+        axios.get(`${server_url}/api/problems/${problemid}/solutions`)
+          .then((response) => {
+            setProblemSolution(response.data.solutions[0])
+            console.log(response.data)
+          }
+          )
+          .catch((error) => {
+            console.log('Error fetching data', error);
+          }
+          )
       });
   }, [problemid]);
 
@@ -97,6 +109,14 @@ export default function AdminContestProblemDetails() {
   const handleDeleteClick = () => {
     axios.delete(`${server_url}/api/contests/${contestid}/problems/${problemid}`);
     navigate(`/admin/contest/${contestid}`);
+  }
+
+
+  const handleAddSolutionClick = () => {
+    navigate(`/admin/contest/${contestid}/problem/${problemid}/add-solution`);
+  }
+  const handleModifySolutionClick = () => {
+    navigate(`/admin/contest/${contestid}/problem/${problemid}/modify-solution`);
   }
 
   const handleSaveClick = () => {
@@ -142,22 +162,30 @@ export default function AdminContestProblemDetails() {
   };
 
   if (!problem || !contest) {
-    return <div>Loading...</div>;
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <div style={{ flex: '1' }}>
+          <AdminNavbar />
+          <Loading />
+          <Footer />
+        </div>
+      </div>)
   }
 
   return (
     <div style={{ position: "relative" }}>
       <AdminNavbar />
 
-      <h4 style={{ textAlign: "center", marginTop: "60px" }}>
+      <h4 style={{ textAlign: "center", marginTop: "20px" }}>
         Contest Title: {contest.title} (Rated for Div.{contest.div})
       </h4>
 
-      <div style={{ marginTop: "35px" }}>
-        <h4 style={{ textAlign: "center", textDecoration: "underline" }}>
-          {problem.title}
+      <div style={{ marginTop: "20px" }}>
+        <h4 style={{ textAlign: "center" }}>
+          Problem Title: <span style={{ textDecoration: "underline" }}>{problem.title}</span>
         </h4>
       </div>
+
 
       {/* <TimeRemaining /> */}
 
@@ -179,7 +207,7 @@ export default function AdminContestProblemDetails() {
             <p style={{ fontSize: "18px" }}>Problem Statement</p>
           </label>
           <textarea
-            style={{ backgroundColor: "#eee" }}
+            style={{ backgroundColor: "#fff" }}
             className="form-control"
             id="problemStatement"
             rows="6"
@@ -201,7 +229,7 @@ export default function AdminContestProblemDetails() {
               <p style={{ fontSize: "18px" }}>Sample Input:</p>
             </label>
             <textarea
-              style={{ backgroundColor: "#eee" }}
+              style={{ backgroundColor: "#fff" }}
               className="form-control"
               id="sampleInput"
               rows="3"
@@ -215,7 +243,7 @@ export default function AdminContestProblemDetails() {
               <p style={{ fontSize: "18px" }}>Sample Output:</p>
             </label>
             <textarea
-              style={{ backgroundColor: "#eee" }}
+              style={{ backgroundColor: "#fff" }}
               className="form-control"
               id="sampleOutput"
               rows="3"
@@ -273,53 +301,62 @@ export default function AdminContestProblemDetails() {
         </div>
       </div>
 
-      <button
-        type="button"
-        className="btn btn-dark"
-        style={{
-          position: "relative",
-          bottom: "0px",
-          right: "0",
-          width: "120px",
-          marginLeft: "50px",
-          marginTop: "50px",
-        }}
-        onClick={handleDeleteClick}
-      >
-        Delete
-      </button>
+      <div className="row" style={{ marginTop: '40px', marginLeft: '40px' }}>
+        <div className="col-md-3 mb-3">
+          <button
+            type="button"
+            className="btn btn-dark btn-block"
+            style={{ width: '150px' }}
+            onClick={handleDeleteClick}
+          >
+            Delete
+          </button>
+        </div>
+        <div className="col-md-6 mb-3 d-flex justify-content-center">
 
-      <button
-        type="button"
-        className="btn btn-dark"
-        style={{
-          position: "relative",
-          bottom: "0px",
-          right: "0",
-          width: "120px",
-          marginLeft: "69%",
-          marginTop: "50px",
-        }}
-        onClick={handleCancelClick}
-      >
-        Cancel
-      </button>
-      <button
-        type="button"
-        className="btn btn-dark"
-        style={{
-          position: "relative",
-          bottom: "0px",
-          right: "0",
-          marginRight: "50px",
-          width: "120px",
-          marginLeft: "10px",
-          marginTop: "50px",
-        }}
-        onClick={handleSaveClick}
-      >
-        Save
-      </button>
+          {
+            !problemSolution ?
+              (<button
+                type="button"
+                className="btn btn-dark"
+                style={{ width: '140px', marginLeft: '-60px' }}
+                onClick={handleAddSolutionClick}
+              >
+                Add Solution
+              </button>):
+            (<button
+            type="button"
+            className="btn btn-dark"
+            style={{ width: '140px', marginLeft: '10px' }}
+            onClick={handleModifySolutionClick}
+          >
+            Modify Solution
+          </button>)
+          }
+
+        </div>
+        <div className="col-md-3 mb-3" style={{ display: 'flex', alignItems: 'flex-end' }}>
+          <button
+            type="button"
+            className="btn btn-dark"
+            style={{ width: '140px' }}
+            onClick={handleCancelClick}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="btn btn-dark"
+            style={{ width: '140px', marginLeft: '10px' }}
+            onClick={handleSaveClick}
+          >
+            Save
+          </button>
+        </div>
+      </div>
+
+
+
 
       <Footer />
     </div>

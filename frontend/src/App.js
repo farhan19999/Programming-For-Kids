@@ -21,6 +21,7 @@ import AdminContestAddNew from "./pages/admin/admin_contest_add_new/AdminContest
 import AdminContestProblemAdd from "./pages/admin/admin_contest_problem_add/AdminContestProblemAdd";
 import AdminContestProblemIndex from "./pages/admin/admin_contest_problems_index/AdminContestProblemsIndex";
 import AdminContestProblemDetails from "./pages/admin/admin_contest_problem_details/AdminContestProblemDetails";
+import AdminAddSolution from "./pages/admin/admin_add_solution/AdminAddSolution";
 import PracticeProblemIndex from './pages/practice/practice_problem_index/PracticeProblemIndex';
 import MySubmissions from "./pages/my_submissions/MySubmissions";
 import Contest_Problem_Details from "./pages/contest_individual_problem_details/IndividualProblem";
@@ -162,7 +163,6 @@ const router = createBrowserRouter([
       }
     ]
   },
-
   ///////////////////////////// ADMIN CONTESTS END /////////////////////////////
 
   ///////////////////////////// PRACTICE PROBLEM START /////////////////////////

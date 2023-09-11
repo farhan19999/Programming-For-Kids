@@ -27,12 +27,13 @@ export default function PracticeProblemDetails() {
 
     if (!problem) {
         return (
-            <div>
-                <Navbar />
-                <Loading />
-                <Footer />
-            </div>
-        );
+            <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                <div style={{ flex: '1' }}>
+                    <Navbar />
+                    <Loading />
+                    <Footer />
+                </div>
+            </div>)
     }
 
     const handleDiscussionClick = () => {
