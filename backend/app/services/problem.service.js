@@ -99,6 +99,15 @@ exports.updateProblemSolution = async (id, solutionid, solution) => {
         throw error;
     }
 }
+exports.deleteProblemSolution = async (id, solutionid) => {
+    try {
+        const result = await problemModel.deleteProblemSolution(id, solutionid);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 exports.getTimeLimitByProblemId = async (id) => {
     try {

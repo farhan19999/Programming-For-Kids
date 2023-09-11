@@ -98,6 +98,14 @@ exports.updateproblemSolution = async (req, res) => {
         res.status(500).json(error);
     }
 }
+exports.deleteSolution = async (req, res) => {
+    try {
+        const solution = await problemService.deleteProblemSolution(req.params.id, req.params.solutionid);
+        res.status(200).json(solution);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
 
 exports.getAllProblemTestCases = async (req, res) => {
     try {
