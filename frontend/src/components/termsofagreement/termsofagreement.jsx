@@ -6,13 +6,12 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 function ShowTermsOfAgreements({ userid, contestid }) {
 
     const navigate = useNavigate(); // Initialize useNavigate
-    userid = 1;
     const server_url = process.env.REACT_APP_SERVER_URL;
     const handleRegisterButton = () => {
         axios.post(`${server_url}/api/users/${userid}/registered-contests`,
             {
-                userid: userid,
-                contestid: contestid,
+                "userid": userid,
+                "contestid": contestid,
             })
             .then(response => {
                 console.log(response.data);
@@ -21,7 +20,7 @@ function ShowTermsOfAgreements({ userid, contestid }) {
                 console.error(error);
             });
 
-        navigate(`/user/${userid}/contests/`);
+        navigate(`/contest`);
 
     }
     return (

@@ -30,7 +30,7 @@ export default function MySubmissions() {
       </h4>
 
 
-      <SubmissionTable contestid={contestid} userid={1} />
+      <SubmissionTable contestid={contestid} />
 
 
     </div>

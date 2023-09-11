@@ -30,9 +30,9 @@ export default function MiniProjectList() {
       <table className="table table-hover" style={{ margin: '25px', fontSize: '18px' }}>
         <thead>
           <tr>
-            <th scope="col"> </th>
+            <th scope="col"> # </th>
             <th scope="col">Title</th>
-            <th scope="col"> </th>
+            <th scope="col">Action </th>
           </tr>
         </thead>
         <tbody>

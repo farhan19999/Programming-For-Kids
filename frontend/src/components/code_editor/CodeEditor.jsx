@@ -27,7 +27,7 @@ const CodeEditor = ({contestid, problemid}) => {
   let req_url = ''
   let next_url = ''
   if(contestid){
-    storage_path = `/contests/${contestid}`
+    storage_path = `/contests/${contestid}/submissions`
     req_url = `${server_url}/api/contests/${contestid}/submissions/${problemid}/${userid}`
     next_url = `/contest/${contestid}/my-submissions`
   }
@@ -44,8 +44,9 @@ const CodeEditor = ({contestid, problemid}) => {
   };
 
   const handleSubmit = async () => {
-    if(!loggedIn){
+    if(loggedIn === false) {
       navigate("/signin");
+      return;
     }
     // Simulate submission logic here
     const isCorrect = false;

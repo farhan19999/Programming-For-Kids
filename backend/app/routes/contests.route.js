@@ -104,10 +104,9 @@ router.put('/:id/problems/:problemid/testcases/:testcaseid', param('id').notEmpt
 router.delete('/:id/problems/:problemid/testcases/:testcaseid', param('id').notEmpty().isInt(), param('problemid').notEmpty().isInt(), param('testcaseid').notEmpty().isInt(), validator.validate,controller.deleteContestProblemTestCase);
 
 
-router.get('/:id/submissions',param('id').notEmpty().isInt(),validator.validate,
-                                 contestMiddleware.getContestSubmissionByProblemId,
-                                contestMiddleware.getContestSubmissionByUserId, 
-                                controller.getAllContestSubmissions)
+router.get('/:id/submissions/user/:userid',
+                                controller.getContestSubmissionByUserId, 
+                                )
 
 
 

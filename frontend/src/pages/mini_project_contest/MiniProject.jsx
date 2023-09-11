@@ -63,6 +63,7 @@ export default function MiniProject() {
   const fileUploadHandler = () => {
     if (!loggedIn || role !== "user") {
       navigate("/signin");
+      return;
     }
     const file = document.getElementById("input-file-now").files[0];
     if (!file) {
@@ -131,8 +132,9 @@ export default function MiniProject() {
   return (
     <div style={containerStyle}>
       <Navbar />
-      <MiniProjectNavbar projectid={projectid}/>
-      <h4 style={{ textAlign: "center", marginTop: "35px" }}>
+      {
+        loggedIn && <MiniProjectNavbar projectid={projectid}/>
+      }<h4 style={{ textAlign: "center", marginTop: "35px" }}>
         Mini Project Contest Title: {project.title}
       </h4>
       {
@@ -143,7 +145,7 @@ export default function MiniProject() {
       <div style={projectDetailsStyle}>
         <b style={{ fontSize: "20px" }}>Project Details:</b> <br />
         <Paper>
-          {project.project_details}
+         <pre style={{fontFamily:'cursive',margin:'20px'}}>{project.project_details}</pre> 
           <br /> <br />
         </Paper>
         <b style={{ fontSize: "20px" }}>Code:</b> <br />

@@ -57,7 +57,7 @@ const cCodeRunner = async (
     verdict: "",
     details: "",
   };
-  const testcases = [];
+  let testcases = [];
   //first download the code file and testcases file name
   try {
     await prepareCodeFile(code_file_path, file_name);

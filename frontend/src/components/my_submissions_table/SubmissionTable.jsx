@@ -13,6 +13,7 @@ import Loading from '../loading/Loading';
 import Navbar from '../navbar/Navbar';
 import Footer from '../footer/Footer';
 import SubNavbarPracticeProblem from '../sub_navbar_practice_problem/SubNavbarPracticeProblem';
+import { useSelector } from 'react-redux';
 
 
 const header = [
@@ -20,18 +21,18 @@ const header = [
   { title: 'Submitted Time', prop: 'submitted_time' },
   { title: 'Language', prop: 'language' },
   { title: 'Status', prop: 'status' },
-  { title: 'Details', prop: 'details' }
+  // { title: 'Details', prop: 'details' }
 ];
 
 
 
 // Then, use it in a component.
-export default function SubmissionTable({ contestid, userid }) {
-
-  const [submissions, setSubmissions] = useState(null);
+export default function SubmissionTable({ contestid }) {
+  const {loggedIn, userid} = useSelector((state)=> state.user)
+  const [submissions, setSubmissions] = useState([]);
   const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    axios.get(`${server_url}/api/contests/${contestid}/submissions/?userid=${userid}`).then((res) => {
+    axios.get(`${server_url}/api/contests/${contestid}/submissions/user/${userid}`).then((res) => {
       setSubmissions(res.data);
     });
   }, [server_url, contestid, userid]);
@@ -39,9 +40,7 @@ export default function SubmissionTable({ contestid, userid }) {
   if (!submissions) {
     return (
       <>
-        <Navbar />
         <Loading />
-        <Footer />
       </>
     );
   };

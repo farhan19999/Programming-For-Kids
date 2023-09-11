@@ -54,14 +54,14 @@ export default function IndividualProblem() {
       <h4 style={{ textAlign: "center", marginTop: "20px" }}>
         Contest Title: {contest.title} (Rated for Div. {contest.div})
       </h4>
-      <div style={{}}>
+      {/* <div style={{}}>
         <TimeRemaining />
-      </div>
+      </div> */}
 
       <div style={{ display: "flex" }}>
         <ProblemDetails problem={problem} />
         <div style={{ marginLeft: "22px", marginTop: "26px", flex: "1" }}>
-          <CodeEditor />
+          <CodeEditor contestid={contestid} problemid={problemid}/>
         </div>
       </div>
 

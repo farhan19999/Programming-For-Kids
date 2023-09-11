@@ -56,6 +56,7 @@ const deleteUser = async (id) => {
 const getRegisteredContests = async (id) => {
     try {
         const result = await pool.query('SELECT c.* from pfk.contest_participation_history as cph inner join pfk.contest as c on cph.contestid = c.contestid where cph.standing=0 and cph.userid=$1; ', [id])
+        console.log(result.rows)
         return {'registered-contests': result.rows}
     } catch (error) {
         console.log(error)

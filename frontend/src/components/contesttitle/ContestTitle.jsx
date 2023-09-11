@@ -19,15 +19,14 @@ function ContestTitle() {
     axios.get(`${server_url}/api/users/${userid}/registered-contests`).then((response) => {
       setRc(response.data);
       console.log(response.data);
+      axios.get(`${server_url}/api/contests`).then((response) => {
+        setAc(response.data);
+        console.log(response.data);
+      })
     })
-  }, []);
+  }, [userid]);
 
-  useEffect(() => {
-    axios.get(`${server_url}/api/contests`).then((response) => {
-      setAc(response.data);
-      console.log(response.data);
-    })
-  }, [server_url]);
+
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleRegisterButton = (contestid) => {
