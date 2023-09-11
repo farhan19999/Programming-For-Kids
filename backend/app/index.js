@@ -12,7 +12,8 @@ const mini_projects_route = require('./routes/mini-projects.route')
 const problems_route = require('./routes/problems.route')
 const puzzles_route = require('./routes/puzzles.route')
 const auth_route = require('./routes/auth.route')
-
+const admin_route = require('./routes/admin.route')
+const gaming_route = require('./routes/gaming.route')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -24,6 +25,8 @@ app.use('/api/mini-projects', mini_projects_route)
 app.use('/api/problems', problems_route)
 app.use('/api/puzzles', puzzles_route)
 app.use('/api/auth', auth_route)
+app.use('/api/admins', admin_route)
+app.use('/api/gaming', gaming_route)
 
 app.get('/',(req,res)=>{
     res.send("Welcome")
@@ -66,7 +69,12 @@ const options = {
         })
   );
 
-
+app.use((err,req,res,next)=>{
+    console.log("Final error handler : ",err);
+    res.status(500).json({
+        error: err.message
+    })
+})
 
 
 module.exports = app

@@ -6,23 +6,41 @@ const {pool} = require('../config/db.config')
 
 const getAllContests = async () => {
     try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.contest')
-        client.release()
+        const result = await pool.query('SELECT * FROM pfk.contest')
         return {'contests':result.rows}
     } catch (error) {
         console.log(error)
+        throw error
     }
 };
 
+const getPastContests = async () => {
+    try {
+        const result = await pool.query('SELECT * FROM pfk.contest WHERE start_time < now()')
+        return {'contests':result.rows}
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+const getUpcomingContests = async () => {
+    try {
+        const result = await pool.query('SELECT * FROM pfk.contest WHERE start_time > now()')
+        return {'contests':result.rows}
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
 const getContestById = async (id) =>{
     try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.contest WHERE contestid = $1', [id])
-        client.release();
+        const result = await pool.query('SELECT * FROM pfk.contest WHERE contestid = $1', [id]);
         return result.rows[0];
     } catch (error) {
         console.log(error)
+        throw error
     }
 };
 
@@ -31,177 +49,173 @@ const getContestById = async (id) =>{
 
 const createContest = async (contest) => {
     try {
-        const client = await pool.connect()
-        const maxContestId = await client.query('SELECT MAX(contestid) FROM pfk.contest')
-        const result = await client.query('INSERT INTO pfk.contest (contestid, title, div, start_time, duration)VALUES ($1, $2, $3, $4, $5) RETURNING *', [maxContestId.rows[0].max + 1, contest.title, contest.div, contest.start_time, contest.duration])
-        client.release()
+        const maxContestId = await pool.query('SELECT MAX(contestid) FROM pfk.contest')
+        const result = await pool.query('INSERT INTO pfk.contest (contestid, title, div, start_time, duration)VALUES ($1, $2, $3, $4, $5) RETURNING *', [maxContestId.rows[0].max + 1, contest.title, contest.div, contest.start_time, contest.duration])
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 const updateContest = async (id, contest) => {
     try {
-        const client = await pool.connect()
-        const result = await client.query('UPDATE pfk.contest SET title = $1, div = $2, start_time = $3, duration = $4 WHERE contestid = $5 RETURNING *', [contest.title, contest.div, contest.start_time, contest.duration, id])
-        client.release()
+        const result = await pool.query('UPDATE pfk.contest SET title = $1, div = $2, start_time = $3, duration = $4 WHERE contestid = $5 RETURNING *', [contest.title, contest.div, contest.start_time, contest.duration, id])
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
+    }
+}
+
+const deleteContest = async (id) => {
+    try {
+        const result = await pool.query('DELETE FROM pfk.contest WHERE contestid = $1 RETURNING *', [id])
+        return result.rows[0]
+    } catch (error) {
+        console.log(error)
+        throw error
     }
 }
 
 const getContestProblems = async (id) => {
     try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.problem WHERE contestid = $1', [id])
-        client.release()
+        const result = await pool.query('SELECT * FROM pfk.problem WHERE contestid = $1', [id])
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 const addContestProblem = async (id, problem) => {
     try {
-        const client = await pool.connect()
-        const maxProblemId = await client.query('SELECT MAX(problemid) FROM pfk.problem')
-        const result = await client.query(
+        const maxProblemId = await pool.query('SELECT MAX(problemid) FROM pfk.problem')
+        const result = await pool.query(
             'INSERT INTO pfk.problem (problemid, contestid, title, difficulty_level,  problem_statement, topic, sample_input, sample_output, time_limit, category ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',  
                                         [maxProblemId.rows[0].max + 1, id, problem.title, problem.difficulty_level, problem.problem_statement, problem.topic, problem.sample_input, problem.sample_output, problem.time_limit, problem.category])   
-        client.release()
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 
 const updateContestProblem = async (id, problemid, problem) => {
     try {
-        const client = await pool.connect()
-        const result = await client.query('UPDATE pfk.problem SET title = $1, difficulty_level = $2, problem_statement = $3, topic = $4, sample_input = $5, sample_output = $6, time_limit = $7 WHERE contestid = $8 AND problemid = $9 RETURNING *', 
+        const result = await pool.query('UPDATE pfk.problem SET title = $1, difficulty_level = $2, problem_statement = $3, topic = $4, sample_input = $5, sample_output = $6, time_limit = $7 WHERE contestid = $8 AND problemid = $9 RETURNING *', 
                                     [problem.title, problem.difficulty_level, problem.problem_statement, problem.topic, problem.sample_input, problem.sample_output, problem.time_limit, id, problemid])
-        client.release()
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 const getContestProblemById = async (id, problemid) => {
     try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.problem WHERE contestid = $1 AND problemid = $2', [id, problemid])
-        client.release()
+        const result = await pool.query('SELECT * FROM pfk.problem WHERE contestid = $1 AND problemid = $2', [id, problemid])
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 const getContestProblemByCategory = async (id, category) => {
     try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.problem WHERE contestid = $1 AND category = $2', [id, category])
-        client.release()
+        const result = await pool.query('SELECT * FROM pfk.problem WHERE contestid = $1 AND category = $2', [id, category])
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 const deleteContestProblem = async (id, problemid) => {
     try {
-        const client = await pool.connect()
-        const result = await client.query('DELETE FROM pfk.problem WHERE contestid = $1 AND problemid = $2 RETURNING *', [id, problemid])
-        client.release()
+        const result = await pool.query('DELETE FROM pfk.problem WHERE contestid = $1 AND problemid = $2 RETURNING *', [id, problemid])
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 
 const getAllContestSubmissions = async (id) => {
     try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.contest_submission WHERE contestid = $1', [id])
-        client.release()
+        const result = await pool.query('SELECT * FROM pfk.contest_submission WHERE contestid = $1', [id])
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 const getContestSubmissionsByProblemId = async (id, problemid) => {
     try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.contest_submission WHERE contestid = $1 AND problemid = $2', [id, problemid])
-        client.release()
+        const result = await pool.query('SELECT * FROM pfk.contest_submission WHERE contestid = $1 AND problemid = $2', [id, problemid])
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 const getContestSubmissionByUserId = async (id, userid) => {
     try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM pfk.contest_submission as cs inner join pfk.problem as p on (cs.problemid = p.problemid)  WHERE cs.contestid = $1 AND cs.userid = $2', [id, userid])
-        client.release()
+        const result = await pool.query('SELECT * FROM pfk.contest_submission as cs inner join pfk.problem as p on (cs.problemid = p.problemid)  WHERE cs.contestid = $1 AND cs.userid = $2', [id, userid])
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 const addContestProblemSubmission = async (id, problemid, userid, submission) => {
     try {
-        const client = await pool.connect()
-        const maxSubmissionId = await client.query('SELECT MAX(submissionid) FROM pfk.contest_submission')
-        const result = await client.query('INSERT INTO pfk.contest_submission (submissionid, contestid, problemid, userid, submitted_time, language, submitted_code, submission_filename )VALUES ( $1, $2, $3, $4, $5, $6, $7, $8) RETURNING *', 
+        const maxSubmissionId = await pool.query('SELECT MAX(submissionid) FROM pfk.contest_submission')
+        const result = await pool.query('INSERT INTO pfk.contest_submission (submissionid, contestid, problemid, userid, submitted_time, language, submitted_code, submission_filename )VALUES ( $1, $2, $3, $4, $5, $6, $7, $8) RETURNING *', 
                                     [maxSubmissionId.rows[0].max + 1, id, problemid, userid, submission.submitted_time, submission.language, submission.submitted_code, submission.submission_filename])
-        client.release()
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 
 const getContestScores = async (id) => {
     try {
-        const client = await pool.connect()
-        const result = await client.query("select u.userid, u.username, prob.category ,max(cs.score) as score \
+        const result = await pool.query("select u.userid, u.username, prob.category ,max(cs.score) as score \
                                            from pfk.users as u inner join pfk.contest_submission as cs on u.userid = cs.userid inner join pfk.problem as prob on cs.problemid = prob.problemid \
                                            where cs.contestid = $1 \
                                            Group by u.userid, u.username, prob.category", [id])
-        client.release()
         //console.log(result.rows)
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error
     }
 
 }
 
-const updateContestProblemSubmission = async (submissionid, status) => {
+const updateContestProblemSubmission = async (submissionid, status, details) => {
     let score = 0;
-    if(status === 'Accepted'){
+    if(status === 'ACCEPTED'){
         score = 100;
     }
+    console.log(submissionid, status, score, details)
     try {
-        const client = await pool.connect()
-        const result = await client.query('UPDATE pfk.contest_submission SET status = $1, score = $2 WHERE submissionid = $3 RETURNING *', 
-                                    [status, score, submissionid])
-        client.release()
+        const result = await pool.query('UPDATE pfk.contest_submission SET status = $1, details = $2, score = $3 WHERE submissionid = $4 RETURNING *', [status, details, score, submissionid])
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
 
-module.exports = {getAllContests, getContestById, createContest, updateContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionsByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores, getContestProblemById, getContestProblemByCategory, updateContestProblemSubmission};
+module.exports = {getAllContests, getPastContests, getUpcomingContests ,getContestById, createContest, updateContest, deleteContest, getContestProblems, addContestProblem, updateContestProblem, deleteContestProblem, getAllContestSubmissions, getContestSubmissionsByProblemId, getContestSubmissionByUserId, addContestProblemSubmission, getContestScores, getContestProblemById, getContestProblemByCategory, updateContestProblemSubmission};

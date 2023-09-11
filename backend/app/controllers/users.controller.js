@@ -1,5 +1,4 @@
 const user_services = require('../services/user.service')
-
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await user_services.getAllUsers()
@@ -31,6 +30,14 @@ exports.createUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
     try {
         const user = await user_services.updateUser(req.params.id, req.body)
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+exports.deleteUser = async (req, res) => {
+    try {
+        const user = await user_services.deleteUser(req.params.id)
         res.status(200).json(user)
     } catch (error) {
         res.status(500).json(error)

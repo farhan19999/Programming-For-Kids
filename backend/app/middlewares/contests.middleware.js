@@ -13,7 +13,9 @@ exports.getContestSubmissionByProblemId = async (req, res, next) => {
 exports.getContestSubmissionByUserId = async (req, res, next) => {
     if(!req.params.userid) return next();
     try {
+        console.log(req)
         const submissions = await contestController.getContestSubmissionByUserId(req.params.contestid, req.params.userid);
+        console.log(submissions)
         res.status(200).json(submissions);
     } catch (error) {
         res.status(500).json(error);

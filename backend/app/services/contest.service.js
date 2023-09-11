@@ -1,9 +1,27 @@
 const contestModel = require('../models/contest.model');
 const testcaseModel = require('../models/testcase.model');
 
-exports.getContests = async () => {
+exports.getAllContests = async () => {
     try {
         const contests = await contestModel.getAllContests();
+        return contests;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.getPastContests = async () => {
+    try {
+        const contests = await contestModel.getPastContests();
+        return contests;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.getUpcomingContests = async () => {
+    try {
+        const contests = await contestModel.getUpcomingContests();
         return contests;
     } catch (error) {
         throw error;
@@ -33,6 +51,15 @@ exports.createContest = async (contest) => {
 exports.updateContest = async (id, contest) => {
     try {
         const result = await contestModel.updateContest(id, contest);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.deleteContest = async (id) => {
+    try {
+        const result = await contestModel.deleteContest(id);
         return result;
     } catch (error) {
         throw error;
@@ -129,9 +156,9 @@ exports.addContestProblemSubmission = async (id, problemid, userid, submission) 
     }
 }
 
-exports.updateContestProblemSubmission = async (submissionid, verdict) => {
+exports.updateContestProblemSubmission = async (submissionid, verdict, details) => {
     try {
-        const result = await contestModel.updateContestProblemSubmission(submissionid, verdict);
+        const result = await contestModel.updateContestProblemSubmission(submissionid, verdict, details);
         return result;
     } catch (error) {
         throw error;

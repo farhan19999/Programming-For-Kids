@@ -146,13 +146,22 @@ router.post('/', controller.createMiniProject);
 
 router.get('/:id', controller.getMiniProjectById);
 router.put('/:id', controller.updateMiniProject);
+router.delete('/:id', controller.deleteMiniProject);
 
 
 router.get('/:id/submissions', controller.getAllMiniProjectSubmissions)
 router.post('/:id/submissions', controller.createMiniProjectSubmission)
+router.put('/:id/submissions/:userid', controller.updateMiniProjectSubmission)
+
+//router.get('/:id/scoreboard', controller.getMiniProjectScoreboard)
+router.post('/:id/scoreboard/:userid', controller.insertUserScore)
+router.get('/:id/scoreboard/:userid', controller.getUserScore)
+router.put('/:id/scoreboard/:userid', controller.updateUserScore)
 
 router.get('/:id/submissions/:userid', controller.getMiniProjectSubmissionByUserId)
 router.get('/:id/standings', controller.getMiniProjectStanding)
+
+router.get('/submissions/:userid', controller.getAllMiniProjectSubmissionByUserId)
 
 
 

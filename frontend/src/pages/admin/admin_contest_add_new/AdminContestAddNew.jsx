@@ -1,22 +1,32 @@
 //Author: ARIF
 
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
 import Navbar from "../../../components/navbar/Navbar";
 import Footer from "../../../components/footer/Footer";
+import DatePicker from "../../../components/datePicker/DatePicker";
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 
 function AdminContestAddNew() {
   const navigate = useNavigate(); // Initialize useNavigate
+  const [contest, setContest] = useState('');
 
   const server_url = process.env.REACT_APP_SERVER_URL;
+const handleDateChange = (event) => {
+    setContest({ 
+        ...contest,
+        start_time: event.target.value,
+    });
+}
+
   const handleAddContestClick = () => {
     // make a post request to the backend to add a new contest on '/api/contests/'
     axios.post(`${server_url}/api/contests/`, {
         title: document.getElementById("title").value,
         div: document.getElementById("division").value,
-        start_time: document.getElementById("start_time").value,
+        start_time: contest.start_time,
         duration: document.getElementById("duration").value,
     })
     .then(response => {
@@ -26,13 +36,13 @@ function AdminContestAddNew() {
         console.error('Error adding contest:', error);
     });
     // after adding the contest, navigate to the contest problems adding page
-    navigate(`/admin-contest-add`); 
+    navigate(`/admin/contests/`); 
     
   };
 
   return (
     <div>
-      <Navbar />
+      <AdminNavbar />
       <div>
         <section className="vh-100" style={{ backgroundcolor: "#eee" }}>
           <div className="container h-100">
@@ -80,10 +90,9 @@ function AdminContestAddNew() {
                             </div>
                           </div>
 
-                          <div className="d-flex flex-row align-items-center mb-4">
+                          {/* <div className="d-flex flex-row align-items-center mb-4">
                             <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                             <div className="form-outline flex-fill mb-0">
-                              {/* <label className="form-label" for="form3Example3c">Contest Title:</label> */}
 
                               <input
                                 type="text"
@@ -93,8 +102,9 @@ function AdminContestAddNew() {
                                 style={{ width: "450px", height: "50px" }}
                               />
                             </div>
-                          </div>
-
+                          </div> */}
+            <div onChange={handleDateChange} style={{ marginTop: '', marginLeft: '18px', fontSize: "18px" }}><DatePicker id={'start_time'} /></div>
+                          
                           <div className="d-flex flex-row align-items-center mb-4">
                             <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                             <div className="form-outline flex-fill mb-0">

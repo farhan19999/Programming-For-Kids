@@ -1,7 +1,13 @@
 const  express = require('express')
 const router = express.Router()
+const app = express()
 
 const puzzles_controller = require('../controllers/puzzles.controller')
+const { param } = require("express-validator");
+const validationMiddleware = require('../middlewares/validation.middleware')
+const puzzleMiddleware = require('../middlewares/puzzles.middleware')
+
+
 
 /**
  * @swagger
@@ -98,21 +104,25 @@ const puzzles_controller = require('../controllers/puzzles.controller')
 
 router.get('/', puzzles_controller.getAllPuzzles);
 router.post('/', puzzles_controller.createPuzzle);
-router.get('/:id', puzzles_controller.getPuzzleById);
-router.put('/:id', puzzles_controller.updatePuzzle);
-router.delete('/:id', puzzles_controller.deletePuzzle)
+
+const idChain=()=>param('id').isInt();
+
+router.get('/:id', idChain(), validationMiddleware.validate, puzzles_controller.getPuzzleById);
+router.put('/:id', idChain(), validationMiddleware.validate, puzzles_controller.updatePuzzle);
+router.delete('/:id', idChain(), validationMiddleware.validate, puzzles_controller.deletePuzzle)
 
 
-router.get('/date/:today', puzzles_controller.getTodaysPuzzle);
 
-router.post('/date/:today/submission', puzzles_controller.createPuzzleSubmission);
-router.get('/date/:today/submission/:userid', puzzles_controller.getPuzzleSubmissionByUserId);
+router.get('/date/:today', param('today').notEmpty(),validationMiddleware.validate,puzzleMiddleware.validateDate,puzzles_controller.getTodaysPuzzle);
 
-router.get('/:id/solution', puzzles_controller.getPuzzleSolutionById)
-router.post('/:id/solution', puzzles_controller.createPuzzleSolution)
-router.put('/:id/solution', puzzles_controller.updatePuzzleSolution)
+router.post('/date/:today/submission',param('today').notEmpty(),validationMiddleware.validate,puzzleMiddleware.validateDate, puzzles_controller.createPuzzleSubmission);
+router.get('/date/:today/submission/:userid',param('today').notEmpty(),validationMiddleware.validate,param('userid').notEmpty().isInt(),validationMiddleware.validate,puzzleMiddleware.validateDate, puzzles_controller.getPuzzleSubmissionByUserId);
 
-router.get('/date/:today/solution', puzzles_controller.getTodaysPuzzleSolution)
+router.get('/:id/solution', idChain(), validationMiddleware.validate , puzzles_controller.getPuzzleSolutionById)
+router.post('/:id/solution',idChain(), validationMiddleware.validate, puzzles_controller.createPuzzleSolution)
+router.put('/:id/solution', idChain(), validationMiddleware.validate, puzzles_controller.updatePuzzleSolution)
+
+router.get('/date/:today/solution', param('today').notEmpty(),validationMiddleware.validate,puzzleMiddleware.validateDate, puzzles_controller.getTodaysPuzzleSolution)
 
 
 

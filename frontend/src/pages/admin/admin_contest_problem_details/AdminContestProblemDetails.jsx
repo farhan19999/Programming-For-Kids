@@ -13,43 +13,29 @@ import Footer from "../../../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
 import storage from "../../../utils/firebase";
 import { ref, uploadBytes } from "firebase/storage";
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 export default function AdminContestProblemDetails() {
-  const defaultState = {
-    problemid: 1,
-    contestid: 1,
-    title: "Shopping",
-    difficulty: "Easy",
-    problem_statement: `If the price of a toy is X and you paid taka Y to the shopkeeper,
-    calculate how much money you will get back if you buy three of them.
-    
-    The first line of input is X and the second line is Y. Print the output.`,
-    topic: "Array",
-    sample_input: `15
-50`,
-    sample_output: "5",
-    time_limit: "45",
-  };
-  let outputfilename=null;
-let inputfilename=null;
-  const [problem, setProblem] = useState(defaultState);
+  let outputfilename = null;
+  let inputfilename = null;
+  const [problem, setProblem] = useState(null);
 
-  const [problemStatement, setProblemStatement] = useState(
-    problem.problem_statement
-  );
-  const [sampleInput, setSampleInput] = useState(problem.sample_input);
-  const [sampleOutput, setSampleOutput] = useState(problem.sample_output);
+  // const [problemStatement, setProblemStatement] = useState(
+  //   null
+  // );
+  // const [sampleInput, setSampleInput] = useState(null);
+  // const [sampleOutput, setSampleOutput] = useState(n);
 
-  const handleProblemStatementChange = (event) => {
-    setProblemStatement(event.target.value);
-  };
-  const handleSampleInputChange = (event) => {
-    setSampleInput(event.target.value);
-  };
+  // const handleProblemStatementChange = (event) => {
+  //   setProblemStatement(event.target.value);
+  // };
+  // const handleSampleInputChange = (event) => {
+  //   setSampleInput(event.target.value);
+  // };
 
-  const handleSampleOutputChange = (event) => {
-    setSampleOutput(event.target.value);
-  };
+  // const handleSampleOutputChange = (event) => {
+  //   setSampleOutput(event.target.value);
+  // };
 
   const handleInputFileChange = (event) => {         ///// path : /problems/problemid/testcases/input_timestamp.txt
     const file = event.target.files[0];
@@ -77,20 +63,21 @@ let inputfilename=null;
     }
   };
 
-  const { contestid, problemid } = useParams(); 
+  const { contestid, problemid } = useParams();
   const server_url = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
     axios
       .get(`${server_url}/api/problems/${problemid}`)
       .then((response) => {
         setProblem(response.data);
-        setProblemStatement(response.data.problem_statement);
-        setSampleInput(response.data.sample_input);
-        setSampleOutput(response.data.sample_output);
+        console.log('here problem is : ',problem);
+        // setProblemStatement(response.data.problem_statement);
+        // setSampleInput(response.data.sample_input);
+        // setSampleOutput(response.data.sample_output);
       });
   }, [problemid]);
 
-  const [contest, setContest] = useState("");
+  const [contest, setContest] = useState(null);
   useEffect(() => {
     axios
       .get(`${server_url}/api/contests/${contestid}`) // For getting contest title
@@ -107,7 +94,8 @@ let inputfilename=null;
   const handleCancelClick = () => {
     navigate(`/admin/contest/${contestid}`);
   };
-  const handleDeleteClick=()=>{
+  const handleDeleteClick = () => {
+    axios.delete(`${server_url}/api/contests/${contestid}/problems/${problemid}`);
     navigate(`/admin/contest/${contestid}`);
   }
 
@@ -118,10 +106,10 @@ let inputfilename=null;
         {
           title: problem.title,
           difficulty_level: problem.difficulty_level,
-          problem_statement: problemStatement,
+          problem_statement: problem.problemStatement,
           topic: problem.topic,
-          sample_input: sampleInput,
-          sample_output: sampleOutput,
+          sample_input: problem.sampleInput,
+          sample_output: problem.sampleOutput,
           time_limit: problem.time_limit,
           category: problem.category,
         }
@@ -153,9 +141,13 @@ let inputfilename=null;
     navigate(`/admin/contest/${contestid}`);
   };
 
+  if (!problem || !contest) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div style={{ position: "relative" }}>
-      <Navbar />
+      <AdminNavbar />
 
       <h4 style={{ textAlign: "center", marginTop: "60px" }}>
         Contest Title: {contest.title} (Rated for Div.{contest.div})
@@ -191,8 +183,8 @@ let inputfilename=null;
             className="form-control"
             id="problemStatement"
             rows="6"
-            value={problemStatement}
-            onChange={handleProblemStatementChange}
+            value={problem.problem_statement}
+            onChange={(e) => problem.problemStatement = e.target.value}
           ></textarea>
         </div>
 
@@ -213,8 +205,8 @@ let inputfilename=null;
               className="form-control"
               id="sampleInput"
               rows="3"
-              value={sampleInput}
-              onChange={handleSampleInputChange}
+              value={problem.sample_input}
+              onChange={(e) => problem.sampleInput = e.target.value}
             ></textarea>
           </div>
 
@@ -227,8 +219,8 @@ let inputfilename=null;
               className="form-control"
               id="sampleOutput"
               rows="3"
-              value={sampleOutput}
-              onChange={handleSampleOutputChange}
+              value={problem.sample_output}
+              onChange={(e) => problem.sampleOutput = e.target.value}
             ></textarea>
           </div>
         </div>

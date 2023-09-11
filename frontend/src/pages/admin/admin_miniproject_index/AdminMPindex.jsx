@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../../../components/navbar/Navbar";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import AdminNavbar from "../../../components/admin_navbar/AdminNavbar";
 
 export default function AdminMPindex() {
   const [project, setProject] = useState([]);
@@ -29,7 +30,7 @@ export default function AdminMPindex() {
 
   return (
     <div>
-      <Navbar />
+      <AdminNavbar />
       <h2 style={{ margin: "25px", marginLeft:"50px", fontWeight: "bold" }}>Admin</h2>
       <table
         className="table table-hover"
@@ -39,6 +40,7 @@ export default function AdminMPindex() {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Title</th>
+            <th scope="col"></th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -47,13 +49,14 @@ export default function AdminMPindex() {
             <tr key={item.projectid}>
               <th scope="row">{index + 1}</th>
               <td>{item.title}</td>
+              <td></td>
               <td>
                 <button
                   type="button"
                   className="btn btn-dark"
                   onClick={() => handleModifyClick(item.projectid)}
                 >
-                  + Modify
+                  Modify
                 </button>
               </td>
             </tr>
