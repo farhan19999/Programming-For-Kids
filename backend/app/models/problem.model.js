@@ -8,6 +8,16 @@ const getAllProblems = async () => {
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error;
+    }
+}
+const getProblemsFromPastContests = async () => {
+    try {
+        const result = await pool.query('SELECT * FROM pfk.problem WHERE contestid in (SELECT contestid  FROM pfk.contest WHERE start_time +  interval \'1 hour\'*duration  < now())')
+        return result.rows
+    } catch (error) {
+        console.log(error)
+        throw error;
     }
 }
 
@@ -17,16 +27,18 @@ const getProblemById = async (id) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
 const createNewSubmission = async (id, submission) => {
     try {
         const maxid = await pool.query('SELECT MAX(ppsubmissionid) FROM pfk.practice_problem_submission_history')
-        const result = await pool.query('INSERT INTO pfk.practice_problem_submission_history (ppsubmissionid, problemid, userid, submitted_time, submitted_code, language, status) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [maxid.rows[0].max + 1, id, submission.userid, submission.submitted_time, submission.submitted_code, submission.language, submission.status])
+        const result = await pool.query('INSERT INTO pfk.practice_problem_submission_history (ppsubmissionid, problemid, userid, submitted_time, submitted_code, submission_file) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [maxid.rows[0].max + 1, id, submission.userid, submission.submitted_time, submission.submitted_code, submission.submission_file])
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -36,15 +48,27 @@ const getProblemSubmissionByUserId = async (id, userid) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
+    }
+}
+
+const updateProblemSubmission = async (id, verdict, details) => {
+    try {
+        const result = await pool.query('UPDATE pfk.practice_problem_submission_history SET status = $1, details = $2 WHERE ppsubmissionid = $3 RETURNING *', [verdict, details, id])
+        return result.rows[0]
+    } catch (error) {
+        console.log(error)
+        throw error;
     }
 }
 
 const getProblemDiscussion = async (id) => {
     try {
-        const result = await pool.query('SELECT * FROM pfk.comment WHERE problemid = $1', [id])
+        const result = await pool.query('SELECT * FROM pfk.comment c inner join  pfk.users u on(c.userid=u.userid) WHERE problemid = $1', [id])
         return {'comments':result.rows}
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -55,6 +79,7 @@ const createNewProblemDiscussion = async (id, discussion) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -65,6 +90,7 @@ const  createReplyProblemDiscussion = async (id, commentid, discussion) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -74,6 +100,7 @@ const deleteComment = async (commentid) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -83,6 +110,7 @@ const getProblemSolution = async (id) => {
         return {'solutions':result.rows}
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -94,6 +122,7 @@ const createProblemSolution = async (id, solution) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -103,6 +132,7 @@ const updateProblemSolution = async (id, solutionid, solution) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error;
     } 
 }
 const deleteProblemSolution = async (id, solutionid) => {
@@ -120,6 +150,7 @@ const getTestCasesByProblemId = async (id) => {
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
@@ -129,13 +160,16 @@ const getTimeLimitByProblemId = async (id) => {
         return result.rows[0].time_limit
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
-module.exports = { getAllProblems, 
+module.exports = { getAllProblems,
+                   getProblemsFromPastContests,  
                    getProblemById,
                    createNewSubmission, 
                    getProblemSubmissionByUserId, 
+                   updateProblemSubmission,
                    getProblemDiscussion, 
                    createNewProblemDiscussion, 
                    createReplyProblemDiscussion, 

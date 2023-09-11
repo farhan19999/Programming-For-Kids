@@ -2,7 +2,12 @@ const problemService = require('../services/problem.service');
 
 exports.getAllProblems = async (req, res) => {
     try {
-        const problems = await problemService.getAllProblems();
+        let problems = null;
+        if(req.query.practice === 'true') {
+            
+            problems = await problemService.getProblemsFromPastContests();
+        }
+        else problems = await problemService.getAllProblems();
         res.status(200).json(problems);
     } catch (error) {
         res.status(500).json(error);
@@ -21,6 +26,17 @@ exports.getProblemById = async (req, res) => {
 exports.createNewSubmission = async (req, res) => {
     try {
         const submission = await problemService.createNewSubmission(req.params.id, req.body);
+        const filename = req.body.submission_file;
+        const time_limit = await problemService.getTimeLimitByProblemId(req.params.id);
+        codeCheckerService.cCodeRunner(`/practice/${req.params.id}/submissions/${req.params.userid}`,filename, req.params.id, time_limit*1000)
+        .then((result) => {
+            problemService.updateProblemSubmission(submission.ppsubmissionid, result.verdict, result.details);
+        })
+        .catch((err) => {
+            console.log(err);
+            throw err;
+        });
+        //now have to store the verdict in the database
         res.status(200).json(submission);
     } catch (error) {
         res.status(500).json(error);

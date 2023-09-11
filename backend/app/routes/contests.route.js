@@ -113,7 +113,8 @@ router.get('/:id/submissions',param('id').notEmpty().isInt(),validator.validate,
 
 router.post('/:id/submissions/:problemid/:userid',
             param('id').notEmpty().isInt(),
-            param('problemid').notEmpty().isInt(), param('userid').notEmpty().isInt(),
+            param('problemid').notEmpty().isInt(),
+            param('userid').notEmpty().isInt(),
             validator.validate, controller.addContestProblemSubmission)
 router.get('/:id/standings', controller.getContestStanding)
 

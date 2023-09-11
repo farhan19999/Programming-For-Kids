@@ -6,25 +6,40 @@ import Navbar from '../../../components/navbar/Navbar';
 
 import './PracticeProblemIndex.css';
 import SubNavbarPracticeProblem from '../../../components/sub_navbar_practice_problem/SubNavbarPracticeProblem';
+import Loading from '../../../components/loading/Loading';
 
 export default function PracticeProblemIndex() {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    // const fetchData = async () => {
+
+    //     try {
+    //         const response = await axios.get(`${server_url}/api/problems`);
+    //         setData(response.data);
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //     }
+    // };
+    
     const server_url = process.env.REACT_APP_SERVER_URL;
-    const fetchData = async () => {
-        try {
-            const response = await axios.get(`${server_url}/api/problems`);
+    useEffect(() => {
+        axios.get(`${server_url}/api/problems`)
+        .then((response) => {
             setData(response.data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
+        })
+        .catch((error) => {
+            console.log("Error fetching problem :", error);
+        });
+    }, [server_url]);
+    
+    
 
     const columns = ['#', 'Problem', 'Topic', 'Difficulty'];
-
+    if(!data) return (<>
+                        <Navbar/>
+                        <SubNavbarPracticeProblem/>
+                        <div style={{marginLeft:'45%', marginTop:'20px', fontSize:'18px'}}>Practice Problems</div>
+                        <div style={{alignContent:'center'}}><Loading/></div></>);
     return (
         <div>
             <Navbar />
@@ -46,7 +61,7 @@ export default function PracticeProblemIndex() {
                             <tr key={index}>
                                 <td>{row.problemid}</td>
                                 <td>
-                                    <Link to={`/practice/problem/${row.problemid}`}>
+                                    <Link to={`/practice/problems/${row.problemid}`}>
                                         {row.title}
                                     </Link>
                                 </td>

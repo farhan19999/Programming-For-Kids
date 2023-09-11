@@ -1,14 +1,18 @@
 import React from 'react'
-import SubmissionTable from "../../../components/my_submissions_table/SubmissionTable";
 import Navbar from '../../../components/navbar/Navbar';
 import SubNavbar from '../../../components/sub_navbar/SubNavbar';
+import PracticeSubmissionTable from '../../../components/practice_submission_table/PracticeSubmissionTable';
+import Footer from '../../../components/footer/Footer';
+import SubNavbarPracticeProblem from '../../../components/sub_navbar_practice_problem/SubNavbarPracticeProblem';
 
 export default function PracticeProblemSubmission() {
     return (
-        <div>
+        <>
             <Navbar />
-            <SubNavbar />
-            <SubmissionTable />
-        </div>
+            <SubNavbarPracticeProblem />
+            <PracticeSubmissionTable />
+            <Footer/>
+        </>
+            
     )
 }

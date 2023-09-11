@@ -24,7 +24,7 @@ function AdminNavbar() {
                             </li>
                         } */}
                         <li className="nav-item">
-                            <NavLink className="nav-link active" to={"/admin/contests"}>Contest</NavLink>
+                            <NavLink className="nav-link active" to={"/admin/contest"}>Contest</NavLink>
                         </li>
                         {/* <li className="nav-item">
                             <NavLink className="nav-link active" to="/practice">Practice</NavLink>

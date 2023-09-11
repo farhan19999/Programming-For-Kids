@@ -24,5 +24,17 @@ const app = initializeApp(firebaseConfig);
 
 const storage = getStorage(app);
 
+// async function configureBucketCors() {
+//   await storage.bucket(process.env.REACT_APP_FIREBASE_STORAGE_BUCKET).setCorsConfiguration([
+//     {
+//       "origin": ["*"],
+//       "method": ["GET"],
+//       "maxAgeSeconds": 36000
+//     },
+//   ]);
+// }
+
+// configureBucketCors().catch(console.error);
+
 export default storage;
 

@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Home() {
   return (
-    <div >
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar />
 
       <header className=" text-white text-center py-5" style={{background:"#222"}}>

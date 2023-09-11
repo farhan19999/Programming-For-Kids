@@ -2,12 +2,22 @@ const problemModel = require('../models/problem.model');
 const testcaseModel = require('../models/testcase.model');
 
 exports.getAllProblems = async () => {
+    
     try {
         const problems = await problemModel.getAllProblems();
         return problems;
     } catch (error) {
         throw error;
     }    
+}
+
+exports.getProblemsFromPastContests = async () => {
+    try {
+        const problems = await problemModel.getProblemsFromPastContests();
+        return problems;
+    } catch (error) {
+        throw error;
+    }
 }
 
 exports.getProblemById = async (id) => {
@@ -32,6 +42,15 @@ exports.getProblemSubmissionByUserId = async (id, userid) => {
     try {
         const submission = await problemModel.getProblemSubmissionByUserId(id, userid);
         return submission;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.updateProblemSubmission = async (id, verdict, details) => {
+    try {
+        const result = await problemModel.updateProblemSubmission(id, verdict, details);
+        return result;
     } catch (error) {
         throw error;
     }

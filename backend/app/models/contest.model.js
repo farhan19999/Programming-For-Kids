@@ -10,6 +10,7 @@ const getAllContests = async () => {
         return {'contests':result.rows}
     } catch (error) {
         console.log(error)
+        throw error
     }
 };
 
@@ -19,6 +20,7 @@ const getPastContests = async () => {
         return {'contests':result.rows}
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -28,6 +30,7 @@ const getUpcomingContests = async () => {
         return {'contests':result.rows}
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -37,6 +40,7 @@ const getContestById = async (id) =>{
         return result.rows[0];
     } catch (error) {
         console.log(error)
+        throw error
     }
 };
 
@@ -50,6 +54,7 @@ const createContest = async (contest) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -59,6 +64,7 @@ const updateContest = async (id, contest) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -68,6 +74,7 @@ const deleteContest = async (id) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -77,6 +84,7 @@ const getContestProblems = async (id) => {
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -89,6 +97,7 @@ const addContestProblem = async (id, problem) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -100,6 +109,7 @@ const updateContestProblem = async (id, problemid, problem) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -109,6 +119,7 @@ const getContestProblemById = async (id, problemid) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -118,6 +129,7 @@ const getContestProblemByCategory = async (id, category) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -127,6 +139,7 @@ const deleteContestProblem = async (id, problemid) => {
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -137,6 +150,7 @@ const getAllContestSubmissions = async (id) => {
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -146,6 +160,7 @@ const getContestSubmissionsByProblemId = async (id, problemid) => {
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -155,6 +170,7 @@ const getContestSubmissionByUserId = async (id, userid) => {
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -166,6 +182,7 @@ const addContestProblemSubmission = async (id, problemid, userid, submission) =>
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -180,6 +197,7 @@ const getContestScores = async (id) => {
         return result.rows
     } catch (error) {
         console.log(error)
+        throw error
     }
 
 }
@@ -191,11 +209,11 @@ const updateContestProblemSubmission = async (submissionid, status, details) => 
     }
     console.log(submissionid, status, score, details)
     try {
-        const result = await pool.query('UPDATE pfk.contest_submission SET status = $1, score = $2, details =$3 WHERE submissionid = $4 RETURNING *', 
-                                    [status, score, details, submissionid])
+        const result = await pool.query('UPDATE pfk.contest_submission SET status = $1, details = $2, score = $3 WHERE submissionid = $4 RETURNING *', [status, details, score, submissionid])
         return result.rows[0]
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 

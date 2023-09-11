@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import storage from "../../utils/firebase";
 import { ref, uploadBytes } from "firebase/storage";
+import { useSelector } from "react-redux";
 
 // Import ace themes and modes here if needed
 import "ace-builds/src-noconflict/theme-monokai";
@@ -13,13 +14,28 @@ import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/mode-c_cpp";
 
-const CodeEditor = () => {
+const CodeEditor = ({contestid, problemid}) => {
   const [selectedLanguage, setSelectedLanguage] = useState("c_cpp"); // Default language
   const [submissionStatus, setSubmissionStatus] = useState("Pending"); // Submission status
   const [codeContent, setCodeContent] = useState(""); // Store the code content
-  const { contestid, problemid } = useParams();
+  const server_url = process.env.REACT_APP_SERVER_URL;
+  const { loggedIn, userid } = useSelector((state)=>state.user);
+
   const navigate = useNavigate();
 
+  let storage_path = ''
+  let req_url = ''
+  let next_url = ''
+  if(contestid){
+    storage_path = `/contests/${contestid}`
+    req_url = `${server_url}/api/contests/${contestid}/submissions/${problemid}/${userid}`
+    next_url = `/contest/${contestid}/my-submissions`
+  }
+  else{
+    storage_path = `/practice/${problemid}`
+    req_url = `${server_url}/api/problems/${problemid}/submissions`
+    next_url = `/practice/submissions`
+  }
   const handleLanguageChange = (event) => {
     setSelectedLanguage(event.target.value);
   };
@@ -28,11 +44,14 @@ const CodeEditor = () => {
   };
 
   const handleSubmit = async () => {
+    if(!loggedIn){
+      navigate("/signin");
+    }
     // Simulate submission logic here
     const isCorrect = false;
     // Replace with actual submission logic
     setSubmissionStatus(isCorrect ? "Pending" : "Pending");
-    const userid = 1;
+    
 
     try {
       const content = new Blob([codeContent], { type: "text/plain" });
@@ -40,16 +59,13 @@ const CodeEditor = () => {
       // Upload the code content to FIREBASE
       const timestamp = Date.now();
       const filename = `${userid}_${problemid}_${timestamp}.c`;
-      const storageRef = ref(storage, `/contests/${contestid}/submissions/${userid}/${filename}`);
+      const storageRef = ref(storage, `${storage_path}/${userid}/${filename}`);
       await uploadBytes(storageRef, content);
 
-      console.log("Code uploaded to Firebase Storage");
-      console.log("Code content:", codeContent); // since code upload successful, now do post request to backend
-      const server_url = process.env.REACT_APP_SERVER_URL;
-      axios
-        .post(
-          `${server_url}/api/contests/${contestid}/submissions/${problemid}/${userid}`,
-          {
+      //console.log("Code uploaded to Firebase Storage");
+      //console.log("Code content:", codeContent); // since code upload successful, now do post request to backend
+      
+      let req = {
             submitted_code: null,
             submitted_time: new Date()
               .toISOString()
@@ -57,7 +73,15 @@ const CodeEditor = () => {
               .replace("T", " "),
             language: selectedLanguage,
             submission_filename: filename,
-          }
+      }
+      if(!contestid){
+        req.userid = userid;
+      }
+
+      axios
+        .post(
+          req_url,
+          req
         )
         .then((response) => {
           console.log("Code submitted:", response.data);
@@ -70,9 +94,6 @@ const CodeEditor = () => {
     }
 
     navigate(`/contest/${contestid}/my-submissions`);
-
-    // navigate(`/contest/${contestid}/problem/${problemid}/submission-status`);
-    // navigate(`/online`);
 
   };
 
