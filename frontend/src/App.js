@@ -209,14 +209,6 @@ const router = createBrowserRouter([
   },
   ///////////////////////////// ADMIN DAILY PUZZLE END /////////////////////////////
 
-
-
-  //online
-  {
-    path: "/contest/:contestid/problem/:problemid/submission-status", // Route need to change
-    element: <SubmissionStatus />,
-  },
-
 ]);
 
 function App() {
